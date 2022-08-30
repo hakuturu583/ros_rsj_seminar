@@ -36,4 +36,3 @@ jobs:
           personal_token: ${{secrets.GITHUB_TOKEN}}
           publish_dir: site
           keep_files: false
-          external_repository: tier4/scenario_simulator_v2-docs
