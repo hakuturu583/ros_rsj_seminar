@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  generate:
+    name: Publish
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2-beta
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.10.6"
+      - name: Install
+        run: pip3 install -r requirements.txt
+      - name: Build
+        run: mkdocs build
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v2
+        with:
+          name: site
+          path: site
+          retention-days: 1
+      - name: Publish Report
+        if: ${{ github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'}}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.BLOOM_GITHUB_TOKEN }}
+          publish_dir: site
+          keep_files: false
+          external_repository: tier4/scenario_simulator_v2-docs

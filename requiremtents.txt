@@ -1,0 +1,10 @@
+mkdocs
+mkdocs-material
+pymdown-extensions
+fontawesome_markdown
+markdown
+python-markdown-math
+plantuml-markdown
+mkdocs-codeinclude-plugin
+mkdocs-git-revision-date-localized-plugin
+plantuml
