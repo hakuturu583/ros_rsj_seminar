@@ -1,0 +1,607 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../image/icon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
+    
+    
+      
+        <title>マップを利用したナビゲージョン操作１ - ROS Seminar Website</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../stylesheet/tierivcolor.css">
+    
+      <link rel="stylesheet" href="../stylesheet/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@8.0.0/dist/mermaid.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ROS Seminar Website" class="md-header__button md-logo" aria-label="ROS Seminar Website" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 11 1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5 1.5 1.5 0 0 1 6.5 13 1.5 1.5 0 0 1 8 14.5 1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-6Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROS Seminar Website
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              マップを利用したナビゲージョン操作１
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hakuturu583/ros_rsj_seminar" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ROS Seminar Website" class="md-nav__button md-logo" aria-label="ROS Seminar Website" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 11 1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5 1.5 1.5 0 0 1 6.5 13 1.5 1.5 0 0 1 8 14.5 1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-6Z"/></svg>
+
+    </a>
+    ROS Seminar Website
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hakuturu583/ros_rsj_seminar" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          実習テキスト
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="実習テキスト" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          実習テキスト
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slam-basics/" class="md-nav__link">
+        ROSを用いたマップ取得
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          マップを利用したナビゲージョン操作１
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        マップを利用したナビゲージョン操作１
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    ナビゲーションノードの実行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    初期ポーズを推定する
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    ナビゲーション目標の送信
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    チューニングガイド
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    ナビゲーションノードの実行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    初期ポーズを推定する
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    ナビゲーション目標の送信
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    チューニングガイド
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/hakuturu583/ros_rsj_seminar/edit/master/docs/map-navigation.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="1">マップを利用したナビゲージョン操作１<a class="headerlink" href="#1" title="Permanent link">#</a></h1>
+<p><strong>ナビゲーション</strong> とは、特定の環境でロボットをある場所から指定された目的地に移動することです。この目的のために、特定の環境の家具、オブジェクト、および壁のジオメトリ情報を含むマップが必要です。 前の<a href="slam-basics.html">SLAM</a>セクションで説明したように、マップはセンサーによって取得された距離情報とロボット自体のポーズ情報を使用して作成されました。</p>
+<p>ナビゲーションにより、ロボットは、マップ、ロボットのエンコーダー、IMUセンサーおよび距離センサーを使用して現在のポーズからマップ上の指定された目標ポーズに移動できます。 このタスクを実行する手順は次のとおりです。</p>
+<p>まずシミュレーションで動作確認します。</p>
+<p><span style="color:red"><strong>下記の実習を行うために、まず<code>ROS_MASTER_URI</code>と<code>ROS_HOSTNAME</code>を<code>localhost</code>に戻します（<a href="./linux_and_ros_install.md#ネットワーク構成">参照</a>）。</strong></span></p>
+<p><strong>シミュレーションを起動します</strong></p>
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+</code></pre></div>
+<p>下記のようなウィンドウが表示されるまで待ちましょう。</p>
+<p><img alt="" src="/images/turtlebot3/gazebo_turtlebot3_world.png" /></p>
+<p><strong>マップを作る</strong></p>
+<p>新しいターミナルを開き、SLAMファイルを起動します。</p>
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
+</code></pre></div>
+<p>新しいターミナルを開き、遠隔操作ノードを実行します。</p>
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+</code></pre></div>
+<p>ロボットを動かして下記のようなマップが作成すれば終了です。</p>
+<p><img alt="" src="/images/turtlebot3/map-turtlebot3-world.png" /></p>
+<!-- <img src="/images/turtlebot3/map-turtlebot3-world.png" alt="map" width="300"/> -->
+
+<p><strong>マップを保存</strong></p>
+<div class="highlight"><pre><span></span><code>$ rosrun map_server map_saver -f ~/map_sim
+</code></pre></div>
+<p>SLAMノードを起動しているターミナルで<code style="border: 1px solid black">Ctrl+c</code>を押してプログラムを終了させます。</p>
+<h2 id="_1">ナビゲーションノードの実行<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>新しいターミナルを開き、ナビゲーションファイルを起動します。</p>
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map_sim.yaml
+</code></pre></div>
+<h2 id="_2">初期ポーズを推定する<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>まずロボットの初期姿勢推定を実行する必要があります。 RVizのメニューで<code style="border: 1px solid black">2D Pose Estimate</code>を押すと、非常に大きな緑色の矢印が表示されます。 所定のマップで実際のロボットが配置されているポーズに移動し、マウスの左ボタンを押したまま緑色の矢印をロボットの正面が向いている方向にドラッグし、以下の手順に従います。</p>
+<ul>
+<li><code style="border: 1px solid black">2D Pose Estimate</code>ボタンを選択します。</li>
+<li>TurtleBot3が配置されているマップ内のおおよそのポイントをクリックし、カーソルをドラッグしてTurtleBot3が向いている方向を示します。</li>
+</ul>
+<p>次に、<code>turtlebot3_teleop_keyboard</code>ノードなどのツールを使用してロボットを前後に動かし、周囲の環境情報を収集して、ロボットが現在地図上のどこにあるかを調べます。</p>
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+</code></pre></div>
+<p>このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します。 すべての緑色の矢印は、TurtleBot3の予想される位置を表しています。 レーザースキャナーは、地図上に壁のおおよその図を描画します。 図面に図が正しく表示されない場合は、上の<code style="border: 1px solid black">2D Pose Estimate</code>ボタンをクリックして、TurtleBot3のローカライズを繰り返します。</p>
+<p><img alt="" src="/images/turtlebot3/2d_pose_estimate.png" /></p>
+<blockquote>
+<p class="notice--success"><strong>注意</strong>: <code style="border: 1px solid black">2D Pose Estimate</code>に使用される<code>turtlebot3_teleop_keyboard</code>ノードは、使用後に終了する必要があります。 そうしない場合はトピックが次のステップのナビゲーションノードの<code>/cmd_vel</code>トピックと重複するため、ロボットは奇妙な動作をします。</p>
+</blockquote>
+<h2 id="_3">ナビゲーション目標の送信<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>すべての準備ができたらナビゲーションGUIからmoveコマンドを試してみましょう。 RVizのメニューで<code style="border: 1px solid black">2D Nav Goal</code>を押すと、非常に大きな緑色の矢印が表示されます。 この緑色の矢印は、ロボットの宛先を指定できるマーカーです。 矢印のルートはロボットの<code>x</code>と<code>y</code>の位置であり、矢印が指す方向はロボットの<code>theta</code>方向です。 ロボットが移動する位置でこの矢印をクリックし、ドラッグして以下の手順のように方向を設定します。</p>
+<ul>
+<li><code style="border: 1px solid black">2D Nav Goal</code>ボタンを選択します。</li>
+<li>マップ内の特定のポイントをクリックしてゴール位置を設定し、カーソルをTurtleBot3が最後に向いている方向にドラッグします。</li>
+</ul>
+<p>ロボットは、地図に基づいて目的地への障害物を回避するためのパスを作成します。 次に、ロボットはパスに沿って移動します。 この時、いきなり障害物を検知しても障害物を避けて目標点に移動します。</p>
+<p><img alt="" src="/images/turtlebot3/2d_nav_goal.png" /></p>
+<p>ゴール位置へのパスを作成できない場合、ゴール位置の設定に失敗することがあります。 ロボットが目標位置に到達する前に停止したい場合は、TurtleBot3の現在の位置を目標位置として設定します。</p>
+<h2 id="_4">チューニングガイド<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>ナビゲーションスタックには、さまざまなロボットのパフォーマンスを変更するための多くのパラメーターがあります。 これに関する情報は、<a href="http://wiki.ros.org/navigation">ROS Wiki</a>で入手するか、<a href="https://community.robotsource.org/t/download-the-ros-robot-programming-book-for-free/51">ROS Robot Programming</a>の第11章を参照してください。</p>
+<p>このチューニングガイドでは、重要なパラメーターを設定するためのヒントをいくつか紹介します。 環境に応じてパフォーマンスを変更したい場合は、このヒントが役立つ可能性があり、チューニングの時間を節約できます。</p>
+<p>下記のパラメータのデフォルト値は<code>/opt/ros/melodic/share/turtlebot3_navigation/param/costmap_common_param_burger.yaml</code>のファイルに定義されています。下記のようなコマンドで設定することができます。</p>
+<p><em><strong>inflation_radius</strong></em>
+- デフォルト値：1.0
+- このパラメーターは、障害物から膨張領域を作成します。このエリアを越えないようにパスが計画されます。これをロボットの半径よりも大きく設定しても安全です。詳細については、<a href="http://wiki.ros.org/costmap_2d#Inflation">page of costmap_2d wiki</a>をフォローしてください。</p>
+<p><img alt="" src="/images/turtlebot3/tuning_inflation_radius.png" /></p>
+<p><em><strong>cost_scaling_factor</strong></em> 
+- デフォルト値：3.0
+- この係数にコスト値を掛けます。相反する比率であるため、このパラメーターが増加し、コストが削減されます。</p>
+<p><img alt="" src="/images/turtlebot3/tuning_cost_scaling_factor.png" /></p>
+<p>最適なパスは、ロボットが障害物間の中心を通過することです。 障害物から遠ざけるために、この係数を小さく設定します。</p>
+<p>下記のパラメータのデフォルト値は<code>/opt/ros/melodic/share/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml</code>のファイルに定義されています。</p>
+<!-- `rosparam set`で変更することができます。 -->
+
+<p><em><strong>max_vel_x</strong></em>
+- デフォルト値：0.22
+- この係数は、並進速度の最大値に設定されます。</p>
+<p><em><strong>min_vel_x</strong></em>
+- デフォルト値：-0.22
+- この係数は、並進速度の最小値に設定されます。 これを負に設定すると、ロボットは後方に移動できます。</p>
+<p><em><strong>max_vel_trans</strong></em>
+- デフォルト値：0.22
+- 最大並進速度の実際の値。 ロボットはこれより速くなることはできません。</p>
+<p><em><strong>min_vel_trans</strong></em>
+- デフォルト値：0.11
+- 最小並進速度の実際の値。 ロボットはこれより遅くなることはできません。</p>
+<p><em><strong>max_vel_theta</strong></em>
+- `デフォルト値：2.75
+- 最大回転速度の実際の値。 ロボットはこれより速くなることはできません。</p>
+<p><em><strong>min_vel_theta</strong></em>
+- デフォルト値：1.37
+- 最小回転速度の実際の値。 ロボットはこれより遅くなることはできません。</p>
+<p><em><strong>acc_lim_x</strong></em>
+- デフォルト値：2.5
+- 並進加速度リミット値の実際の値。</p>
+<p><em><strong>acc_lim_theta</strong></em>
+- デフォルト値：3.2
+- 回転加速度リミット値の実際の値。</p>
+<p><em><strong>xy_goal_tolerance</strong></em>
+- デフォルト値：0.05
+- ロボットが目標ポーズへの到達時に許可されるx、y距離。</p>
+<p><em><strong>yaw_goal_tolerance</strong></em>
+- デフォルト値：0.17
+- ロボットが目標ポーズへの到達時に許容されるヨー角。</p>
+<p><em><strong>sim_time</strong></em>
+- デフォルト値：1.5
+- この係数は、シミュレーションを秒単位で転送します。値が小さすぎると狭い領域を通過するのに十分な時間であり、値が大きすぎると急速に回転することはできません。 下の画像で黄色い線の長さの違いを見ることができます。</p>
+<p><img alt="" src="/images/turtlebot3/tuning_sim_time.png" /></p>
+<!-- `parameter_name`の代わりに変更したいパラメータ名を書き換え、`value`に新しい値に書き換えます。 -->
+<p>ナビゲーションを起動します：
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map_sim.yaml
+</code></pre></div></p>
+<p>パラメータを編集するために，２つの方法があります：
+1. <code>/opt/ros/melodic/share/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml</code>を直接変更</p>
+<blockquote>
+<p>NOTE: <code>turtlebot3_navigation.launch</code>を起動する<strong>前</strong>に実施する必要があります．
+2. <code>rosrun rqt_reconfigure rqt_reconfigure</code>による変更
+NOTE: <code>turtlebot3_navigation.launch</code>を起動した<strong>後</strong>に実施する必要があります</p>
+</blockquote>
+<p><button type="button" class="bth btn-primary btn-lg"><a href="index.html">
+    <span style="color:black"><strong>メインページへ</strong></span></a></button>
+<button type="button"  class="bth btn-success btn-lg">
+    <a href="map-navigation-2.html"><span style="color:black"><strong>次の実習へ</strong></span></a></button></p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../slam-basics/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ROSを用いたマップ取得" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              ROSを用いたマップ取得
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 Robotics Society Japan.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
