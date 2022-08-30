@@ -1,0 +1,807 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../image/icon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
+    
+    
+      
+        <title>ROSを用いたマップ取得 - ROS Seminar Website</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../stylesheet/tierivcolor.css">
+    
+      <link rel="stylesheet" href="../stylesheet/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@8.0.0/dist/mermaid.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ros" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ROS Seminar Website" class="md-header__button md-logo" aria-label="ROS Seminar Website" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 11 1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5 1.5 1.5 0 0 1 6.5 13 1.5 1.5 0 0 1 8 14.5 1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-6Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROS Seminar Website
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ROSを用いたマップ取得
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hakuturu583/ros_rsj_seminar" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ROS Seminar Website" class="md-nav__button md-logo" aria-label="ROS Seminar Website" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 11 1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5 1.5 1.5 0 0 1 6.5 13 1.5 1.5 0 0 1 8 14.5 1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-6Z"/></svg>
+
+    </a>
+    ROS Seminar Website
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hakuturu583/ros_rsj_seminar" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          実習テキスト
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="実習テキスト" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          実習テキスト
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          ROSを用いたマップ取得
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        ROSを用いたマップ取得
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#turtlebot3" class="md-nav__link">
+    TurtleBot3を起動
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slam" class="md-nav__link">
+    SLAMノードの実行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    遠隔操作ノードの実行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    チューニングガイド
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    マップの保存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    マップ
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    全てのプログラムを終了
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    参考文献
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#turtlebot3" class="md-nav__link">
+    TurtleBot3を起動
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slam" class="md-nav__link">
+    SLAMノードの実行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    遠隔操作ノードの実行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    チューニングガイド
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    マップの保存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    マップ
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    全てのプログラムを終了
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    参考文献
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/hakuturu583/ros_rsj_seminar/edit/master/docs/slam-basics.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="ros">ROSを用いたマップ取得<a class="headerlink" href="#ros" title="Permanent link">#</a></h1>
+<p><strong>SLAM（Simultaneous Localization and Mapping）</strong>は任意の空間の現在位置を推定して地図を描く手法です。 SLAMはTurtleBot3の前身からよく知られている機能です。</p>
+<h2 id="turtlebot3">TurtleBot3を起動<a class="headerlink" href="#turtlebot3" title="Permanent link">#</a></h2>
+<p><code>roscore</code>を実行します。</p>
+<div class="highlight"><pre><span></span><code>$ roscore
+</code></pre></div>
+<p>TurtleBot3のアプリケーションを起動するための基本的なパッケージを起動します。</p>
+<p>新しいターミナルウィンドウを開き、TurtleBotと接続します。</p>
+<div class="highlight"><pre><span></span><code>$ ssh ubuntu@192.168.xxx.xxx
+</code></pre></div>
+<blockquote>
+<p><strong>NOTE 1</strong>: The IP <code>192.168.xxx.xxx</code> is your Raspberry Pi’s IP or hostname.<br />
+<strong>NOTE 2</strong>: パスワードは<code>turtlebot</code>です。</p>
+</blockquote>
+<p>接続ができましたら下記のコマンドでTurtleBot3を起動します。</p>
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+</code></pre></div>
+<p>TurtleBot3のモデルが<code>burger</code>の場合は、以下のようなメッセージが表示されます。</p>
+<div class="highlight"><pre><span></span><code><span class="nv">SUMMARY</span>
+<span class="o">========</span>
+
+PARAMETERS
+ * /rosdistro: melodic
+ * /rosversion: <span class="m">1</span>.12.13
+ * /turtlebot3_core/baud: <span class="m">115200</span>
+ * /turtlebot3_core/port: /dev/ttyACM0
+ * /turtlebot3_core/tf_prefix:
+ * /turtlebot3_lds/frame_id: base_scan
+ * /turtlebot3_lds/port: /dev/ttyUSB0
+
+NODES
+  /
+    turtlebot3_core <span class="o">(</span>rosserial_python/serial_node.py<span class="o">)</span>
+    turtlebot3_diagnostics <span class="o">(</span>turtlebot3_bringup/turtlebot3_diagnostics<span class="o">)</span>
+    turtlebot3_lds <span class="o">(</span>hls_lfcd_lds_driver/hlds_laser_publisher<span class="o">)</span>
+
+<span class="nv">ROS_MASTER_URI</span><span class="o">=</span>http://192.168.1.2:11311
+
+process<span class="o">[</span>turtlebot3_core-1<span class="o">]</span>: started with pid <span class="o">[</span><span class="m">14198</span><span class="o">]</span>
+process<span class="o">[</span>turtlebot3_lds-2<span class="o">]</span>: started with pid <span class="o">[</span><span class="m">14199</span><span class="o">]</span>
+process<span class="o">[</span>turtlebot3_diagnostics-3<span class="o">]</span>: started with pid <span class="o">[</span><span class="m">14200</span><span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306690</span>.947198<span class="o">]</span>: ROS Serial Python Node
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306691</span>.000143<span class="o">]</span>: Connecting to /dev/ttyACM0 at <span class="m">115200</span> baud
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.522019<span class="o">]</span>: Note: publish buffer size is <span class="m">1024</span> bytes
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.525615<span class="o">]</span>: Setup publisher on sensor_state <span class="o">[</span>turtlebot3_msgs/SensorState<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.544159<span class="o">]</span>: Setup publisher on version_info <span class="o">[</span>turtlebot3_msgs/VersionInfo<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.620722<span class="o">]</span>: Setup publisher on imu <span class="o">[</span>sensor_msgs/Imu<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.642319<span class="o">]</span>: Setup publisher on cmd_vel_rc100 <span class="o">[</span>geometry_msgs/Twist<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.687786<span class="o">]</span>: Setup publisher on odom <span class="o">[</span>nav_msgs/Odometry<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.706260<span class="o">]</span>: Setup publisher on joint_states <span class="o">[</span>sensor_msgs/JointState<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.722754<span class="o">]</span>: Setup publisher on battery_state <span class="o">[</span>sensor_msgs/BatteryState<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306693</span>.759059<span class="o">]</span>: Setup publisher on magnetic_field <span class="o">[</span>sensor_msgs/MagneticField<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306695</span>.979057<span class="o">]</span>: Setup publisher on /tf <span class="o">[</span>tf/tfMessage<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.007135<span class="o">]</span>: Note: subscribe buffer size is <span class="m">1024</span> bytes
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.009083<span class="o">]</span>: Setup subscriber on cmd_vel <span class="o">[</span>geometry_msgs/Twist<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.040047<span class="o">]</span>: Setup subscriber on sound <span class="o">[</span>turtlebot3_msgs/Sound<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.069571<span class="o">]</span>: Setup subscriber on motor_power <span class="o">[</span>std_msgs/Bool<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.096364<span class="o">]</span>: Setup subscriber on reset <span class="o">[</span>std_msgs/Empty<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.390979<span class="o">]</span>: Setup TF on Odometry <span class="o">[</span>odom<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.394314<span class="o">]</span>: Setup TF on IMU <span class="o">[</span>imu_link<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.397498<span class="o">]</span>: Setup TF on MagneticField <span class="o">[</span>mag_link<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.400537<span class="o">]</span>: Setup TF on JointState <span class="o">[</span>base_link<span class="o">]</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.407813<span class="o">]</span>: --------------------------
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.411412<span class="o">]</span>: Connected to OpenCR board!
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.415140<span class="o">]</span>: This core<span class="o">(</span>v1.2.1<span class="o">)</span> is compatible with TB3 Burger
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.418398<span class="o">]</span>: --------------------------
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306696</span>.421749<span class="o">]</span>: Start Calibration of Gyro
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306698</span>.953226<span class="o">]</span>: Calibration End
+</code></pre></div>
+<h2 id="slam">SLAMノードの実行<a class="headerlink" href="#slam" title="Permanent link">#</a></h2>
+<p>新しいターミナルを開き、SLAMファイルを起動します。</p>
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
+</code></pre></div>
+<blockquote>
+<p><strong>ヒント</strong>: 上記のコマンドを実行すると、視覚化ツールRVizも実行されます。 RVizを個別に実行する場合は、次のいずれかのコマンドを使用します。
+- <code>$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_gmapping.rviz</code>
+- <code>$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_cartographer.rviz</code>
+- <code>$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_hector.rviz</code>
+- <code>$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_karto.rviz</code>
+- <code>$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_frontier_exploration.rviz</code></p>
+</blockquote>
+<p><strong>注釈</strong>: さまざまなSLAMメソッドをサポートしています
+- TurtleBot3は、さまざまなSLAMメソッドの中で、Gmapping、Cartographer、Hector、およびKartoをサポートしています。 これを行うには、 <code>slam_methods：= xxxxx</code>オプションを変更します。
+- <code>slam_methods</code>オプションには<code>gmapping</code>、 <code>cartographer</code>、<code>hector</code>、 <code>karto</code>、<code>frontier_exploration</code>が含まれ、それらの1つを選択できます。
+- たとえば、kartoを使用するには、次のようにします:
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>karto
+</code></pre></div></p>
+<p><strong>注釈</strong>: SLAMパッケージの依存関係パッケージをインストールします
+- <code>Gmapping</code>の場合: <br>
+Gmappingに関連するパッケージは、<a href="linux_and_ros_install.html#ros-依存パッケージのインストール">事前準備</a>ページですでにインストールされています。
+- <code>Cartographer</code>の場合:
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-melodic-cartographer ros-melodic-cartographer-ros <span class="se">\</span>
+  ros-melodic-cartographer-ros-msgs ros-melodic-cartographer-rviz
+</code></pre></div>
+- <code>Hector Mapping</code>の場合:
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-melodic-hector-mapping
+</code></pre></div>
+- <code>Karto</code>の場合:
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-melodic-slam-karto
+</code></pre></div>
+- <code>Frontier Exploration</code>の場合 (<strong><code>kinetic</code>のみ</strong>): <br>
+  Frontier Explorationはgmappingを使用しており、次のパッケージをインストールする必要があります。 \
+  (melodicではパッケージが配布されていません。)
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-kinetic-frontier-exploration ros-kinetic-navigation-stage
+</code></pre></div></p>
+<blockquote>
+<p><strong>NOTE</strong>: 今回は<code>Gmapping</code>を使用します。</p>
+</blockquote>
+<h2 id="_1">遠隔操作ノードの実行<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>新しいターミナルを開き、<a href="turtlebot-basics.html#キーボードでロボットを操作-1">前回の実習</a>で使用した遠隔操作ノードを実行します。 次のコマンドを使用すると、ユーザーはロボットを制御してSLAM操作を手動で実行できます。 速度の変更が速すぎたり、回転が速すぎたりするなどの激しい動きを避けることが重要です。 ロボットを使用して地図を作成する場合、ロボットは測定対象の環境の隅々までスキャンする必要があります。 きれいな地図を作成するにはある程度の経験が必要なので、SLAMを複数回練習してノウハウを作成しましょう。 マッピングプロセスを次の図に示します。</p>
+<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>  Control Your TurtleBot3!
+  ---------------------------
+  Moving around:
+          w
+     a    s    d
+          x
+
+  w/x : increase/decrease linear velocity
+  a/d : increase/decrease angular velocity
+  space key, s : force stop
+
+  CTRL-C to quit
+</code></pre></div>
+<p><img alt="" src="/images/turtlebot3/slam_running_for_mapping.png" /></p>
+<h2 id="_2">チューニングガイド<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>Gmappingには、さまざまな環境のパフォーマンスを変更するための多くのパラメーターがあります。 パラメーター全体に関する情報は、<a href="http://wiki.ros.org/gmapping">ROS WiKi</a>で入手するか、<a href="https://community.robotsource.org/t/download-the-ros-robot-programming-book-for-free/51">ROS Robot Programming</a>の第11章を参照してください。</p>
+<p>このチューニングガイドでは、重要なパラメーターを設定するためのヒントをいくつか紹介します。 環境に応じてパフォーマンスを変更したい場合は、このヒントが役立つ可能性があり、時間を節約できます。</p>
+<blockquote>
+<p><strong>NOTE</strong>: 下記のパラメータのデフォルト値は<code>/opt/ros/melodic/share/turtlebot3_slam/config/gmapping_params.yaml</code>のファイルに定義されています。</p>
+</blockquote>
+<ul>
+<li><em><strong>maxUrange</strong></em> </li>
+<li>デフォルト値：3.0</li>
+<li>このパラメーターは、LIDARセンサーの最大使用可能範囲を設定します。
+  <!-- *`x`は新しい値を意味しています。* --></li>
+</ul>
+<!-- ```shell
+  $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping maxUrange:=x
+  ``` -->
+
+<ul>
+<li><em><strong>map_update_interval</strong></em></li>
+<li>デフォルト値：2.0 </li>
+<li>マップの更新間の時間（秒単位）。 これを低く設定すると、マップがより頻繁に更新されます。 ただし、より大きな計算負荷が必要になります。 このパラメーターの設定は、環境によって異なります。
+  <!-- ```shell
+  $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping map_update_interval:=x
+  ``` --></li>
+</ul>
+<p><img alt="" src="/images/turtlebot3/tuning_map_update_interval.png" /></p>
+<ul>
+<li><em><strong>minimumScore</strong></em> </li>
+<li>デフォルト値：50 </li>
+<li>
+<p>スキャンマッチングの結果を考慮するための最小スコア。 このパラメーターにより、ポーズ推定のジャンプを回避できます。
+     これが適切に設定されている場合は、（SLAMのノードが起動しているターミナルで）以下の情報を見ることができます。</p>
+<div class="highlight"><pre><span></span><code>Average Scan Matching Score=278.965
+neff= 100
+Registering Scans:Done
+update frame 6
+update ld=2.95935e-05 ad=0.000302522
+Laser Pose= -0.0320253 -5.36882e-06 -3.14142
+</code></pre></div>
+<p>この設定が高すぎる場合は、以下の警告が表示されます。</p>
+<p><div class="highlight"><pre><span></span><code>Scan Matching Failed, using odometry. Likelihood=0
+lp:-0.0306155 5.75314e-06 -3.14151
+op:-0.0306156 5.90277e-06 -3.14151
+</code></pre></div>
+  <!-- ```shell
+  $ rosparam set /turtlebot3_slam_gmapping/minimumScore X
+  ``` -->
+</p>
+</li>
+<li>
+<p><em><strong>linearUpdate</strong></em> </p>
+</li>
+<li>デフォルト値：1.0 </li>
+<li>
+<p>ロボットが移動すると、毎回スキャン処理が行われます。
+  <!-- ```shell
+  $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping linearUpdate:=x
+  ``` -->
+</p>
+</li>
+<li>
+<p><em><strong>angularUpdate</strong></em> </p>
+</li>
+<li>デフォルト値：0.2</li>
+<li>ロボットが回転すると、毎回スキャン処理が行われます。 これをlinearUpdateよりも小さく設定することを推奨します。
+  <!-- ```shell
+  $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping angularUpdate=x
+  ``` -->
+</li>
+</ul>
+<!-- > **ヒント**: `rosparam set`で変更することができます：
+> ```shell
+> $ rosparam set パラメータ名 パラメータの値
+> ``` -->
+
+<p>パラメータを編集するために：
+- <code>/opt/ros/melodic/share/turtlebot3_slam/config/gmapping_params.yaml</code>を直接変更</p>
+<blockquote>
+<p>NOTE: <code>turtlebot3_slam.launch</code>を起動する<strong>前</strong>に実施する必要があります．</p>
+</blockquote>
+<!-- 2. `rosrun rqt_reconfigure rqt_reconfigure`による変更
+> NOTE: `turtlebot3_slam.launch`を起動した**後**に実施する必要があります -->
+
+<blockquote>
+<p><strong>ヒント</strong>: どういうパラメータがあるかのとパラメータ名を調べるには：
+<div class="highlight"><pre><span></span><code>$ rosparam list
+</code></pre></div></p>
+<p><strong>ヒント</strong>: パラメータの値を確認したい場合は：
+<div class="highlight"><pre><span></span><code>$ rosparam get パラメータ名
+</code></pre></div></p>
+</blockquote>
+<h2 id="_3">マップの保存<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>すべての作業が完了したので、<code>map_saver</code>ノードを実行してマップファイルを作成します。 マップは、ロボットのオドメトリ、tf情報、およびロボットが移動したときのセンサーのスキャン情報に基づいて描画されます。これらのデータは、前のサンプルビデオのRVizで見ることができます。作成されたマップは、<code>map_saver</code>が実行されているディレクトリに保存されます。ファイル名を指定しない限り、マップ情報を含む<code>map.pgm</code>および<code>map.yaml</code>ファイルとして保存されます。</p>
+<div class="highlight"><pre><span></span><code>$ rosrun map_server map_saver -f ~/map
+</code></pre></div>
+<p><code>-f</code>オプションは、マップファイルが保存されているフォルダーとファイル名を参照します。<code>~/map</code>をオプションとして使用すると、<code>map.pgm</code>と <code>map.yaml</code>がユーザーのホームフォルダー<code>~/</code>（$HOME：<code>/home/&lt;username&gt;</code>）のmapフォルダーに保存されます。</p>
+<h2 id="_4">マップ<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>ROSコミュニティでよく使用されている2次元の <code>Occupancy Grid Map（OGM）</code>を使用します。 下の図に示すように、前の<a href="#マップの保存">マップの保存</a>セクションから取得したマップ。<strong>白色</strong>はロボットが移動可能な空き領域、<strong>黒色</strong>はロボットが動作できない占有領域です。<strong>灰色</strong>は未知の領域です。 このマップは<a href="map-navigation-2.html">ナビゲーション</a>で使用されます。</p>
+<p><img alt="" src="/images/turtlebot3/map.png" /></p>
+<p>次の図は、TurtleBot3を使用して大きなマップを作成した結果を示しています。 移動距離が約350メートルの地図を作成するのに約1時間かかりました。</p>
+<p><img alt="" src="/images/turtlebot3/large_map.png" /></p>
+<p>自分で作成したマップ（map.pgm）をダブルクリックで開けます。</p>
+<h2 id="_5">全てのプログラムを終了<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<!--`SLAM`と`Teleop`のノードを終了させます。<br>
+それぞれのターミナルで`Ctrl+c`{: style="border: 1px solid black" }を押します。-->
+
+<div class="highlight"><pre><span></span><code>rosnode <span class="nb">kill</span> -a
+</code></pre></div>
+<p><code>roscore</code>を終了させるのに<code>roscore</code>を起動しているターミナルで<code style="border: 1px solid black">Ctrl+c</code>を押します。
+下記のような表示があれば<code>roscore</code>が終了したことが確認できます。</p>
+<div class="highlight"><pre><span></span><code>^C<span class="o">[</span>rosout-1<span class="o">]</span> killing on <span class="nb">exit</span>
+<span class="o">[</span>master<span class="o">]</span> killing on <span class="nb">exit</span>
+shutting down processing monitor ...
+... shutting down processing monitor <span class="nb">complete</span>
+<span class="k">done</span>
+username@pcname:~/catkin_ws$
+</code></pre></div>
+<p>TurtleBot3のアプリケーションを起動するために開いたターミナルで<code>exit</code>を記入し、<code style="border: 1px solid black">Enter</code>キーを押すと接続を切断します。</p>
+<div class="highlight"><pre><span></span><code>turtlebot@turtlebot:~$ <span class="nb">exit</span>
+username@pc_name:~$
+</code></pre></div>
+<h2 id="_6">参考文献<a class="headerlink" href="#_6" title="Permanent link">#</a></h2>
+<ul>
+<li>gmapping</li>
+<li>
+<p><a href="http://wiki.ros.org/gmapping">ROS WIKI</a>, <a href="https://github.com/ros-perception/slam_gmapping">Github</a></p>
+</li>
+<li>
+<p>cartographer </p>
+</li>
+<li>
+<p><a href="http://wiki.ros.org/cartographer">ROS WIKI</a>, <a href="https://github.com/googlecartographer/cartographer">Github</a></p>
+</li>
+<li>
+<p>hector</p>
+</li>
+<li>
+<p><a href="http://wiki.ros.org/hector_slam">ROS WIKI</a>, <a href="https://github.com/tu-darmstadt-ros-pkg/hector_slam">Github</a></p>
+</li>
+<li>
+<p>karto</p>
+</li>
+<li>
+<p><a href="http://wiki.ros.org/slam_karto">ROS WIKI</a>, <a href="https://github.com/ros-perception/slam_karto">Github</a></p>
+</li>
+<li>
+<p>frontier_exploration </p>
+</li>
+<li><a href="http://wiki.ros.org/frontier_exploration">ROS WIKI</a>, <a href="https://github.com/paulbovbel/frontier_exploration">Github</a></li>
+</ul>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 Robotics Society Japan.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
