@@ -49,3 +49,4 @@ nav:
   - Home: README.md
   - 実習テキスト:
     - ROSを用いたマップ取得: slam-basics.md
+    - マップを利用したナビゲージョン操作１: map-navigation.md
