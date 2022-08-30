@@ -1,0 +1,51 @@
+repo_url: https://github.com/hakuturu583/ros_rsj_seminar
+site_name: ROS Seminar Website
+theme:
+  name: material
+  feature:
+    tabs: true
+  favicon: image/icon.png
+  icon:
+    logo: material/car
+    repo: fontawesome/brands/github
+extra:
+  font:
+    text: "Noto Sans JP"
+    code: "Consolas"
+  search:
+    language: en
+plugins:
+  - search
+
+copyright: "Copyright &copy; 2022 Robotics Society Japan."
+
+markdown_extensions:
+  - attr_list
+  - codehilite: { guess_lang: false }
+  - fontawesome_markdown
+  - mdx_math
+  - plantuml_markdown: { server: http://www.plantuml.com/plantuml }
+  - pymdownx.arithmatex
+  - pymdownx.emoji: { emoji_generator: !!python/name:pymdownx.emoji.to_svg  }
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - toc: { permalink: "#" }
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+
+extra_css:
+  - "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
+  - stylesheet/tierivcolor.css
+  - stylesheet/extra.css
+  - https://unpkg.com/mermaid@8.0.0/dist/mermaid.css
+extra_javascript:
+  - http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+nav:
+  - Home: README.md
+  - 実習テキスト:
+    - ROSを用いたマップ取得: slam-basics.md
