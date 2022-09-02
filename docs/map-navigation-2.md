@@ -80,9 +80,3 @@ $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 - [Kaiyu ZhengによるROSナビゲーションチューニングガイド](http://kaiyuzheng.me/documents/navguide.pdf)
 - ナビゲーション
   - [ROS WIKI](http://wiki.ros.org/navigation), [Github](https://github.com/ros-planning/navigation)
-
-
-<button type="button" class="bth btn-primary btn-lg">[
-    <span style="color:black">**メインページへ**</span>](index.html)</button>
-<button type="button"  class="bth btn-success btn-lg">
-    [<span style="color:black">**次の実習へ**</span>](obstacle-detection.html)</button>
