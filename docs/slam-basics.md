@@ -106,7 +106,7 @@ $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=karto
 
 **注釈**: SLAMパッケージの依存関係パッケージをインストールします
 - `Gmapping`の場合: <br>
-Gmappingに関連するパッケージは、[事前準備](linux_and_ros_install.html#ros-依存パッケージのインストール)ページですでにインストールされています。
+Gmappingに関連するパッケージは、[事前準備](https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ros-依存パッケージのインストール)ページですでにインストールされています。
 - `Cartographer`の場合:
 ```shell
 $ sudo apt-get install ros-melodic-cartographer ros-melodic-cartographer-ros \
