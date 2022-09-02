@@ -431,7 +431,7 @@
 
 
 <h1 id="1">マップを利用したナビゲージョン操作１<a class="headerlink" href="#1" title="Permanent link">#</a></h1>
-<p><strong>ナビゲーション</strong> とは、特定の環境でロボットをある場所から指定された目的地に移動することです。この目的のために、特定の環境の家具、オブジェクト、および壁のジオメトリ情報を含むマップが必要です。 前の<a href="slam-basics.html">SLAM</a>セクションで説明したように、マップはセンサーによって取得された距離情報とロボット自体のポーズ情報を使用して作成されました。</p>
+<p><strong>ナビゲーション</strong> とは、特定の環境でロボットをある場所から指定された目的地に移動することです。この目的のために、特定の環境の家具、オブジェクト、および壁のジオメトリ情報を含むマップが必要です。 前の<a href="../slam-basics/">SLAM</a>セクションで説明したように、マップはセンサーによって取得された距離情報とロボット自体のポーズ情報を使用して作成されました。</p>
 <p>ナビゲーションにより、ロボットは、マップ、ロボットのエンコーダー、IMUセンサーおよび距離センサーを使用して現在のポーズからマップ上の指定された目標ポーズに移動できます。 このタスクを実行する手順は次のとおりです。</p>
 <p>まずシミュレーションで動作確認します。</p>
 <p><span style="color:red"><strong>下記の実習を行うために、まず<code>ROS_MASTER_URI</code>と<code>ROS_HOSTNAME</code>を<code>localhost</code>に戻します（<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ネットワーク構成">参照</a>）。</strong></span></p>
