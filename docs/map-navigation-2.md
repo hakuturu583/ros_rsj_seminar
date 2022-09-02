@@ -1,6 +1,6 @@
 # マップを利用したナビゲージョン操作２
 
-<span style="color:red">**下記の実習を行うために、まず`ROS_MASTER_URI`と`ROS_HOSTNAME`の`localhost`をリモートPCのIPアドレスに変更します。（[参照](./linux_and_ros_install.md#ネットワーク構成)）。**</span>
+<span style="color:red">**下記の実習を行うために、まず`ROS_MASTER_URI`と`ROS_HOSTNAME`の`localhost`をリモートPCのIPアドレスに変更します。（[参照](https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ネットワーク構成)）。**</span>
 
 ## 実機でナビゲーションノードを行う
 
