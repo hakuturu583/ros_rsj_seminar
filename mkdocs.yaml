@@ -50,5 +50,5 @@ nav:
   - 実習テキスト:
     - ROSを用いたマップ取得: slam-basics.md
     - マップを利用したナビゲージョン操作１: map-navigation.md
-    - マップを利用したナビゲージョン操作2: map-navigation2.md
+    - マップを利用したナビゲージョン操作2: map-navigation-2.md
     - ROS1からROS2へ: ros2.md
