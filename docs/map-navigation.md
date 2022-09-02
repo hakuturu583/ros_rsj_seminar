@@ -169,8 +169,3 @@ $ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/m
 > NOTE: `turtlebot3_navigation.launch`を起動する**前**に実施する必要があります．
 2. `rosrun rqt_reconfigure rqt_reconfigure`による変更
 > NOTE: `turtlebot3_navigation.launch`を起動した**後**に実施する必要があります
-
-<button type="button" class="bth btn-primary btn-lg">[
-    <span style="color:black">**メインページへ**</span>](index.html)</button>
-<button type="button"  class="bth btn-success btn-lg">
-    [<span style="color:black">**次の実習へ**</span>](map-navigation-2.html)</button>
