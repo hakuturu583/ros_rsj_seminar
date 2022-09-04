@@ -390,6 +390,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#nodeexecutor" class="md-nav__link">
+    NodeとExecutor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     コンポーネント指向
   </a>
@@ -405,6 +412,33 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ros1" class="md-nav__link">
+    ポーティングしやすいROS1ノード実装方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    パフォーマンスを上げるには
+  </a>
+  
+    <nav class="md-nav" aria-label="パフォーマンスを上げるには">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executor" class="md-nav__link">
+    どのExecutorの上でどのノードが動いているかを意識する
+  </a>
   
 </li>
         
@@ -519,6 +553,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#nodeexecutor" class="md-nav__link">
+    NodeとExecutor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     コンポーネント指向
   </a>
@@ -534,6 +575,33 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ros1" class="md-nav__link">
+    ポーティングしやすいROS1ノード実装方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    パフォーマンスを上げるには
+  </a>
+  
+    <nav class="md-nav" aria-label="パフォーマンスを上げるには">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executor" class="md-nav__link">
+    どのExecutorの上でどのノードが動いているかを意識する
+  </a>
   
 </li>
         
@@ -848,6 +916,8 @@ Cyclone DDSやFast DDS以外にもIce Oryxといった共有メモリ転送に�
 <blockquote class="embedly-card"><h4><a href="https://github.com/eclipse-iceoryx/iceoryx">GitHub - eclipse-iceoryx/iceoryx: Eclipse iceoryx™ - true zero-copy inter-process-communication</a></h4><p>Great that you've made it to this neat Eclipse project! Let's get you started by providing a quick background tour, introducing the project scope and all you need for installation and a first running example. So first off: What is iceoryx?</p></blockquote>
 <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 
+<h4 id="nodeexecutor">NodeとExecutor<a class="headerlink" href="#nodeexecutor" title="Permanent link">#</a></h4>
+<p>Executorは<a href="#_3">効率的なデータ転送</a>の項目で紹介した</p>
 <h4 id="_4">コンポーネント指向<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
 <p>コンポーネント指向は<a href="#_3">効率的なデータ転送</a>の項目で紹介したnodeletの仕組みをROS2向けに再設計したものです。
 ROS2（C++）ではnodeはrclcpp::Node型を継承したクラスとして実装されます。</p>
@@ -877,9 +947,15 @@ ROS2（C++）ではnodeはrclcpp::Node型を継承したクラスとして実装
 ソースコードの出典は<a href="https://github.com/OUXT-Polaris/pcl_apps/blob/720d6cfc3562137a353f5d67f3e0f42b122025ed/pcl_apps/src/filter/crop_box_filter/crop_box_filter_component.cpp#L29-L30">こちら</a></p>
 <p>ROS1時代にnodelet managerと呼ばれたものは、component_containerと呼ばれてシングルスレッドなものやマルチスレッド処理に対応したものなど色々なものが実装されています。</p>
 <h4 id="ros2-launch">ros2 launchによるより柔軟な起動手段の提供<a class="headerlink" href="#ros2-launch" title="Permanent link">#</a></h4>
-<h1 id="ros1ros2ros1">ROS1からROS2にポーティングしやすいROS1ノード実装方法<a class="headerlink" href="#ros1ros2ros1" title="Permanent link">#</a></h1>
-<p><strong>注意、こちらの項目は多分に片岡の私見を含んでおります。</strong></p>
-<h1 id="_5">参考文献<a class="headerlink" href="#_5" title="Permanent link">#</a></h1>
+<h2 id="ros1">ポーティングしやすいROS1ノード実装方法<a class="headerlink" href="#ros1" title="Permanent link">#</a></h2>
+<p><span style="color: red"><strong>注意、こちらの項目は多分に片岡の私見を含んでおります。</strong></span></p>
+<p>この項目は極めて個人のノウハウ的な部分が強く、ロボット学会の資料として残すべきかは非常に悩んだのですが、このように書いておくと筆者としては楽でした。
+ということで価値はあるかなと思い記載しておきます。</p>
+<h2 id="_5">パフォーマンスを上げるには<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
+<p>ロボットはいわゆるリアルタイムシステムであり、事前に設計した時間までに処理を終わらせていかなければなりません。
+そのためにはパフォーマンスを出せるように意識しながらシステム全体を設計していくことが必要です。</p>
+<h3 id="executor">どのExecutorの上でどのノードが動いているかを意識する<a class="headerlink" href="#executor" title="Permanent link">#</a></h3>
+<h1 id="_6">参考文献<a class="headerlink" href="#_6" title="Permanent link">#</a></h1>
 <p>[1]:原 祥尭+, "ロボティクスミドルウェア ROS, ROS2, Ignition, Isaac の機能比較と通信評価", ROBOSYM 2020.  </p>
 
 
