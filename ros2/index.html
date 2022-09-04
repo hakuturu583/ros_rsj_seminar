@@ -476,6 +476,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#dds_1" class="md-nav__link">
+    DDSを選定し、設定を工夫する
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -669,6 +676,13 @@
           <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     実装する言語を揃える
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dds_1" class="md-nav__link">
+    DDSを選定し、設定を工夫する
   </a>
   
 </li>
@@ -1240,6 +1254,31 @@ ROS2においてはメッセージパッケージを分けないとビルドが�
 <h3 id="_7">実装する言語を揃える<a class="headerlink" href="#_7" title="Permanent link">#</a></h3>
 <p>Pythonで実装されているノードとC++で実装されているノードを同じExecutor上で実行することは原理的に不可能です。
 そのため、実装する言語をある程度揃えておかないとそこがボトルネックになりシステム全体のパフォーマンスに悪影響を及ぼします。</p>
+<h3 id="dds_1">DDSを選定し、設定を工夫する<a class="headerlink" href="#dds_1" title="Permanent link">#</a></h3>
+<p>ROS2には様々なDDSが存在します。
+ROS1時代には通信層を交換することができずほとんどチューニングできませんでしたが、ROS2からは
+自分のアプリーケーションに合わせてDDSを選定したり、DDSの設定を見直すだけで大きくパフォーマンスは向上します。</p>
+<p>例えば、固定長配列しか用いない、かつ一台のマシンでシステムが完結するのであればzero-copy転送をうたうIceOryxは非常に強力な選択肢になります。
+自分の計算機環境に合わせて適切なDDSを選定し、DDSのドキュメントを読んで適切な設定をしてみましょう。</p>
+<p>ちなみに、参考までに筆者の開発環境では以下のようにな設定をしています。</p>
+<p>/opt/masaya/cyclonedds_config.xmlに以下のxmlを保存</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="nt">&lt;CycloneDDS</span> <span class="na">xmlns=</span><span class="s">&quot;https://cdds.io/config&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xsi:schemaLocation=</span><span class="s">&quot;https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Domain</span> <span class="na">id=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;General&gt;</span>
+      <span class="nt">&lt;NetworkInterfaceAddress&gt;</span>lo<span class="nt">&lt;/NetworkInterfaceAddress&gt;</span>
+    <span class="nt">&lt;/General&gt;</span>
+    <span class="nt">&lt;Internal&gt;</span>
+      <span class="nt">&lt;MinimumSocketReceiveBufferSize&gt;</span>10MB<span class="nt">&lt;/MinimumSocketReceiveBufferSize&gt;</span>
+    <span class="nt">&lt;/Internal&gt;</span>
+  <span class="nt">&lt;/Domain&gt;</span>
+<span class="nt">&lt;/CycloneDDS&gt;</span>
+</code></pre></div>
+<p>起動時に毎回このスクリプトを実行
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CYCLONEDDS_URI</span><span class="o">=</span>file:///opt/masaya/cyclonedds_config.xml
+sudo sysctl -w net.core.rmem_max<span class="o">=</span><span class="m">2147483647</span> <span class="c1"># 受信用ウィンドウサイズの上限値を指定</span>
+sudo ifconfig lo multicast <span class="c1"># マルチキャストをローカルネットワークで有効化</span>
+</code></pre></div></p>
 <h1 id="_8">参考文献<a class="headerlink" href="#_8" title="Permanent link">#</a></h1>
 <p>[1]:原 祥尭+, "ロボティクスミドルウェア ROS, ROS2, Ignition, Isaac の機能比較と通信評価", ROBOSYM 2020.  </p>
 
