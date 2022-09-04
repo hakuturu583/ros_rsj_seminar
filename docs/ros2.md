@@ -443,9 +443,73 @@ CMakeLists.txtに上記の変更を加えament_cmakeのシステムにC++のマ�
 サンプルコードは[こちら](https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/src/scan_segmentation_component.cpp#L349)と
 [こちら](https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/CMakeLists.txt#L44-L45)に有ります。
 
-出来上がったコンポーネントは後述する[ros2 launch](https://hakuturu583.github.io/ros_rsj_seminar/ros2/#ros2-launch)を使用して読み込むことができます。
+出来上がったコンポーネントは後述する[ros2 launch](https://hakuturu583.github.io/ros_rsj_seminar/ros2/#ros2-launch)を使用して動的に立ち上げることができます。
 
 #### ros2 launchによるより柔軟な起動手段の提供
+
+ROS2ではlaunchファイルがPythonになるという言説が有りますが、筆者はこれは誤りであると考えます。
+ROS2のPython形式のlaunchファイルはあくまでROS1時代にあったroslaunch APIの後継であり
+xml形式やyaml形式のlaunchファイルがROS1時代のxml形式のlaunchファイルの後継であると考えます。
+
+python形式でlaunchファイルが記述できるようになったことでros2 launchは
+- 10秒後にあるノードを落とす
+- あるノードを立ち上げて準備ができてから次のノードを立ち上げる
+といった複雑な起動シーケンスもlaunchファイルで記述できるようになりました。
+
+様々なケースがあるので、詳細は省きますが、最も一般的なros2 componentを読み込むlaunchファイルのサンプルを示しておきます。
+
+```python
+def generate_launch_description():
+      container = ComposableNodeContainer(
+         name='preception_bringup_container',
+         namespace='perception',
+         package='rclcpp_components',
+         executable='component_container_mt',
+         composable_node_descriptions=[
+            # getImageDecompressorComponent('front_camera'),
+            # getImageRectifyComponent('front_camera'),
+            getScanSgementationComponent(),
+            getCropHullFilterComponent(),
+            getPointCloudToLaserScanComponent(),
+            getRadiusOutlierRemovalComponent('front_lidar'),
+            getRadiusOutlierRemovalComponent('rear_lidar'),
+            getRadiusOutlierRemovalComponent('right_lidar'),
+            getRadiusOutlierRemovalComponent('left_lidar'),
+            getPointsTransformComponent('front_lidar'),
+            getPointsTransformComponent('rear_lidar'),
+            getPointsTransformComponent('right_lidar'),
+            getPointsTransformComponent('left_lidar'),
+            getPointsConcatenateComponent(),
+            getCostmapCalculatorComponent(),
+            getCostmapfilterComponent(),
+            getCostmapinterpolationComponent()                
+         ],
+         output='screen'
+      )
+      return launch.LaunchDescription([
+         container
+      ])
+
+
+def getPointsTransformComponent(lidar_name):
+   config_directory = os.path.join(
+      ament_index_python.packages.get_package_share_directory('perception_bringup'),
+      'config')
+   param_config = os.path.join(config_directory, lidar_name+'_points_transform.yaml')
+   with open(param_config, 'r') as f:
+      params = yaml.safe_load(f)[lidar_name + '_points_transform_node']['ros__parameters']
+   component = ComposableNode(
+      package='pcl_apps',
+      plugin='pcl_apps::PointsTransformComponent',
+      namespace='/perception/'+lidar_name,
+      name='points_transform_node',
+      remappings=[('input', lidar_name+'/points_raw'), ('output', 'points_raw/transformed')],
+      parameters=[params])
+   return component
+```
+
+こちらのサンプルコードの出典は[こちら](https://github.com/OUXT-Polaris/perception_bringup/blob/master/launch/perception_bringup.launch.py)になります
+上記のようなコードを記述することで、自作のComponentを読み込ませてROS2 Applicationを立ち上げることが可能になります。
 
 ## ポーティングしやすいROS1ノード実装方法
 <span style="color: red">**注意、こちらの項目は多分に片岡の私見を含んでおります。**</span>
