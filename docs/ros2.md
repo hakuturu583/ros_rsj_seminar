@@ -581,5 +581,38 @@ ROS2においてはメッセージパッケージを分けないとビルドが�
 Pythonで実装されているノードとC++で実装されているノードを同じExecutor上で実行することは原理的に不可能です。
 そのため、実装する言語をある程度揃えておかないとそこがボトルネックになりシステム全体のパフォーマンスに悪影響を及ぼします。
 
+### DDSを選定し、設定を工夫する
+ROS2には様々なDDSが存在します。
+ROS1時代には通信層を交換することができずほとんどチューニングできませんでしたが、ROS2からは
+自分のアプリーケーションに合わせてDDSを選定したり、DDSの設定を見直すだけで大きくパフォーマンスは向上します。
+
+例えば、固定長配列しか用いない、かつ一台のマシンでシステムが完結するのであればzero-copy転送をうたうIceOryxは非常に強力な選択肢になります。
+自分の計算機環境に合わせて適切なDDSを選定し、DDSのドキュメントを読んで適切な設定をしてみましょう。
+
+ちなみに、参考までに筆者の開発環境では以下のようにな設定をしています。
+
+/opt/masaya/cyclonedds_config.xmlに以下のxmlを保存
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<CycloneDDS xmlns="https://cdds.io/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd">
+  <Domain id="any">
+    <General>
+      <NetworkInterfaceAddress>lo</NetworkInterfaceAddress>
+    </General>
+    <Internal>
+      <MinimumSocketReceiveBufferSize>10MB</MinimumSocketReceiveBufferSize>
+    </Internal>
+  </Domain>
+</CycloneDDS>
+```
+
+起動時に毎回このスクリプトを実行
+```bash
+export CYCLONEDDS_URI=file:///opt/masaya/cyclonedds_config.xml
+sudo sysctl -w net.core.rmem_max=2147483647 # 受信用ウィンドウサイズの上限値を指定
+sudo ifconfig lo multicast # マルチキャストをローカルネットワークで有効化
+```
+
 # 参考文献
 [1]:原 祥尭+, "ロボティクスミドルウェア ROS, ROS2, Ignition, Isaac の機能比較と通信評価", ROBOSYM 2020.  
