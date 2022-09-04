@@ -549,6 +549,20 @@ ROS2においてはメッセージパッケージを分けないとビルドが�
 
 ### Executorが使える言語で実装しておく
 
+現在いくつかのROS2クライアントには様々な種類が存在しています。
+しかし、その中でExecutorが実装されて居るのは一部のみです。
+
+| クライアント名 | 言語   | URL                                        | Executorの実装 |
+| -------------- | ------ | ------------------------------------------ | -------------- |
+| rclcpp         | C++    | https://github.com/ros2/rclcpp             | あり           |
+| rclpy          | python | https://github.com/ros2/rclpy              | あり           |
+| rclc           | C      | https://github.com/ros2/rclc               | あり           |
+| rclnodejs      | nodejs | https://github.com/RobotWebTools/rclnodejs | なし           |
+| rust           | rust   | https://github.com/ros2-rust/ros2_rust     | なし           |
+| rclgp          | go     | https://github.com/juaruipav/rclgo         | なし           |
+
+開発者がROS2公式に近いクライアントではあらかたexecutorの実装は行われていますが、それ以外のクライアントではあまり実装されていないなという印象です。
+
 ## パフォーマンスを上げるには
 
 ロボットはいわゆるリアルタイムシステムであり、事前に設計した時間までに処理を終わらせていかなければなりません。
