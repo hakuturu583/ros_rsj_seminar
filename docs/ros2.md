@@ -517,6 +517,24 @@ def getPointsTransformComponent(lidar_name):
 この項目は極めて個人のノウハウ的な部分が強く、ロボット学会の資料として残すべきかは非常に悩んだのですが、このように書いておくと筆者としては楽でした。
 ということで価値はあるかなと思い記載しておきます。
 
+### main文とロジックを分離する
+ROS2でノードを実装する際にはmain文があるnodeとロジックだけを実装するコンポーネントに分けておくと、コンポーネント指向でROS2システムをつくることが簡単にできます。
+ROS1でも同じように[こちらのサンプル](https://github.com/OUXT-Polaris/nmea_to_geopose/tree/master/src)
+にあるようにmain文とロジックを実装したクラスを分けておくと、コンポーネント指向なノードにポーティングする際に非常に楽です。
+
+そして、ロジックを実装するクラスのコンストラクタでは、ROS2のコンポーネントと同じようにコンストラクタで
+```cpp
+NmeaToGeoPose::NmeaToGeoPose(ros::NodeHandle nh,ros::NodeHandle pnh)
+{
+   nh_ = nh;
+   pnh_ = pnh;
+   pnh_.param<std::string>("input_topic", input_topic_, "/nmea_sentence");
+   nmea_sub_ = nh_.subscribe(input_topic_,10,&NmeaToGeoPose::nmeaSentenceCallback,this);
+   geopose_pub_ = pnh_.advertise<geographic_msgs::GeoPoseStamped>("geopose",1);
+}
+```
+publisher/subscriberを作成しておくとさらにポーティングが容易になります。
+
 ## パフォーマンスを上げるには
 
 ロボットはいわゆるリアルタイムシステムであり、事前に設計した時間までに処理を終わらせていかなければなりません。
