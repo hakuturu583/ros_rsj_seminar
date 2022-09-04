@@ -252,6 +252,17 @@ nodeletは通常TCP/IPパケット通信により実現されるROSのトピッ�
 この仕組みをROS2向けに再設計したのが後述するROS2におけるコンポーネント指向であり、これを使用することで非常に高速にデータ通信が可能です。
 ![](/images/nodelet.png)
 
+#### Windows対応
+ROS1はLinuxにかなり依存しており、Windowsで動かすにはWSLを使ったりと工夫が必要でした。
+研究開発や、スタンドアローンなロボットであればROS1のLinux依存の強さも全く問題にはならなかったのですが、
+商用アプリケーションを開発するときに一般のご家庭で動いているPCのOSとして圧倒的なシェアを持っているWindowsでアプリケーションが作れないのは問題になります。
+そこでROS2からはWindowsにも対応し、(一応Macにも対応はしています。)Windows上でもロボットアプリケーション開発が可能になっています。
+ROS1時代にはWindowsとROS1アプリケーションの通信は[rosbridge protocol](https://github.com/biobotus/rosbridge_suite/blob/master/ROSBRIDGE_PROTOCOL.md)か
+[nodejsのROSクライアント](https://github.com/RethinkRobotics-opensource/rosnodejs)くらいしかなかったので嬉しい人には嬉しい仕様かもしれません。
+
+<blockquote class="embedly-card"><h4><a href="https://ros.org/reps/rep-2000.html#humble-hawksbill-may-2022-may-2027">REP 2000 -- ROS 2 Releases and Target Platforms (ROS.org)</a></h4><p>Note The following applies to ROS 2 releases after Foxy. Prior to Foxy, releases were made more frequently but with shorter support due to the fact that many foundational parts of ROS 2 were still being heavily developed. New ROS 2 releases will be published in a time based fashion every 12 months.</p></blockquote>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
 ### ROS1とROS2の違い
 #### DDSの採用
 DDSとは、OMGという団体が規格を策定したPub/Sub型のデータ通信システムです。
@@ -299,7 +310,49 @@ Cyclone DDSやFast DDS以外にもIce Oryxといった共有メモリ転送に�
 <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 
 #### コンポーネント指向
+コンポーネント指向は[効率的なデータ転送](#_3)の項目で紹介したnodeletの仕組みをROS2向けに再設計したものです。
+ROS2（C++）ではnodeはrclcpp::Node型を継承したクラスとして実装されます。
+
+```cpp
+namespace pcl_apps
+{
+class CropBoxFilterComponent : public rclcpp::Node
+{
+public:
+   PCL_APPS_CROP_BOX_FILTER_PUBLIC
+   explicit CropBoxFilterComponent(const rclcpp::NodeOptions & options);
+}
+} // namespace pcl_spps
+```
+
+ソースコードの出典は[こちら](https://github.com/OUXT-Polaris/pcl_apps/blob/720d6cfc3562137a353f5d67f3e0f42b122025ed/pcl_apps/include/pcl_apps/filter/crop_box_filter/crop_box_filter_component.hpp#L60-L66)になります。
+
+`PCL_APPS_CROP_BOX_FILTER_PUBLIC`はWindows/Linuxといった等マルチプラットフォームに対応したcomponentを作るための書式です。
+詳細は[こちら](https://gcc.gnu.org/wiki/Visibility)を参照してください。
+
+rclcpp::NodeクラスはROS2 Node実装に必要な機能が全て実装されており、publisher/subscriberを作ったり
+
+```cpp
+   pub_ = create_publisher<sensor_msgs::msg::PointCloud2>("~/points_filtered", 1);
+   sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(
+      "~/points", 1, std::bind(&CropBoxFilterComponent::pointsCallback, this, std::placeholders::_1));
+```
+ソースコードの出典は[こちら](https://github.com/OUXT-Polaris/pcl_apps/blob/720d6cfc3562137a353f5d67f3e0f42b122025ed/pcl_apps/src/filter/crop_box_filter/crop_box_filter_component.cpp#L45-L47)になります。
+
+rosparamを定義、取得したりすることが可能です。
+
+```cpp
+   declare_parameter("max_x", 1.0);
+   get_parameter("max_x", max_x_);
+```
+ソースコードの出典は[こちら](https://github.com/OUXT-Polaris/pcl_apps/blob/720d6cfc3562137a353f5d67f3e0f42b122025ed/pcl_apps/src/filter/crop_box_filter/crop_box_filter_component.cpp#L29-L30)
+
+ROS1時代にnodelet managerと呼ばれたものは、component_containerと呼ばれてシングルスレッドなものやマルチスレッド処理に対応したものなど色々なものが実装されています。
+
 #### ros2 launchによるより柔軟な起動手段の提供
+
+# ROS1からROS2にポーティングしやすいROS1ノード実装方法
+**注意、こちらの項目は多分に片岡の私見を含んでおります。**
 
 # 参考文献
 [1]:原 祥尭+, "ロボティクスミドルウェア ROS, ROS2, Ignition, Isaac の機能比較と通信評価", ROBOSYM 2020.  
