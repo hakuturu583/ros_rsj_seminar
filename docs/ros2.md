@@ -253,6 +253,25 @@ nodeletは通常TCP/IPパケット通信により実現されるROSのトピッ�
 ![](/images/nodelet.png)
 
 ### ROS1とROS2の違い
-#### DDS採用による
+#### DDSの採用
+DDSとは、OMGという団体が規格を策定したPub/Sub型のデータ通信システムです。
+ROSと同じようにデータのスキーマも定義することが可能です。
+DDSはUDPで通信を行い、ブロードキャストパケットを用いて自動的に通信相手を探索して接続することが可能です。
+それによってROS1時代に存在したros masterという単一障害点がなくなりました。
+(ros2daemonというros masterの類似プログラムは存在しますが、居ると通信接続が早くなるだけで時間をかければros2daemonが無くても通信相手の探索は可能です。)
+
+![](https://www.openrtm.org/openrtm/sites/default/files/6582/dds1.png)
+![](https://www.openrtm.org/openrtm/sites/default/files/6582/dds2.png)
+
+図表出典：https://www.openrtm.org/openrtm/ja/doc/developersguide/advanced_rt_system_programming/dds_comm_use
+
+DDSは規格であるため、DDSにはFast DDS / Cyclone DDSといった様々な実装が存在します。
+
+<blockquote class="embedly-card"><h4><a href="https://github.com/eclipse-cyclonedds/cyclonedds">GitHub - eclipse-cyclonedds/cyclonedds: Eclipse Cyclone DDS project</a></h4><p>Eclipse Cyclone DDS is a very performant and robust open-source implementation of the OMG DDS specification. Cyclone DDS is developed completely in the open as an Eclipse IoT project (see eclipse-cyclone-dds) with a growing list of adopters (if you're one of them, please add your logo).</p></blockquote>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+<blockquote class="embedly-card"><h4><a href="https://github.com/eProsima/Fast-DDS">GitHub - eProsima/Fast-DDS: The most complete DDS - Proven: Plenty of success cases.</a></h4><p>eprosima Fast DDS (formerly Fast RTPS) is a C++ implementation of the DDS (Data Distribution Service) standard of the OMG (Object Management Group). eProsima Fast DDS implements the RTPS (Real Time Publish Subscribe) protocol, which provides publisher-subscriber communications over unreliable transports such as UDP, as defined and maintained by the Object Management Group (OMG) consortium.</p></blockquote>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
 #### コンポーネント指向
 #### ros2 launchによるより柔軟な起動手段の提供
