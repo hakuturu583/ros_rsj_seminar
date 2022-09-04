@@ -273,5 +273,33 @@ DDSは規格であるため、DDSにはFast DDS / Cyclone DDSといった様々�
 <blockquote class="embedly-card"><h4><a href="https://github.com/eProsima/Fast-DDS">GitHub - eProsima/Fast-DDS: The most complete DDS - Proven: Plenty of success cases.</a></h4><p>eprosima Fast DDS (formerly Fast RTPS) is a C++ implementation of the DDS (Data Distribution Service) standard of the OMG (Object Management Group). eProsima Fast DDS implements the RTPS (Real Time Publish Subscribe) protocol, which provides publisher-subscriber communications over unreliable transports such as UDP, as defined and maintained by the Object Management Group (OMG) consortium.</p></blockquote>
 <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 
+ROS2では以下のようにDDSをインストールし、環境変数を設定することで簡単にDDSの実装を切り替えることが可能です。
+
+**Fast DDSを採用する場合**
+```bash
+sudo apt install ros-$ROS_DISTRO-rmw-fastrtps-cpp
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+```
+
+**Cyclone DDSを採用する場合**
+```bash
+sudo apt install ros-$ROS_DISTRO-rmw-cyclonedds-cpp
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+```
+
+ROBOSYM 2020にfuRoの原先生が出された各種ロボットミドルウェア性能評価に関する発表[1]によると、Cyclone DDSが最も性能が良さそうであることが示されています。
+
+<blockquote class="embedly-card"><h4><a href="https://twitter.com/ystk_hara/status/1206904096545886208?s=20">Yoshitaka HARA on Twitter: "ROS、ROS2、Ignition、Isaac のメッセージ通信の遅延と受信抜けを評価した結果です。赤字は問題箇所。ROS (TCP_NODELAY) と Ignition の性能が良い。プロットしたグラフなど、詳細は ROBOSYM2020 で発表します。ROS2 は概念。使用する DDS 実装によって、性能が大きく異なるようです。#rosjp pic.twitter.com/ir7TWUs6Wu / Twitter"</a></h4><p>ROS、ROS2、Ignition、Isaac のメッセージ通信の遅延と受信抜けを評価した結果です。赤字は問題箇所。ROS (TCP_NODELAY) と Ignition の性能が良い。プロットしたグラフなど、詳細は ROBOSYM2020 で発表します。ROS2 は概念。使用する DDS 実装によって、性能が大きく異なるようです。#rosjp pic.twitter.com/ir7TWUs6Wu</p></blockquote>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+このデータは少し古いバージョンのものになりますが、筆者も複数のDDSを使ったところCyclone DDSが最も安定していると考えています。
+Cyclone DDSやFast DDS以外にもIce Oryxといった共有メモリ転送による高速転送機能を持ったDDSが存在したりと、光る独自機能を持ったDDSも存在します。
+
+<blockquote class="embedly-card"><h4><a href="https://github.com/eclipse-iceoryx/iceoryx">GitHub - eclipse-iceoryx/iceoryx: Eclipse iceoryx™ - true zero-copy inter-process-communication</a></h4><p>Great that you've made it to this neat Eclipse project! Let's get you started by providing a quick background tour, introducing the project scope and all you need for installation and a first running example. So first off: What is iceoryx?</p></blockquote>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
 #### コンポーネント指向
 #### ros2 launchによるより柔軟な起動手段の提供
+
+# 参考文献
+[1]:原 祥尭+, "ロボティクスミドルウェア ROS, ROS2, Ignition, Isaac の機能比較と通信評価", ROBOSYM 2020.  
