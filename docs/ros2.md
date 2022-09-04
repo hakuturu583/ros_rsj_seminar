@@ -8,7 +8,11 @@ ROS2ではROS1時代に存在した様々な問題点が解決されています
 - ROS1とROS2の違いはなにか
 - ROS1からROS2に移植しやすいノードの記述方法は何か
 - ROS2アプリケーションのパフォーマンスを出すにはどうすれば良いか
-といったROS1とROS2の過渡期である今だからこそ必要なノウハウ
+といったROS1とROS2の過渡期である今だからこそ必要なノウハウをまとめていきたいと思います。
+ROS1は現在2025年5月を最後にサポートの終了が予定されています。
+
+<blockquote class="embedly-card"><h4><a href="http://wiki.ros.org/Distributions">Wiki</a></h4><p>A ROS distribution is a versioned set of ROS packages. These are akin to Linux distributions (e.g. Ubuntu). The purpose of the ROS distributions is to let developers work against a relatively stable codebase until they are ready to roll everything forward.</p></blockquote>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 
 ### ROS2が作られた理由
 #### ライセンス問題
@@ -534,6 +538,16 @@ NmeaToGeoPose::NmeaToGeoPose(ros::NodeHandle nh,ros::NodeHandle pnh)
 }
 ```
 publisher/subscriberを作成しておくとさらにポーティングが容易になります。
+上記のコードは[こちら](https://github.com/OUXT-Polaris/nmea_to_geopose/blob/2564e99b65418ab9ba216b5664601e51ca53e6ec/src/nmea_to_geopose.cpp#L3-L10)
+にサンプルがあります。
+
+### メッセージのパッケージは独立させておく
+
+ROS1ではロボットのアプリケーションロジックを含むパッケージに.msgファイルを置いておいても全く問題なかったのですが、
+ROS2においてはメッセージパッケージを分けないとビルドができなくなるケースがあります。
+そのため、ROS1でもメッセージのパッケージを分離しておくとROS2に移住する際に楽かと思います。
+
+### Executorが使える言語で実装しておく
 
 ## パフォーマンスを上げるには
 
