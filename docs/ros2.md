@@ -311,9 +311,6 @@ Cyclone DDSやFast DDS以外にもIce Oryxといった共有メモリ転送に�
 
 #### NodeとExecutor
 Executorは[効率的なデータ転送](#_3)の項目で紹介した
-
-#### コンポーネント指向
-コンポーネント指向は[効率的なデータ転送](#_3)の項目で紹介したnodeletの仕組みをROS2向けに再設計したものです。
 ROS2（C++）ではnodeはrclcpp::Node型を継承したクラスとして実装されます。
 
 ```cpp
@@ -350,6 +347,60 @@ rosparamを定義、取得したりすることが可能です。
 ```
 ソースコードの出典は[こちら](https://github.com/OUXT-Polaris/pcl_apps/blob/720d6cfc3562137a353f5d67f3e0f42b122025ed/pcl_apps/src/filter/crop_box_filter/crop_box_filter_component.cpp#L29-L30)
 
+このrclcpp::Node型を継承して作られた自作ノードを複数読み込み、複数のノードを1つのプロセスで実現するためのクラスをExecutorと呼びます。
+
+![](https://docs.ros.org/en/foxy/_images/executors_basic_principle.png)
+
+詳細なドキュメントは[こちらのドキュメント](https://docs.ros.org/en/foxy/Concepts/About-Executors.html#)で確認できます。
+Subscriberを生成する時等に登録された関数はコールバック関数としてExecutorに登録され、
+「新しいデータが届いた」等のイベントをキャッチしてそれに対応するコールバック関数を呼び出すことで複数のノードを1つのプロセス上で動作させることを実現しています。
+こうすることによって複数のノードで同じメモリ領域を共有できるようになり、同じExecutor上で動作しているノード間でトピックをやり取りする際には
+メモリでデータをやり取りするため非常に高速で通信が可能です。
+どの程度早くなるかというと、こちらの記事の計測結果を参考にすると
+
+<blockquote class="embedly-card"><h4><a href="https://qiita.com/Ke_N_551/items/d8637ddc806f94260ba8">ROS2で同一デバイス内画像通信の遅延について知りたくて色々試した話 - Qiita</a></h4><p>単一デバイス（Ultra96）内でROS2通信を利用して画像を送受信した場合、 画像のサイズ、圧縮するか否か、使用するDDS、などを変えて画像の送受信にかかる時間を測定・評価しました。 どちらかというと通信遅延そのものについての評価というより、画像を送信する際にかかる時間の評価です。ですので、圧縮画像送信の際には画像の圧縮にかかる時間も遅延時間に含んでいたりします。 ...</p></blockquote>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+非圧縮の画像データ(sensor_msgs/Image型)のデータを746msで送信することが実現できており、圧縮する時間よりも同じExecutorに載せて通信してしまうのが早いということが伺えます。
+
+自作のROS2 NodeをExecutorに乗せる際には以下のようなコードを記述すれば可能です。
+
+```c++
+int main(int argc, char * argv[])
+{
+   rclcpp::init(argc, argv);
+   rclcpp::executors::MultiThreadedExecutor exec;
+   rclcpp::NodeOptions options;
+   auto hermite_path_planner =
+      std::make_shared<hermite_path_planner::HermitePathPlannerComponent>(options);
+   auto pure_pursuit_planner =
+      std::make_shared<pure_pursuit_planner::PurePursuitPlannerComponent>(options);
+   auto curve_planner = std::make_shared<velocity_planner::CurvePlannerComponent>(options);
+   auto obstacle_planner = std::make_shared<velocity_planner::ObstaclePlannerComponent>(options);
+   auto velocity_planner = std::make_shared<velocity_planner::VelocityPlannerComponent>(options);
+   auto stop_planner = std::make_shared<velocity_planner::StopPlannerComponent>(options);
+   auto planner_concatenator =
+      std::make_shared<velocity_planner::PlannerConcatenatorComponent>(options);
+   auto local_waypoint_server =
+      std::make_shared<local_waypoint_server::LocalWaypointServerComponent>(options);
+   exec.add_node(hermite_path_planner);
+   exec.add_node(pure_pursuit_planner);
+   exec.add_node(curve_planner);
+   exec.add_node(obstacle_planner);
+   exec.add_node(velocity_planner);
+   exec.add_node(stop_planner);
+   exec.add_node(planner_concatenator);
+   exec.add_node(local_waypoint_server);
+   exec.spin();
+   rclcpp::shutdown();
+   return 0;
+}
+```
+
+上記のコードの出典は[こちら](https://github.com/OUXT-Polaris/hermite_path_planner/blob/d5fc4d06a54bc4b2fe282a9c1cc38b49c71bb76e/hermite_path_planner_bringup/src/hermite_path_planner_bringup.cpp#L32-L57)になります。
+
+#### コンポーネント指向
+コンポーネント指向は[効率的なデータ転送](#_3)の項目で紹介したnodeletの仕組みをROS2向けに再設計したものです。
 ROS1時代にnodelet managerと呼ばれたものは、component_containerと呼ばれてシングルスレッドなものやマルチスレッド処理に対応したものなど色々なものが実装されています。
 
 #### ros2 launchによるより柔軟な起動手段の提供
