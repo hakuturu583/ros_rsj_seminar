@@ -420,11 +420,11 @@ rclcpp::spin(component);
 つまり、rclcppを使った場合全てのノードはExecutorの上で動いています。
 
 #### コンポーネント指向
-[前の章](http://localhost:8000/ros2/#nodeexecutor)で紹介した通り、Executorは複数のノードを１つのプロセスで起動することができますが、
-[前の章](http://localhost:8000/ros2/#nodeexecutor)の書き方ではコンパイル時に全てのノード構成を決めておかなければなりません。
+[前の章](https://hakuturu583.github.io/ros_rsj_seminar/ros2/#nodeexecutor)で紹介した通り、Executorは複数のノードを１つのプロセスで起動することができますが、
+[前の章](https://hakuturu583.github.io/ros_rsj_seminar/ros2/#nodeexecutor)の書き方ではコンパイル時に全てのノード構成を決めておかなければなりません。
 つまり、バイナリ配布したパッケージのノード構成を実行時に切り替えたりすることができません。
 動的にExecutorにコンポーネントを読み込ませるのを可能にする修法がコンポーネント指向です。
-コンポーネント指向のノードを記述するには[前の章](http://localhost:8000/ros2/#nodeexecutor)で記述したとおりにrclcpp::Node型を継承してのノードのクラスを実装した後、
+コンポーネント指向のノードを記述するには[前の章](https://hakuturu583.github.io/ros_rsj_seminar/ros2/#nodeexecutor)で記述したとおりにrclcpp::Node型を継承してのノードのクラスを実装した後、
 
 ```cpp
 #include <rclcpp_components/register_node_macro.hpp>
@@ -442,6 +442,8 @@ CMakeLists.txtに上記の変更を加えament_cmakeのシステムにC++のマ�
 
 サンプルコードは[こちら](https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/src/scan_segmentation_component.cpp#L349)と
 [こちら](https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/CMakeLists.txt#L44-L45)に有ります。
+
+出来上がったコンポーネントは後述する[ros2 launch](https://hakuturu583.github.io/ros_rsj_seminar/ros2/#ros2-launch)を使用して読み込むことができます。
 
 #### ros2 launchによるより柔軟な起動手段の提供
 
