@@ -1018,8 +1018,66 @@ Subscriberを生成する時等に登録された関数はコールバック関�
 <p>CMakeLists.txtに上記の変更を加えament_cmakeのシステムにC++のマクロで登録したクラスがどの共有ライブラリに入っているかという情報を記録します。</p>
 <p>サンプルコードは<a href="https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/src/scan_segmentation_component.cpp#L349">こちら</a>と
 <a href="https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/CMakeLists.txt#L44-L45">こちら</a>に有ります。</p>
-<p>出来上がったコンポーネントは後述する<a href="https://hakuturu583.github.io/ros_rsj_seminar/ros2/#ros2-launch">ros2 launch</a>を使用して読み込むことができます。</p>
+<p>出来上がったコンポーネントは後述する<a href="https://hakuturu583.github.io/ros_rsj_seminar/ros2/#ros2-launch">ros2 launch</a>を使用して動的に立ち上げることができます。</p>
 <h4 id="ros2-launch">ros2 launchによるより柔軟な起動手段の提供<a class="headerlink" href="#ros2-launch" title="Permanent link">#</a></h4>
+<p>ROS2ではlaunchファイルがPythonになるという言説が有りますが、筆者はこれは誤りであると考えます。
+ROS2のPython形式のlaunchファイルはあくまでROS1時代にあったroslaunch APIの後継であり
+xml形式やyaml形式のlaunchファイルがROS1時代のxml形式のlaunchファイルの後継であると考えます。</p>
+<p>python形式でlaunchファイルが記述できるようになったことでros2 launchは
+- 10秒後にあるノードを落とす
+- あるノードを立ち上げて準備ができてから次のノードを立ち上げる
+といった複雑な起動シーケンスもlaunchファイルで記述できるようになりました。</p>
+<p>様々なケースがあるので、詳細は省きますが、最も一般的なros2 componentを読み込むlaunchファイルのサンプルを示しておきます。</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_launch_description</span><span class="p">():</span>
+      <span class="n">container</span> <span class="o">=</span> <span class="n">ComposableNodeContainer</span><span class="p">(</span>
+         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;preception_bringup_container&#39;</span><span class="p">,</span>
+         <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;perception&#39;</span><span class="p">,</span>
+         <span class="n">package</span><span class="o">=</span><span class="s1">&#39;rclcpp_components&#39;</span><span class="p">,</span>
+         <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;component_container_mt&#39;</span><span class="p">,</span>
+         <span class="n">composable_node_descriptions</span><span class="o">=</span><span class="p">[</span>
+            <span class="c1"># getImageDecompressorComponent(&#39;front_camera&#39;),</span>
+            <span class="c1"># getImageRectifyComponent(&#39;front_camera&#39;),</span>
+            <span class="n">getScanSgementationComponent</span><span class="p">(),</span>
+            <span class="n">getCropHullFilterComponent</span><span class="p">(),</span>
+            <span class="n">getPointCloudToLaserScanComponent</span><span class="p">(),</span>
+            <span class="n">getRadiusOutlierRemovalComponent</span><span class="p">(</span><span class="s1">&#39;front_lidar&#39;</span><span class="p">),</span>
+            <span class="n">getRadiusOutlierRemovalComponent</span><span class="p">(</span><span class="s1">&#39;rear_lidar&#39;</span><span class="p">),</span>
+            <span class="n">getRadiusOutlierRemovalComponent</span><span class="p">(</span><span class="s1">&#39;right_lidar&#39;</span><span class="p">),</span>
+            <span class="n">getRadiusOutlierRemovalComponent</span><span class="p">(</span><span class="s1">&#39;left_lidar&#39;</span><span class="p">),</span>
+            <span class="n">getPointsTransformComponent</span><span class="p">(</span><span class="s1">&#39;front_lidar&#39;</span><span class="p">),</span>
+            <span class="n">getPointsTransformComponent</span><span class="p">(</span><span class="s1">&#39;rear_lidar&#39;</span><span class="p">),</span>
+            <span class="n">getPointsTransformComponent</span><span class="p">(</span><span class="s1">&#39;right_lidar&#39;</span><span class="p">),</span>
+            <span class="n">getPointsTransformComponent</span><span class="p">(</span><span class="s1">&#39;left_lidar&#39;</span><span class="p">),</span>
+            <span class="n">getPointsConcatenateComponent</span><span class="p">(),</span>
+            <span class="n">getCostmapCalculatorComponent</span><span class="p">(),</span>
+            <span class="n">getCostmapfilterComponent</span><span class="p">(),</span>
+            <span class="n">getCostmapinterpolationComponent</span><span class="p">()</span>                
+         <span class="p">],</span>
+         <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span>
+      <span class="p">)</span>
+      <span class="k">return</span> <span class="n">launch</span><span class="o">.</span><span class="n">LaunchDescription</span><span class="p">([</span>
+         <span class="n">container</span>
+      <span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">getPointsTransformComponent</span><span class="p">(</span><span class="n">lidar_name</span><span class="p">):</span>
+   <span class="n">config_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+      <span class="n">ament_index_python</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">get_package_share_directory</span><span class="p">(</span><span class="s1">&#39;perception_bringup&#39;</span><span class="p">),</span>
+      <span class="s1">&#39;config&#39;</span><span class="p">)</span>
+   <span class="n">param_config</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config_directory</span><span class="p">,</span> <span class="n">lidar_name</span><span class="o">+</span><span class="s1">&#39;_points_transform.yaml&#39;</span><span class="p">)</span>
+   <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">param_config</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+      <span class="n">params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="n">lidar_name</span> <span class="o">+</span> <span class="s1">&#39;_points_transform_node&#39;</span><span class="p">][</span><span class="s1">&#39;ros__parameters&#39;</span><span class="p">]</span>
+   <span class="n">component</span> <span class="o">=</span> <span class="n">ComposableNode</span><span class="p">(</span>
+      <span class="n">package</span><span class="o">=</span><span class="s1">&#39;pcl_apps&#39;</span><span class="p">,</span>
+      <span class="n">plugin</span><span class="o">=</span><span class="s1">&#39;pcl_apps::PointsTransformComponent&#39;</span><span class="p">,</span>
+      <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;/perception/&#39;</span><span class="o">+</span><span class="n">lidar_name</span><span class="p">,</span>
+      <span class="n">name</span><span class="o">=</span><span class="s1">&#39;points_transform_node&#39;</span><span class="p">,</span>
+      <span class="n">remappings</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="n">lidar_name</span><span class="o">+</span><span class="s1">&#39;/points_raw&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="s1">&#39;points_raw/transformed&#39;</span><span class="p">)],</span>
+      <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="n">params</span><span class="p">])</span>
+   <span class="k">return</span> <span class="n">component</span>
+</code></pre></div>
+<p>こちらのサンプルコードの出典は<a href="https://github.com/OUXT-Polaris/perception_bringup/blob/master/launch/perception_bringup.launch.py">こちら</a>になります
+上記のようなコードを記述することで、自作のComponentを読み込ませてROS2 Applicationを立ち上げることが可能になります。</p>
 <h2 id="ros1">ポーティングしやすいROS1ノード実装方法<a class="headerlink" href="#ros1" title="Permanent link">#</a></h2>
 <p><span style="color: red"><strong>注意、こちらの項目は多分に片岡の私見を含んでおります。</strong></span></p>
 <p>この項目は極めて個人のノウハウ的な部分が強く、ロボット学会の資料として残すべきかは非常に悩んだのですが、このように書いておくと筆者としては楽でした。
