@@ -365,7 +365,7 @@ Subscriberを生成する時等に登録された関数はコールバック関�
 
 自作のROS2 NodeをExecutorに乗せる際には以下のようなコードを記述すれば可能です。
 
-```c++
+```cpp
 int main(int argc, char * argv[])
 {
    rclcpp::init(argc, argv);
@@ -399,9 +399,49 @@ int main(int argc, char * argv[])
 
 上記のコードの出典は[こちら](https://github.com/OUXT-Polaris/hermite_path_planner/blob/d5fc4d06a54bc4b2fe282a9c1cc38b49c71bb76e/hermite_path_planner_bringup/src/hermite_path_planner_bringup.cpp#L32-L57)になります。
 
+ちなみに、明示的にExecutorを使用しないこのような記載方法もありますが、
+
+```cpp
+int main(int argc, char * argv[])
+{
+   rclcpp::init(argc, argv);
+   rclcpp::NodeOptions options;
+   auto component = std::make_shared<pcl_apps::CropBoxFilterComponent>(options);
+   rclcpp::spin(component);
+   rclcpp::shutdown();
+   return 0;
+}
+```
+
+```cpp
+rclcpp::spin(component);
+```
+[関数の実装を追いかける](https://github.com/ros2/rclcpp/blob/33dae5d679751b603205008fcb31755986bcee1c/rclcpp/src/rclcpp/executors.cpp#L30-L37)とひとつだけNodeを読み込んだExecutorをインスタンス化し、spinを回していることがわかります。
+つまり、rclcppを使った場合全てのノードはExecutorの上で動いています。
+
 #### コンポーネント指向
-コンポーネント指向は[効率的なデータ転送](#_3)の項目で紹介したnodeletの仕組みをROS2向けに再設計したものです。
-ROS1時代にnodelet managerと呼ばれたものは、component_containerと呼ばれてシングルスレッドなものやマルチスレッド処理に対応したものなど色々なものが実装されています。
+[前の章](http://localhost:8000/ros2/#nodeexecutor)で紹介した通り、Executorは複数のノードを１つのプロセスで起動することができますが、
+[前の章](http://localhost:8000/ros2/#nodeexecutor)の書き方ではコンパイル時に全てのノード構成を決めておかなければなりません。
+つまり、バイナリ配布したパッケージのノード構成を実行時に切り替えたりすることができません。
+動的にExecutorにコンポーネントを読み込ませるのを可能にする修法がコンポーネント指向です。
+コンポーネント指向のノードを記述するには[前の章](http://localhost:8000/ros2/#nodeexecutor)で記述したとおりにrclcpp::Node型を継承してのノードのクラスを実装した後、
+
+```cpp
+#include <rclcpp_components/register_node_macro.hpp>
+RCLCPP_COMPONENTS_REGISTER_NODE(scan_segmentation::ScanSegmentationComponent)
+```
+
+のマクロを使用して「このクラスはコンポーネントである」という情報をマクロで記録し、
+
+```cmake
+rclcpp_components_register_nodes(scan_segmentation_component
+  "scan_segmentation::ScanSegmentationComponent")
+```
+
+CMakeLists.txtに上記の変更を加えament_cmakeのシステムにC++のマクロで登録したクラスがどの共有ライブラリに入っているかという情報を記録します。
+
+サンプルコードは[こちら](https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/src/scan_segmentation_component.cpp#L349)と
+[こちら](https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/CMakeLists.txt#L44-L45)に有ります。
 
 #### ros2 launchによるより柔軟な起動手段の提供
 
