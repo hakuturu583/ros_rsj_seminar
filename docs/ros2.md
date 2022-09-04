@@ -309,6 +309,9 @@ Cyclone DDSやFast DDS以外にもIce Oryxといった共有メモリ転送に�
 <blockquote class="embedly-card"><h4><a href="https://github.com/eclipse-iceoryx/iceoryx">GitHub - eclipse-iceoryx/iceoryx: Eclipse iceoryx™ - true zero-copy inter-process-communication</a></h4><p>Great that you've made it to this neat Eclipse project! Let's get you started by providing a quick background tour, introducing the project scope and all you need for installation and a first running example. So first off: What is iceoryx?</p></blockquote>
 <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 
+#### NodeとExecutor
+Executorは[効率的なデータ転送](#_3)の項目で紹介した
+
 #### コンポーネント指向
 コンポーネント指向は[効率的なデータ転送](#_3)の項目で紹介したnodeletの仕組みをROS2向けに再設計したものです。
 ROS2（C++）ではnodeはrclcpp::Node型を継承したクラスとして実装されます。
@@ -351,8 +354,18 @@ ROS1時代にnodelet managerと呼ばれたものは、component_containerと呼
 
 #### ros2 launchによるより柔軟な起動手段の提供
 
-# ROS1からROS2にポーティングしやすいROS1ノード実装方法
-**注意、こちらの項目は多分に片岡の私見を含んでおります。**
+## ポーティングしやすいROS1ノード実装方法
+<span style="color: red">**注意、こちらの項目は多分に片岡の私見を含んでおります。**</span>
+
+この項目は極めて個人のノウハウ的な部分が強く、ロボット学会の資料として残すべきかは非常に悩んだのですが、このように書いておくと筆者としては楽でした。
+ということで価値はあるかなと思い記載しておきます。
+
+## パフォーマンスを上げるには
+
+ロボットはいわゆるリアルタイムシステムであり、事前に設計した時間までに処理を終わらせていかなければなりません。
+そのためにはパフォーマンスを出せるように意識しながらシステム全体を設計していくことが必要です。
+### どのExecutorの上でどのノードが動いているかを意識する
+
 
 # 参考文献
 [1]:原 祥尭+, "ロボティクスミドルウェア ROS, ROS2, Ignition, Isaac の機能比較と通信評価", ROBOSYM 2020.  
