@@ -987,9 +987,37 @@ Subscriberを生成する時等に登録された関数はコールバック関�
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>上記のコードの出典は<a href="https://github.com/OUXT-Polaris/hermite_path_planner/blob/d5fc4d06a54bc4b2fe282a9c1cc38b49c71bb76e/hermite_path_planner_bringup/src/hermite_path_planner_bringup.cpp#L32-L57">こちら</a>になります。</p>
+<p>ちなみに、明示的にExecutorを使用しないこのような記載方法もありますが、</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">NodeOptions</span><span class="w"> </span><span class="n">options</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="k">auto</span><span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">pcl_apps</span><span class="o">::</span><span class="n">CropBoxFilterComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">options</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">spin</span><span class="p">(</span><span class="n">component</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span><span class="w"></span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code><span class="n">rclcpp</span><span class="o">::</span><span class="n">spin</span><span class="p">(</span><span class="n">component</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<a href="https://github.com/ros2/rclcpp/blob/33dae5d679751b603205008fcb31755986bcee1c/rclcpp/src/rclcpp/executors.cpp#L30-L37">関数の実装を追いかける</a>とひとつだけNodeを読み込んだExecutorをインスタンス化し、spinを回していることがわかります。
+つまり、rclcppを使った場合全てのノードはExecutorの上で動いています。</p>
 <h4 id="_4">コンポーネント指向<a class="headerlink" href="#_4" title="Permanent link">#</a></h4>
-<p>コンポーネント指向は<a href="#_3">効率的なデータ転送</a>の項目で紹介したnodeletの仕組みをROS2向けに再設計したものです。
-ROS1時代にnodelet managerと呼ばれたものは、component_containerと呼ばれてシングルスレッドなものやマルチスレッド処理に対応したものなど色々なものが実装されています。</p>
+<p><a href="http://localhost:8000/ros2/#nodeexecutor">前の章</a>で紹介した通り、Executorは複数のノードを１つのプロセスで起動することができますが、
+<a href="http://localhost:8000/ros2/#nodeexecutor">前の章</a>の書き方ではコンパイル時に全てのノード構成を決めておかなければなりません。
+つまり、バイナリ配布したパッケージのノード構成を実行時に切り替えたりすることができません。
+動的にExecutorにコンポーネントを読み込ませるのを可能にする修法がコンポーネント指向です。
+コンポーネント指向のノードを記述するには<a href="http://localhost:8000/ros2/#nodeexecutor">前の章</a>で記述したとおりにrclcpp::Node型を継承してのノードのクラスを実装した後、</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rclcpp_components/register_node_macro.hpp&gt;</span><span class="cp"></span>
+<span class="n">RCLCPP_COMPONENTS_REGISTER_NODE</span><span class="p">(</span><span class="n">scan_segmentation</span><span class="o">::</span><span class="n">ScanSegmentationComponent</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>のマクロを使用して「このクラスはコンポーネントである」という情報をマクロで記録し、</p>
+<div class="highlight"><pre><span></span><code><span class="nb">rclcpp_components_register_nodes</span><span class="p">(</span><span class="s">scan_segmentation_component</span>
+<span class="w">  </span><span class="s2">&quot;scan_segmentation::ScanSegmentationComponent&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>CMakeLists.txtに上記の変更を加えament_cmakeのシステムにC++のマクロで登録したクラスがどの共有ライブラリに入っているかという情報を記録します。</p>
+<p>サンプルコードは<a href="https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/src/scan_segmentation_component.cpp#L349">こちら</a>と
+<a href="https://github.com/OUXT-Polaris/scan_segmentation/blob/1327a54ab14cc6f5bd8b5aea462714062134c458/CMakeLists.txt#L44-L45">こちら</a>に有ります。</p>
 <h4 id="ros2-launch">ros2 launchによるより柔軟な起動手段の提供<a class="headerlink" href="#ros2-launch" title="Permanent link">#</a></h4>
 <h2 id="ros1">ポーティングしやすいROS1ノード実装方法<a class="headerlink" href="#ros1" title="Permanent link">#</a></h2>
 <p><span style="color: red"><strong>注意、こちらの項目は多分に片岡の私見を含んでおります。</strong></span></p>
