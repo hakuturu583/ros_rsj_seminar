@@ -15,9 +15,9 @@ jobs:
       image: ros:melodic
     steps:
       - name: apt udpate
-        run: apt udpate
+        run: apt-get udpate
       - name: install git
-        run: apt install -y git
+        run: apt-get install -y git
       - name: make workspace
         run: mkdir -p catkin_ws/src
       - name: clone packages
