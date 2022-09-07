@@ -23,6 +23,6 @@ jobs:
       - name: clone packages
         run: cd catkin_ws/src && git clone https://github.com/paulbovbel/frontier_exploration.git
       - name: rosdep
-        run: cd catkin_ws/src && rosdep -iry --from-paths .
+        run: cd catkin_ws/src && rosdep install -iry --from-paths .
       - name: catkin_make
         run: cd catkin_ws && catkin_make

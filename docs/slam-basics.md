@@ -131,7 +131,7 @@ $ mkdir -p catkin_ws/src
 $ cd catkin_ws/src
 $ sudo apt install git
 $ git clone https://github.com/paulbovbel/frontier_exploration.git
-$ rosdep -iry --from-paths .
+$ rosdep install -iry --from-paths .
 $ cd ../
 $ catkin_make
 ```
