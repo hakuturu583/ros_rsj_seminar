@@ -499,6 +499,7 @@
 <h1 id="ros">ROSを用いたマップ取得<a class="headerlink" href="#ros" title="Permanent link">#</a></h1>
 <p><strong>SLAM（Simultaneous Localization and Mapping）</strong>は任意の空間の現在位置を推定して地図を描く手法です。 SLAMはTurtleBot3の前身からよく知られている機能です。</p>
 <h2 id="turtlebot3">TurtleBot3を起動<a class="headerlink" href="#turtlebot3" title="Permanent link">#</a></h2>
+<p><span style="color: red; ">roscore、sshはリモートPCで実行をお願いします。</span></p>
 <p><code>roscore</code>を実行します。</p>
 <div class="highlight"><pre><span></span><code>$ roscore
 </code></pre></div>
@@ -518,7 +519,7 @@
 <span class="o">========</span>
 
 PARAMETERS
- * /rosdistro: melodic
+ * /rosdistro: noetic
  * /rosversion: <span class="m">1</span>.12.13
  * /turtlebot3_core/baud: <span class="m">115200</span>
  * /turtlebot3_core/port: /dev/ttyACM0
@@ -566,6 +567,7 @@ process<span class="o">[</span>turtlebot3_diagnostics-3<span class="o">]</span>:
 <span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306698</span>.953226<span class="o">]</span>: Calibration End
 </code></pre></div>
 <h2 id="slam">SLAMノードの実行<a class="headerlink" href="#slam" title="Permanent link">#</a></h2>
+<p><span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します。</span></p>
 <p>新しいターミナルを開き、SLAMファイルを起動します。</p>
 <div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
 </code></pre></div>
@@ -596,10 +598,15 @@ Gmappingに関連するパッケージは、<a href="https://kogakuin-mobility-s
 - <code>Karto</code>の場合:
 <div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-melodic-slam-karto
 </code></pre></div>
-- <code>Frontier Exploration</code>の場合 (<strong><code>kinetic</code>のみ</strong>): <br>
-  Frontier Explorationはgmappingを使用しており、次のパッケージをインストールする必要があります。 \
-  (melodicではパッケージが配布されていません。)
-<div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-kinetic-frontier-exploration ros-kinetic-navigation-stage
+- <code>Frontier Exploration</code>の場合  <br>
+こちらのパッケージはmelodicにおいてはソースコードからのビルドが必要です。
+<div class="highlight"><pre><span></span><code>$ mkdir -p catkin_ws/src
+$ <span class="nb">cd</span> catkin_ws/src
+$ sudo apt install git
+$ git clone https://github.com/paulbovbel/frontier_exploration.git
+$ rosdep -iry --from-paths .
+$ <span class="nb">cd</span> ../
+$ catkin_make
 </code></pre></div></p>
 <blockquote>
 <p><strong>NOTE</strong>: 今回は<code>Gmapping</code>を使用します。</p>
