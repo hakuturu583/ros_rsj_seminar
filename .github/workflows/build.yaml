@@ -25,4 +25,5 @@ jobs:
       - name: rosdep
         run: cd catkin_ws/src && rosdep update && rosdep install -iry --from-paths .
       - name: catkin_make
-        run: cd catkin_ws && catkin_make
+        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make
+        shell: bash
