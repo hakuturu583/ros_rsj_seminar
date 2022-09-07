@@ -4,6 +4,8 @@
 
 ## TurtleBot3を起動
 
+<span style="color: red; ">roscore、sshはリモートPCで実行をお願いします。</span>
+
 `roscore`を実行します。
 
 ```shell
@@ -33,7 +35,7 @@ SUMMARY
 ========
 
 PARAMETERS
- * /rosdistro: melodic
+ * /rosdistro: noetic
  * /rosversion: 1.12.13
  * /turtlebot3_core/baud: 115200
  * /turtlebot3_core/port: /dev/ttyACM0
@@ -83,6 +85,8 @@ process[turtlebot3_diagnostics-3]: started with pid [14200]
 
 ## SLAMノードの実行
 
+<span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します。</span>
+
 新しいターミナルを開き、SLAMファイルを起動します。
 
 ```shell
@@ -120,11 +124,16 @@ $ sudo apt-get install ros-melodic-hector-mapping
 ```shell
 $ sudo apt-get install ros-melodic-slam-karto
 ```
-- `Frontier Exploration`の場合 (**`kinetic`のみ**): <br>
-  Frontier Explorationはgmappingを使用しており、次のパッケージをインストールする必要があります。 \
-  (melodicではパッケージが配布されていません。)
+- `Frontier Exploration`の場合  <br>
+こちらのパッケージはmelodicにおいてはソースコードからのビルドが必要です。
 ```shell
-$ sudo apt-get install ros-kinetic-frontier-exploration ros-kinetic-navigation-stage
+$ mkdir -p catkin_ws/src
+$ cd catkin_ws/src
+$ sudo apt install git
+$ git clone https://github.com/paulbovbel/frontier_exploration.git
+$ rosdep -iry --from-paths .
+$ cd ../
+$ catkin_make
 ```
 
 > **NOTE**: 今回は`Gmapping`を使用します。

@@ -1,0 +1,28 @@
+name: Build
+on:
+  repository_dispatch:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+  pull_request:
+  push:
+    branches:
+      - master
+jobs:
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: ros:melodic
+    steps:
+      - name: apt udpate
+        run: apt udpate
+      - name: install git
+        run: apt install -y git
+      - name: make workspace
+        run: mkdir -p catkin_ws/src
+      - name: clone packages
+        run: cd catkin_ws/src && git clone https://github.com/paulbovbel/frontier_exploration.git
+      - name: rosdep
+        run: cd catkin_ws/src && rosdep -iry --from-paths .
+      - name: catkin_make
+        run: cd catkin_ws && catkin_make
