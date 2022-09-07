@@ -14,8 +14,8 @@ jobs:
     container:
       image: ros:melodic
     steps:
-      - name: apt udpate
-        run: apt-get udpate
+      - name: apt update
+        run: apt-get update
       - name: install git
         run: apt-get install -y git
       - name: make workspace
