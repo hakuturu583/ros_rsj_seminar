@@ -544,7 +544,7 @@
 <h2 id="_4">チューニングガイド<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>ナビゲーションスタックには、さまざまなロボットのパフォーマンスを変更するための多くのパラメーターがあります。 これに関する情報は、<a href="http://wiki.ros.org/navigation">ROS Wiki</a>で入手するか、<a href="https://community.robotsource.org/t/download-the-ros-robot-programming-book-for-free/51">ROS Robot Programming</a>の第11章を参照してください。</p>
 <p>このチューニングガイドでは、重要なパラメーターを設定するためのヒントをいくつか紹介します。 環境に応じてパフォーマンスを変更したい場合は、このヒントが役立つ可能性があり、チューニングの時間を節約できます。</p>
-<p>下記のパラメータのデフォルト値は<code>/opt/ros/melodic/share/turtlebot3_navigation/param/costmap_common_param_burger.yaml</code>のファイルに定義されています。下記のようなコマンドで設定することができます。</p>
+<p>下記のパラメータのデフォルト値は<code>$(rospack find turtlebot3_navigation)/param/costmap_common_param_burger.yaml</code>のファイルに定義されています。下記のようなコマンドで設定することができます。</p>
 <p><em><strong>inflation_radius</strong></em>
 - デフォルト値：1.0
 - このパラメーターは、障害物から膨張領域を作成します。このエリアを越えないようにパスが計画されます。これをロボットの半径よりも大きく設定しても安全です。詳細については、<a href="http://wiki.ros.org/costmap_2d#Inflation">page of costmap_2d wiki</a>をフォローしてください。</p>
@@ -595,13 +595,24 @@
 <p>ナビゲーションを起動します：
 <div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map_sim.yaml
 </code></pre></div></p>
-<p>パラメータを編集するために，２つの方法があります：
-1. <code>/opt/ros/melodic/share/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml</code>を直接変更</p>
+<p>パラメータを編集するために，２つの方法があります：</p>
+<ol>
+<li>
+<p><code>$(rospack find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml</code>を直接変更</p>
 <blockquote>
-<p>NOTE: <code>turtlebot3_navigation.launch</code>を起動する<strong>前</strong>に実施する必要があります．
-2. <code>rosrun rqt_reconfigure rqt_reconfigure</code>による変更
-NOTE: <code>turtlebot3_navigation.launch</code>を起動した<strong>後</strong>に実施する必要があります</p>
+<p>NOTE: <code>turtlebot3_navigation.launch</code>を起動する<strong>前</strong>に実施する必要があります．<br />
+また、yamlファイルの編集に際して<br />
+<a href="build_tb3_packages/#apt">apt経由でTurtlebot3関連パッケージをインストールした</a>場合、sudo権限が必要になる場合があります．<br />
+<a href="build_tb3_packages/#_1">ソースコードからビルドしている</a>場合、catkin_makeコマンドの再実行が必要です．</p>
 </blockquote>
+</li>
+<li>
+<p><code>rosrun rqt_reconfigure rqt_reconfigure</code>による変更　　</p>
+<blockquote>
+<p>NOTE: <code>turtlebot3_navigation.launch</code>を起動した<strong>後</strong>に実施する必要があります　　</p>
+</blockquote>
+</li>
+</ol>
 
 
 
