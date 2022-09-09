@@ -34,7 +34,7 @@ jobs:
         run: cd catkin_ws/src && rosdep update && rosdep install -iry --from-paths .
         shell: bash
       - name: catkin_make
-        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make -DCATKIN_ENABLE_TESTING=0
+        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make -DCATKIN_ENABLE_TESTING=0 -j1
         shell: bash
   build_turtlebot3_packages:
     name: build turtlebot3 packages
@@ -61,5 +61,5 @@ jobs:
         run: cd catkin_ws/src && rosdep update && rosdep install -iry --from-paths .
         shell: bash
       - name: catkin_make
-        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make -DCATKIN_ENABLE_TESTING=0
+        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make -DCATKIN_ENABLE_TESTING=0 -j1
         shell: bash
