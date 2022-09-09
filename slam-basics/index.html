@@ -616,12 +616,13 @@ process<span class="o">[</span>turtlebot3_diagnostics-3<span class="o">]</span>:
 <span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306698</span>.953226<span class="o">]</span>: Calibration End
 </code></pre></div>
 <h2 id="slam">SLAMノードの実行<a class="headerlink" href="#slam" title="Permanent link">#</a></h2>
-<p><span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します。</span></p>
+<p><span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します.</span>
+<span style="color: red; ">Turtlebot3関連のパッケージが未インストールの場合は、<a href="build_tb3_packages">こちら</a>を参考にインストールしてください</span></p>
 <p>新しいターミナルを開き、SLAMファイルを起動します。</p>
 <div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
 </code></pre></div>
 <blockquote>
-<p><strong>ヒント</strong>: 上記のコマンドを実行すると、視覚化ツールRVizも実行されます。 RVizを個別に実行する場合は、次のいずれかのコマンドを使用します。
+<p><strong>ヒント</strong>: 上記のコマンドを実行すると、視覚化ツールRVizも実行されます。 RVizを個別に実行する場合は、次のいずれかのコマンドを使用します.
 - <code>$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_gmapping.rviz</code>
 - <code>$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_cartographer.rviz</code>
 - <code>$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_hector.rviz</code>
@@ -630,7 +631,7 @@ process<span class="o">[</span>turtlebot3_diagnostics-3<span class="o">]</span>:
 </blockquote>
 <p><strong>注釈</strong>: さまざまなSLAMメソッドをサポートしています
 - TurtleBot3は、さまざまなSLAMメソッドの中で、Gmapping、Cartographer、Hector、およびKartoをサポートしています。 これを行うには、 <code>slam_methods：= xxxxx</code>オプションを変更します。
-- <code>slam_methods</code>オプションには<code>gmapping</code>、 <code>cartographer</code>、<code>hector</code>、 <code>karto</code>、<code>frontier_exploration</code>が含まれ、それらの1つを選択できます。
+- <code>slam_methods</code>オプションには<code>gmapping</code>、 <code>cartographer</code>、<code>hector</code>、 <code>karto</code>、<code>frontier_exploration</code>が含まれ、それらの1つを選択できます.
 - たとえば、kartoを使用するには、次のようにします:
 <div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>karto
 </code></pre></div></p>
