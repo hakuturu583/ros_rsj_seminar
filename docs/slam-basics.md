@@ -87,8 +87,6 @@ process[turtlebot3_diagnostics-3]: started with pid [14200]
 
 <span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します.</span>
 
-> **NOTE**: Turtlebot3関連のパッケージが未インストールの場合は、[こちら](../build_tb3_packages)を参考にインストールしてください.
-
 新しいターミナルを開き、SLAMファイルを起動します。
 
 ```shell
