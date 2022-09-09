@@ -13,7 +13,7 @@
     
     
       
-        <title>Build tb3 packages - ROS Seminar Website</title>
+        <title>Turtlebot3 関連パッケージのインストール方法 - ROS Seminar Website</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#turtlebot3" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -92,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Build tb3 packages
+              Turtlebot3 関連パッケージのインストール方法
             
           </span>
         </div>
@@ -316,6 +321,30 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apt" class="md-nav__link">
+    apt経由でインストールする
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    ソースコードからビルドする
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -334,9 +363,16 @@
   </a>
 
 
-  <h1>Build tb3 packages</h1>
-
-<div class="highlight"><pre><span></span><code>git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+<h1 id="turtlebot3">Turtlebot3 関連パッケージのインストール方法<a class="headerlink" href="#turtlebot3" title="Permanent link">#</a></h1>
+<h2 id="apt">apt経由でインストールする<a class="headerlink" href="#apt" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>sudo apt install ros-$ROS_DISTRO-turtlebot3*
+</code></pre></div>
+<h2 id="_1">ソースコードからビルドする<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/src
+catkin_init_workspace
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 </code></pre></div>
 
 
