@@ -396,6 +396,54 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          補足資料
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="補足資料" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          補足資料
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build_tb3_packages/" class="md-nav__link">
+        Turtlebot3パッケージの入手
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -637,7 +685,7 @@ $ catkin_make
 <p>Gmappingには、さまざまな環境のパフォーマンスを変更するための多くのパラメーターがあります。 パラメーター全体に関する情報は、<a href="http://wiki.ros.org/gmapping">ROS WiKi</a>で入手するか、<a href="https://community.robotsource.org/t/download-the-ros-robot-programming-book-for-free/51">ROS Robot Programming</a>の第11章を参照してください。</p>
 <p>このチューニングガイドでは、重要なパラメーターを設定するためのヒントをいくつか紹介します。 環境に応じてパフォーマンスを変更したい場合は、このヒントが役立つ可能性があり、時間を節約できます。</p>
 <blockquote>
-<p><strong>NOTE</strong>: 下記のパラメータのデフォルト値は<code>/opt/ros/melodic/share/turtlebot3_slam/config/gmapping_params.yaml</code>のファイルに定義されています。</p>
+<p><strong>NOTE</strong>: 下記のパラメータのデフォルト値は<code>$(rospack find turtlebot3_slam)/config/gmapping_params.yaml</code>のファイルに定義されています。</p>
 </blockquote>
 <ul>
 <li><em><strong>maxUrange</strong></em> </li>
@@ -708,9 +756,11 @@ op:-0.0306156 5.90277e-06 -3.14151
 > ``` -->
 
 <p>パラメータを編集するために：
-- <code>/opt/ros/melodic/share/turtlebot3_slam/config/gmapping_params.yaml</code>を直接変更</p>
+- <code>$(rospack find turtlebot3_slam)/config/gmapping_params.yaml</code>を直接変更</p>
 <blockquote>
-<p>NOTE: <code>turtlebot3_slam.launch</code>を起動する<strong>前</strong>に実施する必要があります．</p>
+<p>NOTE: <code>turtlebot3_slam.launch</code>を起動する<strong>前</strong>に実施する必要があります．
+また、<a href="build_tb3_packages/#apt">apt経由でTurtlebot3関連パッケージをインストールした</a>場合、sudo権限が必要になる場合があります。
+<a href="build_tb3_packages/#_1">ソースコードからビルドしている</a>場合、catkin_makeコマンドの再実行が必要です。</p>
 </blockquote>
 <!-- 2. `rosrun rqt_reconfigure rqt_reconfigure`による変更
 > NOTE: `turtlebot3_slam.launch`を起動した**後**に実施する必要があります -->
