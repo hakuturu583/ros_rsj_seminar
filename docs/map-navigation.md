@@ -93,7 +93,7 @@ $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 このチューニングガイドでは、重要なパラメーターを設定するためのヒントをいくつか紹介します。 環境に応じてパフォーマンスを変更したい場合は、このヒントが役立つ可能性があり、チューニングの時間を節約できます。
 
-下記のパラメータのデフォルト値は`/opt/ros/melodic/share/turtlebot3_navigation/param/costmap_common_param_burger.yaml`のファイルに定義されています。下記のようなコマンドで設定することができます。
+下記のパラメータのデフォルト値は`$(rospack find turtlebot3_navigation)/param/costmap_common_param_burger.yaml`のファイルに定義されています。下記のようなコマンドで設定することができます。
 
 _**inflation_radius**_
 - デフォルト値：1.0
@@ -165,7 +165,12 @@ $ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/m
 ```
 
 パラメータを編集するために，２つの方法があります：
-1. `/opt/ros/melodic/share/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml`を直接変更
-> NOTE: `turtlebot3_navigation.launch`を起動する**前**に実施する必要があります．
-2. `rosrun rqt_reconfigure rqt_reconfigure`による変更
-> NOTE: `turtlebot3_navigation.launch`を起動した**後**に実施する必要があります
+
+1. `$(rospack find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml`を直接変更
+> NOTE: `turtlebot3_navigation.launch`を起動する**前**に実施する必要があります．  
+また、yamlファイルの編集に際して  
+[apt経由でTurtlebot3関連パッケージをインストールした](build_tb3_packages/#apt)場合、sudo権限が必要になる場合があります．  
+[ソースコードからビルドしている](build_tb3_packages/#_1)場合、catkin_makeコマンドの再実行が必要です．
+
+2. `rosrun rqt_reconfigure rqt_reconfigure`による変更　　
+> NOTE: `turtlebot3_navigation.launch`を起動した**後**に実施する必要があります　　

@@ -238,9 +238,9 @@ Gmappingには、さまざまな環境のパフォーマンスを変更するた
 
 パラメータを編集するために：
 - `$(rospack find turtlebot3_slam)/config/gmapping_params.yaml`を直接変更
-> NOTE: `turtlebot3_slam.launch`を起動する**前**に実施する必要があります．
-また、[apt経由でTurtlebot3関連パッケージをインストールした](build_tb3_packages/#apt)場合、sudo権限が必要になる場合があります。
-[ソースコードからビルドしている](build_tb3_packages/#_1)場合、catkin_makeコマンドの再実行が必要です。
+> NOTE: `turtlebot3_slam.launch`を起動する**前**に実施する必要があります．  
+また、[apt経由でTurtlebot3関連パッケージをインストールした](build_tb3_packages/#apt)場合、sudo権限が必要になる場合があります．  
+[ソースコードからビルドしている](build_tb3_packages/#_1)場合、catkin_makeコマンドの再実行が必要です．
 <!-- 2. `rosrun rqt_reconfigure rqt_reconfigure`による変更
 > NOTE: `turtlebot3_slam.launch`を起動した**後**に実施する必要があります -->
 
