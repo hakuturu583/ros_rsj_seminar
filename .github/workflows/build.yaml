@@ -9,7 +9,7 @@ on:
     branches:
       - master
 jobs:
-  container-test-job:
+  build:
     runs-on: ubuntu-latest
     container:
       image: ros:melodic
@@ -17,7 +17,7 @@ jobs:
       - name: apt update
         run: apt-get update
         shell: bash
-      - name: install git
+      - name: install git/gtest
         run: apt-get install -y git googletest
         shell: bash
       - name: make workspace
@@ -30,5 +30,5 @@ jobs:
         run: cd catkin_ws/src && rosdep update && rosdep install -iry --from-paths .
         shell: bash
       - name: catkin_make
-        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make
+        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make -DCATKIN_ENABLE_TESTING=0
         shell: bash
