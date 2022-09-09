@@ -9,7 +9,8 @@ on:
     branches:
       - master
 jobs:
-  build:
+  build_frontier_exploration:
+    name: build frontier_exploration
     runs-on: ubuntu-latest
     container:
       image: ros:melodic
@@ -33,5 +34,32 @@ jobs:
         run: cd catkin_ws/src && rosdep update && rosdep install -iry --from-paths .
         shell: bash
       - name: catkin_make
-        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make -DCATKIN_ENABLE_TESTING=0 -j1
+        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make -DCATKIN_ENABLE_TESTING=0
+        shell: bash
+  build_turtlebot3_packages:
+    name: build turtlebot3 packages
+    runs-on: ubuntu-latest
+    container:
+      image: ros:melodic
+    steps:
+      - name: apt update
+        run: apt-get update
+        shell: bash
+      - name: install git/gtest
+        run: apt-get install -y git googletest
+        shell: bash
+      - name: make workspace
+        run: mkdir -p catkin_ws/src
+        shell: bash
+      - name: init workspace
+        run: cd catkin_ws/src && source /opt/ros/melodic/setup.bash && catkin_init_workspace
+        shell: bash
+      - name: clone packages
+        run: cd catkin_ws/src && git clone https://github.com/ROBOTIS-GIT/turtlebot3.git && git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+        shell: bash
+      - name: rosdep
+        run: cd catkin_ws/src && rosdep update && rosdep install -iry --from-paths .
+        shell: bash
+      - name: catkin_make
+        run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make -DCATKIN_ENABLE_TESTING=0
         shell: bash
