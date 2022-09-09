@@ -13,4 +13,6 @@ cd ~/catkin_ws/src
 catkin_init_workspace
 git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+rosdep update
+rosdep install -iry --from-paths .
 ```
