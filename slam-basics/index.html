@@ -617,6 +617,9 @@ process<span class="o">[</span>turtlebot3_diagnostics-3<span class="o">]</span>:
 </code></pre></div>
 <h2 id="slam">SLAMノードの実行<a class="headerlink" href="#slam" title="Permanent link">#</a></h2>
 <p><span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します.</span></p>
+<blockquote>
+<p><strong>NOTE</strong>: Turtlebot3関連のパッケージが未インストールの場合は、<a href="../build_tb3_packages">こちら</a>を参考にインストールしてください.</p>
+</blockquote>
 <p>新しいターミナルを開き、SLAMファイルを起動します。</p>
 <div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
 </code></pre></div>
