@@ -6,7 +6,9 @@
 
 まずシミュレーションで動作確認します。
 
-<span style="color:red">**下記の実習は実機で行うために、まず`ROS_MASTER_URI`と`ROS_HOSTNAME`を`localhost`に戻します（[参照](https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ネットワーク構成)）。**</span>
+<span style="color:red">**下記の実習はリモートPCのみでシミュレータを使用して行うために、
+まず`ROS_MASTER_URI`と`ROS_HOSTNAME`を`localhost`に戻します
+（[参照](https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ネットワーク構成)）。**</span>
 
 **シミュレーションを起動します**
 
