@@ -16,14 +16,19 @@ jobs:
     steps:
       - name: apt update
         run: apt-get update
+        shell: bash
       - name: install git
         run: apt-get install -y git
+        shell: bash
       - name: make workspace
         run: mkdir -p catkin_ws/src
+        shell: bash
       - name: clone packages
         run: cd catkin_ws/src && git clone -b melodic-devel https://github.com/paulbovbel/frontier_exploration.git
+        shell: bash
       - name: rosdep
         run: cd catkin_ws/src && rosdep update && rosdep install -iry --from-paths .
+        shell: bash
       - name: catkin_make
         run: cd catkin_ws && source /opt/ros/melodic/setup.bash && catkin_make
         shell: bash
