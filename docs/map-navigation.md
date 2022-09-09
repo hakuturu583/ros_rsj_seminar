@@ -169,8 +169,8 @@ $ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/m
 1. `$(rospack find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml`を直接変更
 > NOTE: `turtlebot3_navigation.launch`を起動する**前**に実施する必要があります．  
 また、yamlファイルの編集に際して  
-[apt経由でTurtlebot3関連パッケージをインストールした](build_tb3_packages/#apt)場合、sudo権限が必要になる場合があります．  
-[ソースコードからビルドしている](build_tb3_packages/#_1)場合、catkin_makeコマンドの再実行が必要です．
+[apt経由でTurtlebot3関連パッケージをインストールした](../build_tb3_packages/#apt)場合、sudo権限が必要になる場合があります．  
+[ソースコードからビルドしている](../build_tb3_packages/#_1)場合、catkin_makeコマンドの再実行が必要です．
 
 2. `rosrun rqt_reconfigure rqt_reconfigure`による変更　　
 > NOTE: `turtlebot3_navigation.launch`を起動した**後**に実施する必要があります　　
