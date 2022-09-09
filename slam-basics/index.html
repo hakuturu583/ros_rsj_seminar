@@ -616,8 +616,10 @@ process<span class="o">[</span>turtlebot3_diagnostics-3<span class="o">]</span>:
 <span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span><span class="m">1531306698</span>.953226<span class="o">]</span>: Calibration End
 </code></pre></div>
 <h2 id="slam">SLAMノードの実行<a class="headerlink" href="#slam" title="Permanent link">#</a></h2>
-<p><span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します.</span>
-<span style="color: red; ">Turtlebot3関連のパッケージが未インストールの場合は、<a href="build_tb3_packages">こちら</a>を参考にインストールしてください</span></p>
+<p><span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します.</span></p>
+<blockquote>
+<p><strong>NOTE</strong>: Turtlebot3関連のパッケージが未インストールの場合は、<a href="../build_tb3_packages/#turtlebot3">こちら</a>を参考にインストールしてください.</p>
+</blockquote>
 <p>新しいターミナルを開き、SLAMファイルを起動します。</p>
 <div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
 </code></pre></div>
@@ -760,8 +762,8 @@ op:-0.0306156 5.90277e-06 -3.14151
 - <code>$(rospack find turtlebot3_slam)/config/gmapping_params.yaml</code>を直接変更</p>
 <blockquote>
 <p>NOTE: <code>turtlebot3_slam.launch</code>を起動する<strong>前</strong>に実施する必要があります．<br />
-また、<a href="build_tb3_packages/#apt">apt経由でTurtlebot3関連パッケージをインストールした</a>場合、sudo権限が必要になる場合があります．<br />
-<a href="build_tb3_packages/#_1">ソースコードからビルドしている</a>場合、catkin_makeコマンドの再実行が必要です．</p>
+また、<a href="../build_tb3_packages/#apt">apt経由でTurtlebot3関連パッケージをインストールした</a>場合、sudo権限が必要になる場合があります．<br />
+<a href="../build_tb3_packages/#_1">ソースコードからビルドしている</a>場合、catkin_makeコマンドの再実行が必要です．</p>
 </blockquote>
 <!-- 2. `rosrun rqt_reconfigure rqt_reconfigure`による変更
 > NOTE: `turtlebot3_slam.launch`を起動した**後**に実施する必要があります -->
