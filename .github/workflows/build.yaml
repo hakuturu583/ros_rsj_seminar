@@ -21,7 +21,7 @@ jobs:
       - name: make workspace
         run: mkdir -p catkin_ws/src
       - name: clone packages
-        run: cd catkin_ws/src && git clone https://github.com/paulbovbel/frontier_exploration.git
+        run: cd catkin_ws/src && git clone -b melodic-devel https://github.com/paulbovbel/frontier_exploration.git
       - name: rosdep
         run: cd catkin_ws/src && rosdep update && rosdep install -iry --from-paths .
       - name: catkin_make
