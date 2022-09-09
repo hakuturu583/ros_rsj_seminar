@@ -18,7 +18,7 @@ jobs:
         run: apt-get update
         shell: bash
       - name: install git
-        run: apt-get install -y git
+        run: apt-get install -y git googletest
         shell: bash
       - name: make workspace
         run: mkdir -p catkin_ws/src
