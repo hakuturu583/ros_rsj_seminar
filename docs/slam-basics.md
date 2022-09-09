@@ -85,7 +85,8 @@ process[turtlebot3_diagnostics-3]: started with pid [14200]
 
 ## SLAMノードの実行
 
-<span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します。</span>
+<span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します.</span>
+<span style="color: red; ">Turtlebot3関連のパッケージが未インストールの場合は、[こちら](build_tb3_packages)を参考にインストールしてください</span>
 
 新しいターミナルを開き、SLAMファイルを起動します。
 
@@ -93,7 +94,7 @@ process[turtlebot3_diagnostics-3]: started with pid [14200]
 $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
 ```
 
-> **ヒント**: 上記のコマンドを実行すると、視覚化ツールRVizも実行されます。 RVizを個別に実行する場合は、次のいずれかのコマンドを使用します。
+> **ヒント**: 上記のコマンドを実行すると、視覚化ツールRVizも実行されます。 RVizを個別に実行する場合は、次のいずれかのコマンドを使用します.
 > - ```$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_gmapping.rviz```
 > - ```$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_cartographer.rviz```
 > - ```$ rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_hector.rviz```
@@ -102,7 +103,7 @@ $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
 
 **注釈**: さまざまなSLAMメソッドをサポートしています
 - TurtleBot3は、さまざまなSLAMメソッドの中で、Gmapping、Cartographer、Hector、およびKartoをサポートしています。 これを行うには、 `slam_methods：= xxxxx`オプションを変更します。
-- `slam_methods`オプションには`gmapping`、 `cartographer`、`hector`、 `karto`、`frontier_exploration`が含まれ、それらの1つを選択できます。
+- `slam_methods`オプションには`gmapping`、 `cartographer`、`hector`、 `karto`、`frontier_exploration`が含まれ、それらの1つを選択できます.
 - たとえば、kartoを使用するには、次のようにします:
 ```shell
 $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=karto
