@@ -554,7 +554,13 @@
 - この係数にコスト値を掛けます。相反する比率であるため、このパラメーターが増加し、コストが削減されます。</p>
 <p><img alt="" src="/images/turtlebot3/tuning_cost_scaling_factor.png" /></p>
 <p>最適なパスは、ロボットが障害物間の中心を通過することです。 障害物から遠ざけるために、この係数を小さく設定します。</p>
-<p>下記のパラメータのデフォルト値は<code>/opt/ros/melodic/share/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml</code>のファイルに定義されています。</p>
+<p>下記のパラメータのデフォルト値は<code>$(rospack find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml</code>のファイルに定義されています。</p>
+<blockquote>
+<p>NOTE: <code>turtlebot3_navigation.launch</code>を起動する<strong>前</strong>に実施する必要があります．<br />
+また、yamlファイルの編集に際して<br />
+<a href="../build_tb3_packages/#apt">apt経由でTurtlebot3関連パッケージをインストールした</a>場合、sudo権限が必要になる場合があります．<br />
+<a href="../build_tb3_packages/#_1">ソースコードからビルドしている</a>場合、catkin_makeコマンドの再実行が必要です．</p>
+</blockquote>
 <!-- `rosparam set`で変更することができます。 -->
 
 <p><em><strong>max_vel_x</strong></em>
