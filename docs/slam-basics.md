@@ -174,7 +174,7 @@ Gmappingには、さまざまな環境のパフォーマンスを変更するた
 
 このチューニングガイドでは、重要なパラメーターを設定するためのヒントをいくつか紹介します。 環境に応じてパフォーマンスを変更したい場合は、このヒントが役立つ可能性があり、時間を節約できます。
 
-> **NOTE**: 下記のパラメータのデフォルト値は`/opt/ros/melodic/share/turtlebot3_slam/config/gmapping_params.yaml`のファイルに定義されています。
+> **NOTE**: 下記のパラメータのデフォルト値は`$(rospack find turtlebot3_slam)/config/gmapping_params.yaml`のファイルに定義されています。
 
 - _**maxUrange**_ 
   - デフォルト値：3.0
@@ -237,8 +237,10 @@ Gmappingには、さまざまな環境のパフォーマンスを変更するた
 > ``` -->
 
 パラメータを編集するために：
-- `/opt/ros/melodic/share/turtlebot3_slam/config/gmapping_params.yaml`を直接変更
+- `$(rospack find turtlebot3_slam)/config/gmapping_params.yaml`を直接変更
 > NOTE: `turtlebot3_slam.launch`を起動する**前**に実施する必要があります．
+また、[apt経由でTurtlebot3関連パッケージをインストールした](build_tb3_packages/#apt)場合、sudo権限が必要になる場合があります。
+[ソースコードからビルドしている](build_tb3_packages/#_1)場合、catkin_makeコマンドの再実行が必要です。
 <!-- 2. `rosrun rqt_reconfigure rqt_reconfigure`による変更
 > NOTE: `turtlebot3_slam.launch`を起動した**後**に実施する必要があります -->
 

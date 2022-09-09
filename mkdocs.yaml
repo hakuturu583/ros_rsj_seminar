@@ -50,3 +50,5 @@ nav:
     - マップを利用したナビゲージョン操作１: map-navigation.md
     - マップを利用したナビゲージョン操作2: map-navigation-2.md
     - ROS1からROS2へ: ros2.md
+  - 補足資料:
+    - Turtlebot3パッケージの入手: build_tb3_packages.md
