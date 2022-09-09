@@ -109,7 +109,13 @@ _**cost_scaling_factor**_
 
   最適なパスは、ロボットが障害物間の中心を通過することです。 障害物から遠ざけるために、この係数を小さく設定します。
 
-下記のパラメータのデフォルト値は`/opt/ros/melodic/share/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml`のファイルに定義されています。
+下記のパラメータのデフォルト値は`$(rospack find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml`のファイルに定義されています。
+
+> NOTE: `turtlebot3_navigation.launch`を起動する**前**に実施する必要があります．  
+また、yamlファイルの編集に際して  
+[apt経由でTurtlebot3関連パッケージをインストールした](../build_tb3_packages/#apt)場合、sudo権限が必要になる場合があります．  
+[ソースコードからビルドしている](../build_tb3_packages/#_1)場合、catkin_makeコマンドの再実行が必要です．
+
 <!-- `rosparam set`で変更することができます。 -->
 
 _**max_vel_x**_
