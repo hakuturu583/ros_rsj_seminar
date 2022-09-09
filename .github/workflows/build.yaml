@@ -23,6 +23,9 @@ jobs:
       - name: make workspace
         run: mkdir -p catkin_ws/src
         shell: bash
+      - name: init workspace
+        run: cd catkin_ws/src && catkin_init_workspace
+        shell: bash
       - name: clone packages
         run: cd catkin_ws/src && git clone -b melodic-devel https://github.com/paulbovbel/frontier_exploration.git
         shell: bash
