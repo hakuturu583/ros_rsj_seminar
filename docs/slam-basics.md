@@ -130,6 +130,7 @@ $ sudo apt-get install ros-melodic-slam-karto
 $ mkdir -p catkin_ws/src
 $ cd catkin_ws/src
 $ sudo apt install git googletest
+$ catkin_init_workspace
 $ git clone https://github.com/paulbovbel/frontier_exploration.git
 $ rosdep update
 $ rosdep install -iry --from-paths .
