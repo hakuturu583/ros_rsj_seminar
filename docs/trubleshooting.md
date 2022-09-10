@@ -87,3 +87,11 @@ fatal error: exploration_msgs/ExploreAction.h: No such file or directory
 - バージョンアップによりヘッダーがなくなっている/ファイル名が変わっている:ROS packageは様々なものが開発されており、今後もエコシステムは拡張され続けています.
 それに伴い、定期的なバージョンアップが行われているパッケージも少なくありません.
 そのためパッケージによっては`.h`ファイルを`.hpp`に変更したりしているケースもあり結果として`#include`するヘッダの名称を変更しないといけないケースがあります.
+
+## undefined referenceエラーが発生
+
+undefined referenceとは、ヘッダーファイルの探索には成功したが、関数の実装が見当たらずコンパイルエラーになっているということです.
+そのため以下のような原因が考えられます.
+
+- CMakeLists.txtの`find_pacakge`コマンドに漏れがある:`find_package`コマンドに記載漏れがあると適切にパスを解決して関数の実装を探しにくことができません.
+- target_link_librariesを忘れている:[こちら](https://github.com/ROBOTIS-GIT/turtlebot3/blob/66681b33749c44e7d9022253ac210ef2da7843a0/turtlebot3_bringup/CMakeLists.txt#L49)のように`${catkin_LIBRARIES}`を
