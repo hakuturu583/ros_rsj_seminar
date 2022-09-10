@@ -34,4 +34,19 @@ echo $ROS_MASTER_URI
 echo $ROS_HOSTNAME
 ```
 
-を実行し、上記の環境変数が適切に設定されているか確認する.
+を実行し、上記の環境変数が適切に設定されているか確認してください.
+
+## roslaunchできない
+
+### ノードが見つからない
+
+`roslaunch`コマンドを実行した時、
+
+```shell
+ERROR: cannot launch node of type [gmapping/slam_gmapping]: gmapping
+ROS path [0]=/opt/ros/melodic/share/ros
+ROS path [1]=/opt/ros/melodic/share
+```
+
+上記のような出力が得られている場合、gmappingというパッケージが入っていないというエラーになります.
+こういった場合、そのパッケージをlocal環境に存在するworkspaceにcloneしてビルドするか、apt経由でそのパッケージをインストールする必要があります.

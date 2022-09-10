@@ -116,9 +116,6 @@ export TURTLEBOT3_MODEL=burger
 ERROR: cannot launch node of type [gmapping/slam_gmapping]: gmapping
 ROS path [0]=/opt/ros/melodic/share/ros
 ROS path [1]=/opt/ros/melodic/share
-ERROR: cannot launch node of type [rviz/rviz]: rviz
-ROS path [0]=/opt/ros/melodic/share/ros
-ROS path [1]=/opt/ros/melodic/share
 ```
 このエラーはgmmpingがインストールされていないことで発生しています.
 ですので、このエラーは以下のコマンドでgmappingをインストールすることで解決します.
