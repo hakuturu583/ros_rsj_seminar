@@ -632,6 +632,11 @@
 <span class="nb">echo</span> <span class="nv">$ROS_HOSTNAME</span>
 </code></pre></div>
 <p>を実行し、上記の環境変数が適切に設定されているか確認してください.</p>
+<p>環境変数設定に問題がない場合は、</p>
+<ol>
+<li>まずroscoreを立ち上げたいPC(今回の実習ではリモートPC)で<code>roscore</code>あるいは<code>roslaunch</code>コマンドを実行 </li>
+<li>次に、リモートPCに存在するroscoreに接続してノードを動かすマシン(今回の実習ではSBC)で<code>roslaunch</code>コマンドを実行</li>
+</ol>
 <h2 id="roslaunch">roslaunchできない<a class="headerlink" href="#roslaunch" title="Permanent link">#</a></h2>
 <h3 id="_2">ノードが見つからない<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
 <p><code>roslaunch</code>コマンドを実行した時、</p>
