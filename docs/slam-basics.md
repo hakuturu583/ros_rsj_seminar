@@ -85,9 +85,11 @@ process[turtlebot3_diagnostics-3]: started with pid [14200]
 
 ## SLAMノードの実行
 
-<span style="color: red; ">SLAMノードはTB3搭載のボードではなくリモートPCで実行します.</span>
+<span style="color: red; ">
+SLAMノードはTB3搭載のボードではなくリモートPCで実行します.
+</span>
 
-> **NOTE**: Turtlebot3関連のパッケージが未インストールの場合は、[こちら](../build_tb3_packages)を参考にインストールしてください.
+Turtlebot3関連のパッケージが未インストールの場合は、[こちら](../build_tb3_packages)を参考にインストールしてください.
 
 新しいターミナルを開き、SLAMファイルを起動します。
 
@@ -239,6 +241,7 @@ Gmappingには、さまざまな環境のパフォーマンスを変更するた
 > ``` -->
 
 パラメータを編集するために：
+
 - `$(rospack find turtlebot3_slam)/config/gmapping_params.yaml`を直接変更
 > NOTE: `turtlebot3_slam.launch`を起動する**前**に実施する必要があります．  
 また、[apt経由でTurtlebot3関連パッケージをインストールした](../build_tb3_packages/#apt)場合、sudo権限が必要になる場合があります．  
