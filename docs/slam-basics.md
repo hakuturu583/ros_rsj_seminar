@@ -91,10 +91,40 @@ SLAMノードはTB3搭載のボードではなくリモートPCで実行しま�
 
 Turtlebot3関連のパッケージが未インストールの場合は、[こちら](../build_tb3_packages)を参考にインストールしてください.
 
-新しいターミナルを開き、SLAMファイルを起動します。
+新しいターミナルを開き、SLAMを実行するlaunchファイルを起動します。
 
 ```shell
 $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+```
+
+もし、実行時に以下のようなエラーが発生した場合、
+
+```shell
+RLException: Invalid <arg> tag: environment variable 'TURTLEBOT3_MODEL' is not set. 
+
+Arg xml is <arg default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]" name="model"/>
+The traceback for the exception was written to the log file
+```
+
+お持ちのTurtlebot3の名称に合わせてTURTLEBOT3_MODEL環境変数を以下の中から選択して設定してください。(burger, waffle, waffle_pi)
+```shell
+export TURTLEBOT3_MODEL=burger
+```
+
+その他にも以下のようなエラーが発生した場合、
+```shell
+ERROR: cannot launch node of type [gmapping/slam_gmapping]: gmapping
+ROS path [0]=/opt/ros/melodic/share/ros
+ROS path [1]=/opt/ros/melodic/share
+ERROR: cannot launch node of type [rviz/rviz]: rviz
+ROS path [0]=/opt/ros/melodic/share/ros
+ROS path [1]=/opt/ros/melodic/share
+```
+このエラーはgmmpingがインストールされていないことで発生しています.
+ですので、このエラーは以下のコマンドでgmappingをインストールすることで解決します.
+
+```shell
+sudo apt update && sudo apt install gmapping
 ```
 
 > **ヒント**: 上記のコマンドを実行すると、視覚化ツールRVizも実行されます。 RVizを個別に実行する場合は、次のいずれかのコマンドを使用します.
