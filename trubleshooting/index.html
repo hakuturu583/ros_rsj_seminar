@@ -416,6 +416,47 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#terminal" class="md-nav__link">
+    何もterminalにログが出力されず、立ち上がらない
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catkin_make" class="md-nav__link">
+    catkin_make時にエラーになる
+  </a>
+  
+    <nav class="md-nav" aria-label="catkin_make時にエラーになる">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find_pacakge" class="md-nav__link">
+    find_pacakgeに失敗する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#include" class="md-nav__link">
+    includeに失敗する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undefined-reference" class="md-nav__link">
+    undefined referenceエラーが発生
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -491,6 +532,47 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#terminal" class="md-nav__link">
+    何もterminalにログが出力されず、立ち上がらない
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catkin_make" class="md-nav__link">
+    catkin_make時にエラーになる
+  </a>
+  
+    <nav class="md-nav" aria-label="catkin_make時にエラーになる">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find_pacakge" class="md-nav__link">
+    find_pacakgeに失敗する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#include" class="md-nav__link">
+    includeに失敗する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undefined-reference" class="md-nav__link">
+    undefined referenceエラーが発生
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -545,8 +627,11 @@ ROS path <span class="o">[</span><span class="m">1</span><span class="o">]=</spa
 </code></pre></div>
 <p>上記のような出力が得られている場合、gmappingというパッケージが入っていないというエラーになります.
 こういった場合、そのパッケージをlocal環境に存在するworkspaceにcloneしてビルドするか、apt経由でそのパッケージをインストールする必要があります.</p>
-<h1 id="catkin_make">catkin_make時にエラーになる<a class="headerlink" href="#catkin_make" title="Permanent link">#</a></h1>
-<h2 id="find_pacakge">find_pacakgeに失敗する<a class="headerlink" href="#find_pacakge" title="Permanent link">#</a></h2>
+<h3 id="terminal">何もterminalにログが出力されず、立ち上がらない<a class="headerlink" href="#terminal" title="Permanent link">#</a></h3>
+<p>roscore接続に失敗している可能性があります.
+<a href="./#roscore">roscoreが立ち上がらない</a>、<a href="./#roscore_1">roscoreに接続できない</a>の記載を確認し、roscoreの挙動を確認してください.</p>
+<h2 id="catkin_make">catkin_make時にエラーになる<a class="headerlink" href="#catkin_make" title="Permanent link">#</a></h2>
+<h3 id="find_pacakge">find_pacakgeに失敗する<a class="headerlink" href="#find_pacakge" title="Permanent link">#</a></h3>
 <p>以下のような出力が得られる場合、複数の原因が考えられます.</p>
 <div class="highlight"><pre><span></span><code>CMake Error at /opt/ros/indigo/share/catkin/cmake/catkinConfig.cmake:83 <span class="o">(</span>find_package<span class="o">)</span>:
   Could not find a package configuration file provided by <span class="s2">&quot;roscpp&quot;</span> with any
@@ -564,7 +649,7 @@ localに存在するworkspace内部のsetup.bashを<code>source</code>コマン�
 <li>何らかの必要なパッケージをいれるステップを飛ばしてしまっている:パッケージによっては手動で依存ライブラリをインストールしておく必要があるものがあります.
 どうしても原因がわからない場合は、github/gitlabリポジトリを探し、issueを立てるのも良いと思います.</li>
 </ul>
-<h2 id="include">includeに失敗する<a class="headerlink" href="#include" title="Permanent link">#</a></h2>
+<h3 id="include">includeに失敗する<a class="headerlink" href="#include" title="Permanent link">#</a></h3>
 <p>以下のような出力が得られる場合、複数の原因が考えられます.</p>
 <div class="highlight"><pre><span></span><code>fatal error: exploration_msgs/ExploreAction.h: No such file or directory
 </code></pre></div>
@@ -577,12 +662,12 @@ localに存在するworkspace内部のsetup.bashを<code>source</code>コマン�
 それに伴い、定期的なバージョンアップが行われているパッケージも少なくありません.
 そのためパッケージによっては<code>.h</code>ファイルを<code>.hpp</code>に変更したりしているケースもあり結果として<code>#include</code>するヘッダの名称を変更しないといけないケースがあります.</li>
 </ul>
-<h2 id="undefined-reference">undefined referenceエラーが発生<a class="headerlink" href="#undefined-reference" title="Permanent link">#</a></h2>
+<h3 id="undefined-reference">undefined referenceエラーが発生<a class="headerlink" href="#undefined-reference" title="Permanent link">#</a></h3>
 <p>undefined referenceとは、ヘッダーファイルの探索には成功したが、関数の実装が見当たらずコンパイルエラーになっているということです.
 そのため以下のような原因が考えられます.</p>
 <ul>
 <li>CMakeLists.txtの<code>find_pacakge</code>コマンドに漏れがある:<code>find_package</code>コマンドに記載漏れがあると適切にパスを解決して関数の実装を探しにくことができません.</li>
-<li>target_link_librariesを忘れている:<a href="https://github.com/ROBOTIS-GIT/turtlebot3/blob/66681b33749c44e7d9022253ac210ef2da7843a0/turtlebot3_bringup/CMakeLists.txt#L49">こちら</a>のように<code>${catkin_LIBRARIES}</code>を</li>
+<li>target_link_librariesを忘れている:<a href="https://github.com/ROBOTIS-GIT/turtlebot3/blob/66681b33749c44e7d9022253ac210ef2da7843a0/turtlebot3_bringup/CMakeLists.txt#L49">こちら</a>のように<code>${catkin_LIBRARIES}</code>をlink対象として指定しないと関数の実装を探索することができません.</li>
 </ul>
 
 
