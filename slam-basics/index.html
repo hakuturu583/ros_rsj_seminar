@@ -694,6 +694,8 @@ $ rosdep install -iry --from-paths .
 $ <span class="nb">cd</span> ../
 $ catkin_make
 </code></pre></div></p>
+<p>上のスクリプトの内部で出てきた<code>rosdep</code>コマンドはapt等をラップしたrosのコマンドラインツールで
+ROSパッケージにあるpackage.xmlをパースしパッケージが依存しているパッケージを列挙、インストールしてくれます.</p>
 <blockquote>
 <p><strong>NOTE</strong>: 今回は<code>Gmapping</code>を使用します。</p>
 </blockquote>

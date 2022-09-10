@@ -545,6 +545,38 @@ ROS path <span class="o">[</span><span class="m">1</span><span class="o">]=</spa
 </code></pre></div>
 <p>上記のような出力が得られている場合、gmappingというパッケージが入っていないというエラーになります.
 こういった場合、そのパッケージをlocal環境に存在するworkspaceにcloneしてビルドするか、apt経由でそのパッケージをインストールする必要があります.</p>
+<h1 id="catkin_make">catkin_make時にエラーになる<a class="headerlink" href="#catkin_make" title="Permanent link">#</a></h1>
+<h2 id="find_pacakge">find_pacakgeに失敗する<a class="headerlink" href="#find_pacakge" title="Permanent link">#</a></h2>
+<p>以下のような出力が得られる場合、複数の原因が考えられます.</p>
+<div class="highlight"><pre><span></span><code>CMake Error at /opt/ros/indigo/share/catkin/cmake/catkinConfig.cmake:83 <span class="o">(</span>find_package<span class="o">)</span>:
+  Could not find a package configuration file provided by <span class="s2">&quot;roscpp&quot;</span> with any
+  of the following names:
+
+    roscppConfig.cmake
+    roscpp-config.cmake
+</code></pre></div>
+<ul>
+<li>該当パッケージへのパスが通っていない：<code>source /opt/ros/$ROS_DISTRO/setup.bash</code>や、
+localに存在するworkspace内部のsetup.bashを<code>source</code>コマンドで読み込みパッケージをcatkinビルドシステムが探索できるようにする</li>
+<li>rosdepの実行を忘れている：rosdepを実行し忘れている場合、依存が入っていない場合があります.workspaceのsrcディレクトリに移動したあと
+<code>rosdep install -iry --from-paths .</code>を実行することで依存をまとめてインストールすることができます.</li>
+<li>package.xmlに依存漏れがある:package.xml</li>
+<li>何らかの必要なパッケージをいれるステップを飛ばしてしまっている:パッケージによっては手動で依存ライブラリをインストールしておく必要があるものがあります.
+どうしても原因がわからない場合は、github/gitlabリポジトリを探し、issueを立てるのも良いと思います.</li>
+</ul>
+<h2 id="include">includeに失敗する<a class="headerlink" href="#include" title="Permanent link">#</a></h2>
+<p>以下のような出力が得られる場合、複数の原因が考えられます.</p>
+<div class="highlight"><pre><span></span><code>fatal error: exploration_msgs/ExploreAction.h: No such file or directory
+</code></pre></div>
+<ul>
+<li>CMakeLists.txtの<code>find_pacakge</code>コマンドに漏れがある:catkinは依存パッケージに存在するヘッダファイルをincludeしたりすることが可能です、
+しかし<code>find_package</code>コマンドに記載漏れがあると適切にパスを解決してヘッダーを探しに行くことができません.</li>
+<li>catkin_init_workspaceを忘れている:catkinは依存を考慮してパッケージをビルドすることができます.
+しかし、catkin_init_workspaceを忘れていると依存が適切に考慮されないケースがあります.</li>
+<li>バージョンアップによりヘッダーがなくなっている/ファイル名が変わっている:ROS packageは様々なものが開発されており、今後もエコシステムは拡張され続けています.
+それに伴い、定期的なバージョンアップが行われているパッケージも少なくありません.
+そのためパッケージによっては<code>.h</code>ファイルを<code>.hpp</code>に変更したりしているケースもあり結果として<code>#include</code>するヘッダの名称を変更しないといけないケースがあります.</li>
+</ul>
 
 
 
