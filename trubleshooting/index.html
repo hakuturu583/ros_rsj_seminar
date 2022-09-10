@@ -577,6 +577,13 @@ localに存在するworkspace内部のsetup.bashを<code>source</code>コマン�
 それに伴い、定期的なバージョンアップが行われているパッケージも少なくありません.
 そのためパッケージによっては<code>.h</code>ファイルを<code>.hpp</code>に変更したりしているケースもあり結果として<code>#include</code>するヘッダの名称を変更しないといけないケースがあります.</li>
 </ul>
+<h2 id="undefined-reference">undefined referenceエラーが発生<a class="headerlink" href="#undefined-reference" title="Permanent link">#</a></h2>
+<p>undefined referenceとは、ヘッダーファイルの探索には成功したが、関数の実装が見当たらずコンパイルエラーになっているということです.
+そのため以下のような原因が考えられます.</p>
+<ul>
+<li>CMakeLists.txtの<code>find_pacakge</code>コマンドに漏れがある:<code>find_package</code>コマンドに記載漏れがあると適切にパスを解決して関数の実装を探しにくことができません.</li>
+<li>target_link_librariesを忘れている:<a href="https://github.com/ROBOTIS-GIT/turtlebot3/blob/66681b33749c44e7d9022253ac210ef2da7843a0/turtlebot3_bringup/CMakeLists.txt#L49">こちら</a>のように<code>${catkin_LIBRARIES}</code>を</li>
+</ul>
 
 
 
