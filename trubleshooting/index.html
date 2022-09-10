@@ -8,19 +8,19 @@
       
       
       
-      <link rel="icon" href="image/icon.png">
+      <link rel="icon" href="../image/icon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.3">
     
     
       
-        <title>ROS Seminar Website</title>
+        <title>トラブルシューティング - ROS Seminar Website</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.6b80c2a2.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6b80c2a2.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
         
       
       
@@ -40,7 +40,7 @@
     
       <link rel="stylesheet" href="https://unpkg.com/mermaid@8.0.0/dist/mermaid.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2" class="md-skip">
+        <a href="#_1" class="md-skip">
           Skip to content
         </a>
       
@@ -78,7 +78,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="ROS Seminar Website" class="md-header__button md-logo" aria-label="ROS Seminar Website" data-md-component="logo">
+    <a href=".." title="ROS Seminar Website" class="md-header__button md-logo" aria-label="ROS Seminar Website" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 11 1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5 1.5 1.5 0 0 1 6.5 13 1.5 1.5 0 0 1 8 14.5 1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-6Z"/></svg>
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              トラブルシューティング
             
           </span>
         </div>
@@ -176,7 +176,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="ROS Seminar Website" class="md-nav__button md-logo" aria-label="ROS Seminar Website" data-md-component="logo">
+    <a href=".." title="ROS Seminar Website" class="md-nav__button md-logo" aria-label="ROS Seminar Website" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 11 1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5 1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5 1.5 1.5 0 0 1 6.5 13 1.5 1.5 0 0 1 8 14.5 1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-6Z"/></svg>
@@ -205,21 +205,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -258,7 +248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="slam-basics/" class="md-nav__link">
+      <a href="../slam-basics/" class="md-nav__link">
         ROSを用いたマップ取得
       </a>
     </li>
@@ -272,7 +262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="map-navigation/" class="md-nav__link">
+      <a href="../map-navigation/" class="md-nav__link">
         マップを利用したナビゲージョン操作１
       </a>
     </li>
@@ -286,7 +276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="map-navigation-2/" class="md-nav__link">
+      <a href="../map-navigation-2/" class="md-nav__link">
         マップを利用したナビゲージョン操作2
       </a>
     </li>
@@ -300,7 +290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ros2/" class="md-nav__link">
+      <a href="../ros2/" class="md-nav__link">
         ROS1からROS2へ
       </a>
     </li>
@@ -320,12 +310,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -348,7 +340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="build_tb3_packages/" class="md-nav__link">
+      <a href="../build_tb3_packages/" class="md-nav__link">
         Turtlebot3パッケージの入手
       </a>
     </li>
@@ -360,11 +352,59 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="trubleshooting/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          トラブルシューティング
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         トラブルシューティング
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#roscore" class="md-nav__link">
+    roscoreが立ち上がらない
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roscore_1" class="md-nav__link">
+    roscoreに接続できない
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -396,6 +436,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#roscore" class="md-nav__link">
+    roscoreが立ち上がらない
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roscore_1" class="md-nav__link">
+    roscoreに接続できない
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -407,17 +469,33 @@
               
                 
 
-  <a href="https://github.com/hakuturu583/ros_rsj_seminar/edit/master/docs/README.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/hakuturu583/ros_rsj_seminar/edit/master/docs/trubleshooting.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="2">ロボットの作り方セミナー2日目テキスト<a class="headerlink" href="#2" title="Permanent link">#</a></h1>
-<p>こちらのWebサイトは<a href="https://www.rsj.or.jp/event/seminar/news/2022/S142.html">日本ロボット学会主催、ロボットの作り方セミナー</a>の実習テキスト公開用webサイトです。
-一日目のテキスト等は<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/">こちら</a>から閲覧いただけます。</p>
-<p>こちらのテキストに関する質問等は以下の連絡先までお願いします。</p>
-<p><a class="md-button md-button--primary" href="mailto:masaya.kataoka@tier4.jp">Submit email　<i class="fa fa-paper-plane"></i></a></p>
+<h1 id="_1">トラブルシューティング<a class="headerlink" href="#_1" title="Permanent link">#</a></h1>
+<p>このページでは、今回の演習やROSを使っている際によくあるエラー等についてまとめておきます.</p>
+<h2 id="roscore">roscoreが立ち上がらない<a class="headerlink" href="#roscore" title="Permanent link">#</a></h2>
+<p>roscoreを立ち上げたいマシンのターミナルで</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span> <span class="nv">$ROS_MASTER_URI</span>
+<span class="nb">echo</span> <span class="nv">$ROS_HOSTNAME</span>
+</code></pre></div>
+<p>を実行してみてください、IPアドレスがlocalhost以外になってはいませんでしょうか？
+この2つがlocalhost以外になる際には<code>roscore</code>がそのマシン以外で実行されている設定になっています.
+以下のコマンドを実行し、localhostで<code>roscore</code>を動かす設定に変更してください.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">ROS_MASTER_URI</span><span class="o">=</span>http://localhost:11311
+</code></pre></div>
+<p>その後、ROS_HOSTNAMEを適切な値(localhostか<code>ifconfig</code>コマンド等で確認したroscoreを実行したいマシンのIPアドレス)に設定し、</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">ROS_HOSTNAME</span><span class="o">=</span>localhost
+</code></pre></div>
+<h2 id="roscore_1">roscoreに接続できない<a class="headerlink" href="#roscore_1" title="Permanent link">#</a></h2>
+<p>roscoreに接続したいマシンのターミナルで</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span> <span class="nv">$ROS_MASTER_URI</span>
+<span class="nb">echo</span> <span class="nv">$ROS_HOSTNAME</span>
+</code></pre></div>
+<p>を実行し、上記の環境変数が適切に設定されているか確認する.</p>
 
 
 
@@ -435,21 +513,21 @@
     
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
-      
         
-        <a href="slam-basics/" class="md-footer__link md-footer__link--next" aria-label="Next: ROSを用いたマップ取得" rel="next">
+        <a href="../build_tb3_packages/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Turtlebot3パッケージの入手" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
-                Next
+                Previous
               </span>
-              ROSを用いたマップ取得
+              Turtlebot3パッケージの入手
             </div>
           </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
         </a>
+      
       
     </nav>
   
@@ -478,10 +556,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.2ab50757.min.js"></script>
+      <script src="../assets/javascripts/bundle.2ab50757.min.js"></script>
       
         <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
