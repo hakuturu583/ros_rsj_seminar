@@ -99,3 +99,59 @@ undefined referenceとは、ヘッダーファイルの探索には成功した�
 
 - CMakeLists.txtの`find_pacakge`コマンドに漏れがある:`find_package`コマンドに記載漏れがあると適切にパスを解決して関数の実装を探しにくことができません.
 - target_link_librariesを忘れている:[こちら](https://github.com/ROBOTIS-GIT/turtlebot3/blob/66681b33749c44e7d9022253ac210ef2da7843a0/turtlebot3_bringup/CMakeLists.txt#L49)のように`${catkin_LIBRARIES}`をlink対象として指定しないと関数の実装を探索することができません.
+
+## gazeboがErrorを出してしまい、起動しない
+
+roslaunchやgazeboコマンド経由でgazeboを立ち上げると以下のようなエラーが出るケースがあります.
+
+```shell
+[Err] [REST.cc:205] Error in REST request
+```
+
+こちらのメッセージは、gazeboの仕様および設定ファイルの記載ミスによります.
+gazeboは初回起動時に基本アセット（3D Model等）をダウンロードしてきます.
+その時gazeboのデータをダウンロードしてくるサーバーのURLが`~/.ignition/fuel/config.yaml`に記載されています.
+
+```yaml
+# The list of servers.
+servers:
+  -
+    name: osrf
+    url: https://api.ignitionfuel.org
+
+  # -
+    # name: another_server
+    # url: https://myserver
+
+# Where are the assets stored in disk.
+# cache:
+#   path: /tmp/ignition/fuel
+```
+
+おそらく、gazeboをインストールした直後はこのように記載されています.
+このうちサーバーのURLである`https://api.ignitionfuel.org`を`https://api.ignitionrobotics.org`に差し替えてください.
+
+```yaml
+# The list of servers.
+servers:
+  -
+    name: osrf
+    url: https://api.ignitionrobotics.org
+
+  # -
+    # name: another_server
+    # url: https://myserver
+
+# Where are the assets stored in disk.
+# cache:
+#   path: /tmp/ignition/fuel
+```
+
+編集後、
+
+```shell
+gazebo
+```
+
+コマンドを実行し、gazeboがエラー無く立ち上がることを確認してください.
+[参考リンク](https://github.com/ros-industrial/universal_robot/issues/412)

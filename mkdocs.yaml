@@ -4,7 +4,6 @@ theme:
   name: material
   feature:
     tabs: true
-  favicon: image/icon.png
   icon:
     logo: material/car
     repo: fontawesome/brands/github
