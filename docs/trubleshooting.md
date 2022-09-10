@@ -51,8 +51,12 @@ ROS path [1]=/opt/ros/melodic/share
 上記のような出力が得られている場合、gmappingというパッケージが入っていないというエラーになります.
 こういった場合、そのパッケージをlocal環境に存在するworkspaceにcloneしてビルドするか、apt経由でそのパッケージをインストールする必要があります.
 
-# catkin_make時にエラーになる
-## find_pacakgeに失敗する
+### 何もterminalにログが出力されず、立ち上がらない
+
+roscore接続に失敗している可能性があります.
+[roscoreが立ち上がらない](./#roscore)、[roscoreに接続できない](./#roscore_1)の記載を確認し、roscoreの挙動を確認してください.
+## catkin_make時にエラーになる
+### find_pacakgeに失敗する
 以下のような出力が得られる場合、複数の原因が考えられます.
 
 ```shell
@@ -72,7 +76,7 @@ localに存在するworkspace内部のsetup.bashを`source`コマンドで読み
 - 何らかの必要なパッケージをいれるステップを飛ばしてしまっている:パッケージによっては手動で依存ライブラリをインストールしておく必要があるものがあります.
 どうしても原因がわからない場合は、github/gitlabリポジトリを探し、issueを立てるのも良いと思います.
 
-## includeに失敗する
+### includeに失敗する
 
 以下のような出力が得られる場合、複数の原因が考えられます.
 
@@ -88,10 +92,10 @@ fatal error: exploration_msgs/ExploreAction.h: No such file or directory
 それに伴い、定期的なバージョンアップが行われているパッケージも少なくありません.
 そのためパッケージによっては`.h`ファイルを`.hpp`に変更したりしているケースもあり結果として`#include`するヘッダの名称を変更しないといけないケースがあります.
 
-## undefined referenceエラーが発生
+### undefined referenceエラーが発生
 
 undefined referenceとは、ヘッダーファイルの探索には成功したが、関数の実装が見当たらずコンパイルエラーになっているということです.
 そのため以下のような原因が考えられます.
 
 - CMakeLists.txtの`find_pacakge`コマンドに漏れがある:`find_package`コマンドに記載漏れがあると適切にパスを解決して関数の実装を探しにくことができません.
-- target_link_librariesを忘れている:[こちら](https://github.com/ROBOTIS-GIT/turtlebot3/blob/66681b33749c44e7d9022253ac210ef2da7843a0/turtlebot3_bringup/CMakeLists.txt#L49)のように`${catkin_LIBRARIES}`を
+- target_link_librariesを忘れている:[こちら](https://github.com/ROBOTIS-GIT/turtlebot3/blob/66681b33749c44e7d9022253ac210ef2da7843a0/turtlebot3_bringup/CMakeLists.txt#L49)のように`${catkin_LIBRARIES}`をlink対象として指定しないと関数の実装を探索することができません.
