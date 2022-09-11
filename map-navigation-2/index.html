@@ -504,19 +504,19 @@
 
 
 <h1 id="2">マップを利用したナビゲージョン操作２<a class="headerlink" href="#2" title="Permanent link">#</a></h1>
-<p><span style="color:red"><strong>下記の実習は実機上で行うために、まず<code>ROS_MASTER_URI</code>と<code>ROS_HOSTNAME</code>の<code>localhost</code>をリモートPCのIPアドレスに変更します。（<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ネットワーク構成">参照</a>）。</strong></span></p>
+<p><span style="color:red"><strong>下記の実習は実機上で行うために、まず<code>ROS_MASTER_URI</code>と<code>ROS_HOSTNAME</code>の<code>localhost</code>をリモートPCのIPアドレスに変更します.（<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ネットワーク構成">参照</a>）.</strong></span></p>
 <h2 id="_1">実機でナビゲーションノードを行う<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p><strong>リモートPCで</strong> roscoreを実行する。</p>
+<p><strong>リモートPCで</strong> roscoreを実行する.</p>
 <div class="highlight"><pre><span></span><code>roscore
 </code></pre></div>
-<p>新しいターミナルウィンドウを開き、TurtleBot3と接続します。</p>
+<p>新しいターミナルウィンドウを開き、TurtleBot3と接続します.</p>
 <div class="highlight"><pre><span></span><code>ssh ubuntu@192.168.xxx.xxx
 </code></pre></div>
 <blockquote>
 <p><strong>NOTE 1</strong>: The IP <code>192.168.xxx.xxx</code> is your Raspberry Pi’s IP or hostname.<br />
-<strong>NOTE 2</strong>: パスワードは<code>turtlebot</code>です。</p>
+<strong>NOTE 2</strong>: パスワードは<code>turtlebot</code>です.</p>
 </blockquote>
-<p>下記のような表示があれば接続が成功しました。
+<p>下記のような表示があれば接続が成功しました.
 <div class="highlight"><pre><span></span><code>username@pc_name:~$ ssh ubuntu@192.168.10.11
 ubuntu@192.168.10.11’s password:
 
@@ -528,31 +528,31 @@ ubuntu@192.168.10.11:~$
 <p><span style="color: red; ">こちらのコマンドはsshしているターミナル上で実行お願いします.</span></p>
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_bringup turtlebot3_robot.launch
 </code></pre></div>
-<p>新しいターミナルを開き、ナビゲーションのためのlaunchファイルを起動します。</p>
+<p>新しいターミナルを開き、ナビゲーションのためのlaunchファイルを起動します.</p>
 <p><span style="color: red; ">こちらのコマンドはリモートPC上で実行をお願いします.</span></p>
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map.yaml
 </code></pre></div>
 <h2 id="_2">初期ポーズを推定する<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<p>まずロボットの初期姿勢推定を実行する必要があります。 RVizのメニューで<code>2D Pose Estimate</code>を押すと、非常に大きな緑色の矢印が表示されます。 所定のマップで実際のロボットが配置されているポーズに移動し、マウスの左ボタンを押したまま緑色の矢印をロボットの正面が向いている方向にドラッグし、以下の手順に従います。</p>
+<p>まずロボットの初期姿勢推定を実行する必要があります. RVizのメニューで<code>2D Pose Estimate</code>を押すと、非常に大きな緑色の矢印が表示されます. 所定のマップで実際のロボットが配置されているポーズに移動し、マウスの左ボタンを押したまま緑色の矢印をロボットの正面が向いている方向にドラッグし、以下の手順に従います.</p>
 <ul>
-<li><code style="border: 1px solid black">2D Pose Estimate</code>ボタンを選択します。</li>
-<li>TurtleBot3が配置されているマップ内のおおよそのポイントをクリックし、カーソルをドラッグしてTurtleBot3が向いている方向を示します。</li>
+<li><code style="border: 1px solid black">2D Pose Estimate</code>ボタンを選択します.</li>
+<li>TurtleBot3が配置されているマップ内のおおよそのポイントをクリックし、カーソルをドラッグしてTurtleBot3が向いている方向を示します.</li>
 </ul>
-<p>次に、<code>turtlebot3_teleop_keyboard</code>ノードなどのツールを使用してロボットを前後に動かし、周囲の環境情報を収集して、ロボットが現在地図上のどこにあるかを調べます。</p>
+<p>次に、<code>turtlebot3_teleop_keyboard</code>ノードなどのツールを使用してロボットを前後に動かし、周囲の環境情報を収集して、ロボットが現在地図上のどこにあるかを調べます.</p>
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 </code></pre></div>
-<p>このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します。 すべての緑色の矢印は、TurtleBot3の予想される位置を表しています。 レーザースキャナーは、地図上に壁のおおよその図を描画します。 図面に図が正しく表示されない場合は、上の<code style="border: 1px solid black">2D Pose Estimate</code>ボタンをクリックして、TurtleBot3のローカライズを繰り返します。</p>
+<p>このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します. すべての緑色の矢印は、TurtleBot3の予想される位置を表しています. レーザースキャナーは、地図上に壁のおおよその図を描画します. 図面に図が正しく表示されない場合は、上の<code style="border: 1px solid black">2D Pose Estimate</code>ボタンをクリックして、TurtleBot3のローカライズを繰り返します.</p>
 <p><img alt="" src="/images/turtlebot3/2d_pose_estimate.png" /></p>
-<p class="notice--success"><strong>注意</strong>: <code>Estimate InitialPose</code>に使用される<code>turtlebot3_teleop_keyboard</code>ノードは、使用後に終了する必要があります。 そうしない場合はトピックが次のステップのナビゲーションノードの<code>/cmd_vel</code>トピックと重複するため、ロボットは奇妙な動作をします。</p>
+<p class="notice--success"><strong>注意</strong>: <code>Estimate InitialPose</code>に使用される<code>turtlebot3_teleop_keyboard</code>ノードは、使用後に終了する必要があります. そうしない場合はトピックが次のステップのナビゲーションノードの<code>/cmd_vel</code>トピックと重複するため、ロボットは奇妙な動作をします.</p>
 <h2 id="_3">ナビゲーション目標の送信<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
-<p>すべての準備ができたらナビゲーションGUIからmoveコマンドを試してみましょう。 RVizのメニューで<code style="border: 1px solid black">2D Nav Goal</code>を押すと、非常に大きな緑色の矢印が表示されます。 この緑色の矢印は、ロボットの宛先を指定できるマーカーです。 矢印のルートはロボットの<code>x</code>と<code>y</code>の位置であり、矢印が指す方向はロボットの<code>theta</code>方向です。 ロボットが移動する位置でこの矢印をクリックし、ドラッグして以下の手順のように方向を設定します。</p>
+<p>すべての準備ができたらナビゲーションGUIからmoveコマンドを試してみましょう. RVizのメニューで<code style="border: 1px solid black">2D Nav Goal</code>を押すと、非常に大きな緑色の矢印が表示されます. この緑色の矢印は、ロボットの宛先を指定できるマーカーです. 矢印のルートはロボットの<code>x</code>と<code>y</code>の位置であり、矢印が指す方向はロボットの<code>theta</code>方向です. ロボットが移動する位置でこの矢印をクリックし、ドラッグして以下の手順のように方向を設定します.</p>
 <ul>
-<li><code style="border: 1px solid black">2D Nav Goal</code>ボタンを選択します。</li>
-<li>マップ内の特定のポイントをクリックしてゴール位置を設定し、カーソルをTurtleBotが最後に向いている方向にドラッグします。</li>
+<li><code style="border: 1px solid black">2D Nav Goal</code>ボタンを選択します.</li>
+<li>マップ内の特定のポイントをクリックしてゴール位置を設定し、カーソルをTurtleBotが最後に向いている方向にドラッグします.</li>
 </ul>
-<p>ロボットは、地図に基づいて目的地への障害物を回避するためのパスを作成します。 次に、ロボットはパスに沿って移動します。 この時、いきなり障害物を検知しても障害物を避けて目標点に移動します。</p>
+<p>ロボットは、地図に基づいて目的地への障害物を回避するためのパスを作成します. 次に、ロボットはパスに沿って移動します. この時、いきなり障害物を検知しても障害物を避けて目標点に移動します.</p>
 <p><img alt="" src="/images/turtlebot3/2d_nav_goal.png" /></p>
-<p>ゴール位置へのパスを作成できない場合、ゴール位置の設定に失敗することがあります。 ロボットが目標位置に到達する前に停止したい場合は、TurtleBot3の現在の位置を目標位置として設定します。</p>
+<p>ゴール位置へのパスを作成できない場合、ゴール位置の設定に失敗することがあります. ロボットが目標位置に到達する前に停止したい場合は、TurtleBot3の現在の位置を目標位置として設定します.</p>
 <h2 id="_4">参考文献<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="http://wiki.ros.org/navigation/Tutorials/Navigation%20Tuning%20Guide">基本的なナビゲーションチューニングガイド (ROS Wiki)</a></li>
