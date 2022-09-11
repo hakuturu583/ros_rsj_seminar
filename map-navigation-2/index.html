@@ -525,9 +525,11 @@ ubuntu@192.168.10.11’s password:
 Last login: <span class="o">[</span>曜日<span class="o">]</span> <span class="o">[</span>月<span class="o">]</span> <span class="o">[</span>日<span class="o">]</span> XX:XX:XX <span class="m">2021</span> from <span class="m">192</span>.168.XX.XX
 ubuntu@192.168.10.11:~$
 </code></pre></div></p>
+<p><span style="color: red; ">こちらのコマンドはsshしているターミナル上で実行お願いします.</span></p>
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_bringup turtlebot3_robot.launch
 </code></pre></div>
-<p>新しいターミナルを開き、ナビゲーションファイルを起動します。</p>
+<p>新しいターミナルを開き、ナビゲーションのためのlaunchファイルを起動します。</p>
+<p><span style="color: red; ">こちらのコマンドはリモートPC上で実行をお願いします.</span></p>
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map.yaml
 </code></pre></div>
 <h2 id="_2">初期ポーズを推定する<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
