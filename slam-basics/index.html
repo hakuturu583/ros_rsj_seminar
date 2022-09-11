@@ -672,18 +672,26 @@ ROS path <span class="o">[</span><span class="m">1</span><span class="o">]=</spa
 </code></pre></div></p>
 <p><strong>注釈</strong>: SLAMパッケージの依存関係パッケージをインストールします
 - <code>Gmapping</code>の場合: <br>
-Gmappingに関連するパッケージは、<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ros-依存パッケージのインストール">事前準備</a>ページですでにインストールされています.
-- <code>Cartographer</code>の場合:
+Gmappingに関連するパッケージは、<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ros-依存パッケージのインストール">事前準備</a>ページですでにインストールされています.</p>
+<ul>
+<li>
+<p><code>Cartographer</code>の場合:
 <div class="highlight"><pre><span></span><code>sudo apt-get install ros-melodic-cartographer ros-melodic-cartographer-ros <span class="se">\</span>
   ros-melodic-cartographer-ros-msgs ros-melodic-cartographer-rviz
-</code></pre></div>
-- <code>Hector Mapping</code>の場合:
+</code></pre></div></p>
+</li>
+<li>
+<p><code>Hector Mapping</code>の場合:
 <div class="highlight"><pre><span></span><code>sudo apt-get install ros-melodic-hector-mapping
-</code></pre></div>
-- <code>Karto</code>の場合:
+</code></pre></div></p>
+</li>
+<li>
+<p><code>Karto</code>の場合:
 <div class="highlight"><pre><span></span><code>sudo apt-get install ros-melodic-slam-karto
-</code></pre></div>
-- <code>Frontier Exploration</code>の場合  <br>
+</code></pre></div></p>
+</li>
+<li>
+<p><code>Frontier Exploration</code>の場合  <br>
 こちらのパッケージはmelodicにおいてはソースコードからのビルドが必要です.
 <div class="highlight"><pre><span></span><code>mkdir -p catkin_ws/src
 <span class="nb">cd</span> catkin_ws/src
@@ -695,6 +703,8 @@ rosdep install -iry --from-paths .
 <span class="nb">cd</span> ../
 catkin_make
 </code></pre></div></p>
+</li>
+</ul>
 <p>上のスクリプトの内部で出てきた<code>rosdep</code>コマンドはapt等をラップしたrosのコマンドラインツールで
 ROSパッケージにあるpackage.xmlをパースしパッケージが依存しているパッケージを列挙、インストールしてくれます.</p>
 <blockquote>
