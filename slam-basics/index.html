@@ -564,18 +564,18 @@
 <h2 id="turtlebot3">TurtleBot3を起動<a class="headerlink" href="#turtlebot3" title="Permanent link">#</a></h2>
 <p><span style="color: red; ">roscore、sshはリモートPCで実行をお願いします。</span></p>
 <p><code>roscore</code>を実行します。</p>
-<div class="highlight"><pre><span></span><code>$ roscore
+<div class="highlight"><pre><span></span><code>roscore
 </code></pre></div>
 <p>TurtleBot3のアプリケーションを起動するための基本的なパッケージを起動します。</p>
 <p>新しいターミナルウィンドウを開き、TurtleBotと接続します。</p>
-<div class="highlight"><pre><span></span><code>$ ssh ubuntu@192.168.xxx.xxx
+<div class="highlight"><pre><span></span><code>ssh ubuntu@192.168.xxx.xxx
 </code></pre></div>
 <blockquote>
 <p><strong>NOTE 1</strong>: The IP <code>192.168.xxx.xxx</code> is your Raspberry Pi’s IP or hostname.<br />
 <strong>NOTE 2</strong>: パスワードは<code>turtlebot</code>です。</p>
 </blockquote>
 <p>接続ができましたら下記のコマンドでTurtleBot3を起動します。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_bringup turtlebot3_robot.launch
 </code></pre></div>
 <p>TurtleBot3のモデルが<code>burger</code>の場合は、以下のようなメッセージが表示されます。</p>
 <div class="highlight"><pre><span></span><code><span class="nv">SUMMARY</span>
@@ -635,7 +635,7 @@ SLAMノードはTB3搭載のボードではなくリモートPCで実行しま�
 </span></p>
 <p>Turtlebot3関連のパッケージが未インストールの場合は、<a href="../build_tb3_packages">こちら</a>を参考にインストールしてください.</p>
 <p>新しいターミナルを開き、SLAMを実行するlaunchファイルを起動します。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
 </code></pre></div>
 <p>もし、実行時に以下のようなエラーが発生した場合、</p>
 <div class="highlight"><pre><span></span><code>RLException: Invalid &lt;arg&gt; tag: environment variable <span class="s1">&#39;TURTLEBOT3_MODEL&#39;</span> is not set. 
@@ -667,32 +667,32 @@ ROS path <span class="o">[</span><span class="m">1</span><span class="o">]=</spa
 - TurtleBot3は、さまざまなSLAMメソッドの中で、Gmapping、Cartographer、Hector、およびKartoをサポートしています。 これを行うには、 <code>slam_methods：= xxxxx</code>オプションを変更します。
 - <code>slam_methods</code>オプションには<code>gmapping</code>、 <code>cartographer</code>、<code>hector</code>、 <code>karto</code>、<code>frontier_exploration</code>が含まれ、それらの1つを選択できます.
 - たとえば、kartoを使用するには、次のようにします:
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>karto
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>karto
 </code></pre></div></p>
 <p><strong>注釈</strong>: SLAMパッケージの依存関係パッケージをインストールします
 - <code>Gmapping</code>の場合: <br>
 Gmappingに関連するパッケージは、<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ros-依存パッケージのインストール">事前準備</a>ページですでにインストールされています。
 - <code>Cartographer</code>の場合:
-<div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-melodic-cartographer ros-melodic-cartographer-ros <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>sudo apt-get install ros-melodic-cartographer ros-melodic-cartographer-ros <span class="se">\</span>
   ros-melodic-cartographer-ros-msgs ros-melodic-cartographer-rviz
 </code></pre></div>
 - <code>Hector Mapping</code>の場合:
-<div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-melodic-hector-mapping
+<div class="highlight"><pre><span></span><code>sudo apt-get install ros-melodic-hector-mapping
 </code></pre></div>
 - <code>Karto</code>の場合:
-<div class="highlight"><pre><span></span><code>$ sudo apt-get install ros-melodic-slam-karto
+<div class="highlight"><pre><span></span><code>sudo apt-get install ros-melodic-slam-karto
 </code></pre></div>
 - <code>Frontier Exploration</code>の場合  <br>
 こちらのパッケージはmelodicにおいてはソースコードからのビルドが必要です。
-<div class="highlight"><pre><span></span><code>$ mkdir -p catkin_ws/src
-$ <span class="nb">cd</span> catkin_ws/src
-$ sudo apt install git googletest
-$ catkin_init_workspace
-$ git clone https://github.com/paulbovbel/frontier_exploration.git
-$ rosdep update
-$ rosdep install -iry --from-paths .
-$ <span class="nb">cd</span> ../
-$ catkin_make
+<div class="highlight"><pre><span></span><code>mkdir -p catkin_ws/src
+<span class="nb">cd</span> catkin_ws/src
+sudo apt install git googletest
+catkin_init_workspace
+git clone https://github.com/paulbovbel/frontier_exploration.git
+rosdep update
+rosdep install -iry --from-paths .
+<span class="nb">cd</span> ../
+catkin_make
 </code></pre></div></p>
 <p>上のスクリプトの内部で出てきた<code>rosdep</code>コマンドはapt等をラップしたrosのコマンドラインツールで
 ROSパッケージにあるpackage.xmlをパースしパッケージが依存しているパッケージを列挙、インストールしてくれます.</p>
@@ -702,7 +702,7 @@ ROSパッケージにあるpackage.xmlをパースしパッケージが依存し
 <h2 id="_1">遠隔操作ノードの実行<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <p><span style="color: red; ">遠隔操作ノードはTB3搭載のボードではなくリモートPCで実行します。</span></p>
 <p>新しいターミナルを開き、<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/turtlebot-basics.html#キーボードでロボットを操作-1">前回の実習</a>で使用した遠隔操作ノードを実行します。 次のコマンドを使用すると、ユーザーはロボットを制御してSLAM操作を手動で実行できます。 速度の変更が速すぎたり、回転が速すぎたりするなどの激しい動きを避けることが重要です。 ロボットを使用して地図を作成する場合、ロボットは測定対象の環境の隅々までスキャンする必要があります。 きれいな地図を作成するにはある程度の経験が必要なので、SLAMを複数回練習してノウハウを作成しましょう。 マッピングプロセスを次の図に示します。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>  Control Your TurtleBot3!
   ---------------------------
@@ -727,24 +727,20 @@ ROSパッケージにあるpackage.xmlをパースしパッケージが依存し
 <ul>
 <li><em><strong>maxUrange</strong></em> </li>
 <li>デフォルト値：3.0</li>
-<li>このパラメーターは、LIDARセンサーの最大使用可能範囲を設定します。
-  <!-- *`x`は新しい値を意味しています。* --></li>
-</ul>
-<!-- ```shell
-  $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping maxUrange:=x
-  ``` -->
-
-<ul>
-<li><em><strong>map_update_interval</strong></em></li>
+<li>
+<p>このパラメーターは、LIDARセンサーの最大使用可能範囲を設定します。</p>
+</li>
+<li>
+<p><em><strong>map_update_interval</strong></em></p>
+</li>
 <li>デフォルト値：2.0 </li>
-<li>マップの更新間の時間（秒単位）。 これを低く設定すると、マップがより頻繁に更新されます。 ただし、より大きな計算負荷が必要になります。 このパラメーターの設定は、環境によって異なります。
-  <!-- ```shell
-  $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping map_update_interval:=x
-  ``` --></li>
-</ul>
-<p><img alt="" src="/images/turtlebot3/tuning_map_update_interval.png" /></p>
-<ul>
-<li><em><strong>minimumScore</strong></em> </li>
+<li>
+<p>マップの更新間の時間（秒単位）。 これを低く設定すると、マップがより頻繁に更新されます。 ただし、より大きな計算負荷が必要になります。 このパラメーターの設定は、環境によって異なります。
+  <img alt="" src="/images/turtlebot3/tuning_map_update_interval.png" /></p>
+</li>
+<li>
+<p><em><strong>minimumScore</strong></em> </p>
+</li>
 <li>デフォルト値：50 </li>
 <li>
 <p>スキャンマッチングの結果を考慮するための最小スコア。 このパラメーターにより、ポーズ推定のジャンプを回避できます。
@@ -757,41 +753,24 @@ update ld=2.95935e-05 ad=0.000302522
 Laser Pose= -0.0320253 -5.36882e-06 -3.14142
 </code></pre></div>
 <p>この設定が高すぎる場合は、以下の警告が表示されます。</p>
-<p><div class="highlight"><pre><span></span><code>Scan Matching Failed, using odometry. Likelihood=0
+<div class="highlight"><pre><span></span><code>Scan Matching Failed, using odometry. Likelihood=0
 lp:-0.0306155 5.75314e-06 -3.14151
 op:-0.0306156 5.90277e-06 -3.14151
 </code></pre></div>
-  <!-- ```shell
-  $ rosparam set /turtlebot3_slam_gmapping/minimumScore X
-  ``` -->
-</p>
 </li>
 <li>
 <p><em><strong>linearUpdate</strong></em> </p>
 </li>
 <li>デフォルト値：1.0 </li>
 <li>
-<p>ロボットが移動すると、毎回スキャン処理が行われます。
-  <!-- ```shell
-  $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping linearUpdate:=x
-  ``` -->
-</p>
+<p>ロボットが移動すると、毎回スキャン処理が行われます。</p>
 </li>
 <li>
 <p><em><strong>angularUpdate</strong></em> </p>
 </li>
 <li>デフォルト値：0.2</li>
-<li>ロボットが回転すると、毎回スキャン処理が行われます。 これをlinearUpdateよりも小さく設定することを推奨します。
-  <!-- ```shell
-  $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping angularUpdate=x
-  ``` -->
-</li>
+<li>ロボットが回転すると、毎回スキャン処理が行われます。 これをlinearUpdateよりも小さく設定することを推奨します。</li>
 </ul>
-<!-- > **ヒント**: `rosparam set`で変更することができます：
-> ```shell
-> $ rosparam set パラメータ名 パラメータの値
-> ``` -->
-
 <p>パラメータを編集するために：</p>
 <ul>
 <li><code>$(rospack find turtlebot3_slam)/config/gmapping_params.yaml</code>を直接変更<blockquote>
@@ -801,20 +780,17 @@ op:-0.0306156 5.90277e-06 -3.14151
 </blockquote>
 </li>
 </ul>
-<!-- 2. `rosrun rqt_reconfigure rqt_reconfigure`による変更
-> NOTE: `turtlebot3_slam.launch`を起動した**後**に実施する必要があります -->
-
 <blockquote>
 <p><strong>ヒント</strong>: どういうパラメータがあるかのとパラメータ名を調べるには：
-<div class="highlight"><pre><span></span><code>$ rosparam list
+<div class="highlight"><pre><span></span><code>rosparam list
 </code></pre></div></p>
 <p><strong>ヒント</strong>: パラメータの値を確認したい場合は：
-<div class="highlight"><pre><span></span><code>$ rosparam get パラメータ名
+<div class="highlight"><pre><span></span><code>rosparam get パラメータ名
 </code></pre></div></p>
 </blockquote>
 <h2 id="_3">マップの保存<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
 <p>すべての作業が完了したので、<code>map_saver</code>ノードを実行してマップファイルを作成します。 マップは、ロボットのオドメトリ、tf情報、およびロボットが移動したときのセンサーのスキャン情報に基づいて描画されます。これらのデータは、前のサンプルビデオのRVizで見ることができます。作成されたマップは、<code>map_saver</code>が実行されているディレクトリに保存されます。ファイル名を指定しない限り、マップ情報を含む<code>map.pgm</code>および<code>map.yaml</code>ファイルとして保存されます。</p>
-<div class="highlight"><pre><span></span><code>$ rosrun map_server map_saver -f ~/map
+<div class="highlight"><pre><span></span><code>rosrun map_server map_saver -f ~/map
 </code></pre></div>
 <p><code>-f</code>オプションは、マップファイルが保存されているフォルダーとファイル名を参照します。<code>~/map</code>をオプションとして使用すると、<code>map.pgm</code>と <code>map.yaml</code>がユーザーのホームフォルダー<code>~/</code>（$HOME：<code>/home/&lt;username&gt;</code>）のmapフォルダーに保存されます。</p>
 <h2 id="_4">マップ<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>

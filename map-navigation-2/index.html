@@ -507,10 +507,10 @@
 <p><span style="color:red"><strong>下記の実習は実機上で行うために、まず<code>ROS_MASTER_URI</code>と<code>ROS_HOSTNAME</code>の<code>localhost</code>をリモートPCのIPアドレスに変更します。（<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ネットワーク構成">参照</a>）。</strong></span></p>
 <h2 id="_1">実機でナビゲーションノードを行う<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <p><strong>リモートPCで</strong> roscoreを実行する。</p>
-<div class="highlight"><pre><span></span><code>$ roscore
+<div class="highlight"><pre><span></span><code>roscore
 </code></pre></div>
 <p>新しいターミナルウィンドウを開き、TurtleBot3と接続します。</p>
-<div class="highlight"><pre><span></span><code>$ ssh ubuntu@192.168.xxx.xxx
+<div class="highlight"><pre><span></span><code>ssh ubuntu@192.168.xxx.xxx
 </code></pre></div>
 <blockquote>
 <p><strong>NOTE 1</strong>: The IP <code>192.168.xxx.xxx</code> is your Raspberry Pi’s IP or hostname.<br />
@@ -525,10 +525,10 @@ ubuntu@192.168.10.11’s password:
 Last login: <span class="o">[</span>曜日<span class="o">]</span> <span class="o">[</span>月<span class="o">]</span> <span class="o">[</span>日<span class="o">]</span> XX:XX:XX <span class="m">2021</span> from <span class="m">192</span>.168.XX.XX
 ubuntu@192.168.10.11:~$
 </code></pre></div></p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_bringup turtlebot3_robot.launch
 </code></pre></div>
 <p>新しいターミナルを開き、ナビゲーションファイルを起動します。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map.yaml
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map.yaml
 </code></pre></div>
 <h2 id="_2">初期ポーズを推定する<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>まずロボットの初期姿勢推定を実行する必要があります。 RVizのメニューで<code>2D Pose Estimate</code>を押すと、非常に大きな緑色の矢印が表示されます。 所定のマップで実際のロボットが配置されているポーズに移動し、マウスの左ボタンを押したまま緑色の矢印をロボットの正面が向いている方向にドラッグし、以下の手順に従います。</p>
@@ -537,7 +537,7 @@ ubuntu@192.168.10.11:~$
 <li>TurtleBot3が配置されているマップ内のおおよそのポイントをクリックし、カーソルをドラッグしてTurtleBot3が向いている方向を示します。</li>
 </ul>
 <p>次に、<code>turtlebot3_teleop_keyboard</code>ノードなどのツールを使用してロボットを前後に動かし、周囲の環境情報を収集して、ロボットが現在地図上のどこにあるかを調べます。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 </code></pre></div>
 <p>このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します。 すべての緑色の矢印は、TurtleBot3の予想される位置を表しています。 レーザースキャナーは、地図上に壁のおおよその図を描画します。 図面に図が正しく表示されない場合は、上の<code style="border: 1px solid black">2D Pose Estimate</code>ボタンをクリックして、TurtleBot3のローカライズを繰り返します。</p>
 <p><img alt="" src="/images/turtlebot3/2d_pose_estimate.png" /></p>

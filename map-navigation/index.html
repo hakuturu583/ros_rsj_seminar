@@ -511,28 +511,28 @@
 まず<code>ROS_MASTER_URI</code>と<code>ROS_HOSTNAME</code>を<code>localhost</code>に戻します
 （<a href="https://kogakuin-mobility-system-lab.github.io/rsj-seminar-142/linux_and_ros_install.html#ネットワーク構成">参照</a>）。</strong></span></p>
 <p><strong>シミュレーションを起動します</strong></p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_gazebo turtlebot3_world.launch
 </code></pre></div>
 <p>下記のようなウィンドウが表示されるまで待ちましょう。</p>
 <p><img alt="" src="/images/turtlebot3/gazebo_turtlebot3_world.png" /></p>
 <p><strong>マップを作る</strong></p>
 <p>新しいターミナルを開き、SLAMファイルを起動します。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
 </code></pre></div>
 <p>新しいターミナルを開き、遠隔操作ノードを実行します。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 </code></pre></div>
 <p>ロボットを動かして下記のようなマップが作成すれば終了です。</p>
 <p><img alt="" src="/images/turtlebot3/map-turtlebot3-world.png" /></p>
 <!-- <img src="/images/turtlebot3/map-turtlebot3-world.png" alt="map" width="300"/> -->
 
 <p><strong>マップを保存</strong></p>
-<div class="highlight"><pre><span></span><code>$ rosrun map_server map_saver -f ~/map_sim
+<div class="highlight"><pre><span></span><code>rosrun map_server map_saver -f ~/map_sim
 </code></pre></div>
 <p>SLAMノードを起動しているターミナルで<code style="border: 1px solid black">Ctrl+c</code>を押してプログラムを終了させます。</p>
 <h2 id="_1">ナビゲーションノードの実行<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <p>新しいターミナルを開き、ナビゲーションファイルを起動します。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map_sim.yaml
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map_sim.yaml
 </code></pre></div>
 <h2 id="_2">初期ポーズを推定する<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>まずロボットの初期姿勢推定を実行する必要があります。 RVizのメニューで<code style="border: 1px solid black">2D Pose Estimate</code>を押すと、非常に大きな緑色の矢印が表示されます。 所定のマップで実際のロボットが配置されているポーズに移動し、マウスの左ボタンを押したまま緑色の矢印をロボットの正面が向いている方向にドラッグし、以下の手順に従います。</p>
@@ -541,7 +541,7 @@
 <li>TurtleBot3が配置されているマップ内のおおよそのポイントをクリックし、カーソルをドラッグしてTurtleBot3が向いている方向を示します。</li>
 </ul>
 <p>次に、<code>turtlebot3_teleop_keyboard</code>ノードなどのツールを使用してロボットを前後に動かし、周囲の環境情報を収集して、ロボットが現在地図上のどこにあるかを調べます。</p>
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 </code></pre></div>
 <p>このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します。 すべての緑色の矢印は、TurtleBot3の予想される位置を表しています。 レーザースキャナーは、地図上に壁のおおよその図を描画します。 図面に図が正しく表示されない場合は、上の<code style="border: 1px solid black">2D Pose Estimate</code>ボタンをクリックして、TurtleBot3のローカライズを繰り返します。</p>
 <p><img alt="" src="/images/turtlebot3/2d_pose_estimate.png" /></p>
@@ -615,7 +615,7 @@
 <p><img alt="" src="/images/turtlebot3/tuning_sim_time.png" /></p>
 <!-- `parameter_name`の代わりに変更したいパラメータ名を書き換え、`value`に新しい値に書き換えます。 -->
 <p>ナビゲーションを起動します：
-<div class="highlight"><pre><span></span><code>$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map_sim.yaml
+<div class="highlight"><pre><span></span><code>roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map_sim.yaml
 </code></pre></div></p>
 <p>パラメータを編集するために，２つの方法があります：</p>
 <ol>
