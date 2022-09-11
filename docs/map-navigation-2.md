@@ -7,13 +7,13 @@
 **リモートPCで** roscoreを実行する。
 
 ``` bash
-$ roscore
+roscore
 ```
 
 新しいターミナルウィンドウを開き、TurtleBot3と接続します。
 
 ```shell
-$ ssh ubuntu@192.168.xxx.xxx
+ssh ubuntu@192.168.xxx.xxx
 ```
 > **NOTE 1**: The IP `192.168.xxx.xxx` is your Raspberry Pi’s IP or hostname.  
 > **NOTE 2**: パスワードは`turtlebot`です。
@@ -30,13 +30,13 @@ ubuntu@192.168.10.11:~$
 ```
 
 ```shell
-$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
 
 新しいターミナルを開き、ナビゲーションファイルを起動します。
 
 ```shell
-$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
+roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
 ```
 
 ## 初期ポーズを推定する
@@ -49,7 +49,7 @@ $ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/m
 次に、`turtlebot3_teleop_keyboard`ノードなどのツールを使用してロボットを前後に動かし、周囲の環境情報を収集して、ロボットが現在地図上のどこにあるかを調べます。
 
 ```shell
-$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
 
 このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します。 すべての緑色の矢印は、TurtleBot3の予想される位置を表しています。 レーザースキャナーは、地図上に壁のおおよその図を描画します。 図面に図が正しく表示されない場合は、上の`2D Pose Estimate`{: style="border: 1px solid black" }ボタンをクリックして、TurtleBot3のローカライズを繰り返します。

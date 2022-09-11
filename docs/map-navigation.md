@@ -13,7 +13,7 @@
 **シミュレーションを起動します**
 
 ```shell
-$ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
 ```
 
 下記のようなウィンドウが表示されるまで待ちましょう。
@@ -25,13 +25,13 @@ $ roslaunch turtlebot3_gazebo turtlebot3_world.launch
 新しいターミナルを開き、SLAMファイルを起動します。
 
 ``` bash
-$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
 ```
 
 新しいターミナルを開き、遠隔操作ノードを実行します。
 
 ``` bash
-$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
 
 ロボットを動かして下記のようなマップが作成すれば終了です。
@@ -42,7 +42,7 @@ $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 **マップを保存**
 
 ``` bash
-$ rosrun map_server map_saver -f ~/map_sim
+rosrun map_server map_saver -f ~/map_sim
 ```
 
 SLAMノードを起動しているターミナルで`Ctrl+c`{: style="border: 1px solid black" }を押してプログラムを終了させます。
@@ -52,7 +52,7 @@ SLAMノードを起動しているターミナルで`Ctrl+c`{: style="border: 1p
 新しいターミナルを開き、ナビゲーションファイルを起動します。
 
 ``` bash
-$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map_sim.yaml
+roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map_sim.yaml
 ```
 
 ## 初期ポーズを推定する
@@ -65,7 +65,7 @@ $ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/m
 次に、`turtlebot3_teleop_keyboard`ノードなどのツールを使用してロボットを前後に動かし、周囲の環境情報を収集して、ロボットが現在地図上のどこにあるかを調べます。
 
 ``` bash
-$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
 
 このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します。 すべての緑色の矢印は、TurtleBot3の予想される位置を表しています。 レーザースキャナーは、地図上に壁のおおよその図を描画します。 図面に図が正しく表示されない場合は、上の`2D Pose Estimate`{: style="border: 1px solid black" }ボタンをクリックして、TurtleBot3のローカライズを繰り返します。
@@ -169,7 +169,7 @@ _**sim_time**_
 <!-- `parameter_name`の代わりに変更したいパラメータ名を書き換え、`value`に新しい値に書き換えます。 -->
 ナビゲーションを起動します：
 ```shell
-$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map_sim.yaml
+roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map_sim.yaml
 ```
 
 パラメータを編集するために，２つの方法があります：
