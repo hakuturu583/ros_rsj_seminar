@@ -136,7 +136,7 @@ sudo apt update && sudo apt install gmapping
 **注釈**: さまざまなSLAMメソッドをサポートしています
 - TurtleBot3は、さまざまなSLAMメソッドの中で、Gmapping、Cartographer、Hector、およびKartoをサポートしています. これを行うには、 `slam_methods：= xxxxx`オプションを変更します.
 - `slam_methods`オプションには`gmapping`、 `cartographer`、`hector`、 `karto`、`frontier_exploration`が含まれ、それらの1つを選択できます.
-- たとえば、kartoを使用するには、次のようにします:
+- たとえば、kartoを使用するには、次のようにします
 ```shell
 roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=karto
 ```
