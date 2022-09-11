@@ -42,6 +42,7 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 **マップを保存**
 
 ``` bash
+mkdir ~/map_sim
 rosrun map_server map_saver -f ~/map_sim
 ```
 
