@@ -24,6 +24,8 @@ ssh ubuntu@192.168.xxx.xxx
 
 接続ができましたら下記のコマンドでTurtleBot3を起動します。
 
+<span style="color: red; ">こちらのコマンドはsshしているターミナル上で実行お願いします.</span>
+
 ```shell
 roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```

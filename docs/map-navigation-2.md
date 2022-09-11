@@ -29,11 +29,15 @@ Last login: [曜日] [月] [日] XX:XX:XX 2021 from 192.168.XX.XX
 ubuntu@192.168.10.11:~$
 ```
 
+<span style="color: red; ">こちらのコマンドはsshしているターミナル上で実行お願いします.</span>
+
 ```shell
 roslaunch turtlebot3_bringup turtlebot3_robot.launch
 ```
 
-新しいターミナルを開き、ナビゲーションファイルを起動します。
+新しいターミナルを開き、ナビゲーションのためのlaunchファイルを起動します。
+
+<span style="color: red; ">こちらのコマンドはリモートPC上で実行をお願いします.</span>
 
 ```shell
 roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
