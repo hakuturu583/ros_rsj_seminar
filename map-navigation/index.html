@@ -527,7 +527,8 @@
 <!-- <img src="/images/turtlebot3/map-turtlebot3-world.png" alt="map" width="300"/> -->
 
 <p><strong>マップを保存</strong></p>
-<div class="highlight"><pre><span></span><code>rosrun map_server map_saver -f ~/map_sim
+<div class="highlight"><pre><span></span><code>mkdir ~/map_sim
+rosrun map_server map_saver -f ~/map_sim
 </code></pre></div>
 <p>SLAMノードを起動しているターミナルで<code style="border: 1px solid black">Ctrl+c</code>を押してプログラムを終了させます.</p>
 <h2 id="_1">ナビゲーションノードの実行<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
