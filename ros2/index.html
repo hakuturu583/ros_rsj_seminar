@@ -1323,7 +1323,7 @@ ROS1時代には通信層を交換することができずほとんどチュー�
 自分のアプリーケーションに合わせてDDSを選定したり、DDSの設定を見直すだけで大きくパフォーマンスは向上します。</p>
 <p>例えば、固定長配列しか用いない、かつ一台のマシンでシステムが完結するのであればzero-copy転送をうたうIceOryxは非常に強力な選択肢になります。
 自分の計算機環境に合わせて適切なDDSを選定し、DDSのドキュメントを読んで適切な設定をしてみましょう。</p>
-<p>ちなみに、参考までに筆者の開発環境では以下のようにな設定をしています。</p>
+<p>ちなみに、参考までに筆者の開発環境では以下のような設定をしています。</p>
 <p>/opt/masaya/cyclonedds_config.xmlに以下のxmlを保存</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
 <span class="nt">&lt;CycloneDDS</span> <span class="na">xmlns=</span><span class="s">&quot;https://cdds.io/config&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xsi:schemaLocation=</span><span class="s">&quot;https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd&quot;</span><span class="nt">&gt;</span>
