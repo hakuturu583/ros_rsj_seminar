@@ -18,7 +18,7 @@ roslaunch turtlebot3_gazebo turtlebot3_world.launch
 
 下記のようなウィンドウが表示されるまで待ちましょう.
 
-![](/images/turtlebot3/gazebo_turtlebot3_world.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/gazebo_turtlebot3_world.png)
 
 **マップを作る**
 
@@ -36,8 +36,7 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 ロボットを動かして下記のようなマップが作成すれば終了です.
 
-![](/images/turtlebot3/map-turtlebot3-world.png)
-<!-- <img src="/images/turtlebot3/map-turtlebot3-world.png" alt="map" width="300"/> -->
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/map-turtlebot3-world.png)
 
 **マップを保存**
 
@@ -71,7 +70,7 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します. すべての緑色の矢印は、TurtleBot3の予想される位置を表しています. レーザースキャナーは、地図上に壁のおおよその図を描画します. 図面に図が正しく表示されない場合は、上の`2D Pose Estimate`{: style="border: 1px solid black" }ボタンをクリックして、TurtleBot3のローカライズを繰り返します.
 
-![](/images/turtlebot3/2d_pose_estimate.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/2d_pose_estimate.png)
 
 > **注意**: `2D Pose Estimate`{: style="border: 1px solid black" }に使用される`turtlebot3_teleop_keyboard`ノードは、使用後に終了する必要があります. そうしない場合はトピックが次のステップのナビゲーションノードの`/cmd_vel`トピックと重複するため、ロボットは奇妙な動作をします.
 {: .notice--success}
@@ -85,7 +84,7 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 ロボットは、地図に基づいて目的地への障害物を回避するためのパスを作成します. 次に、ロボットはパスに沿って移動します. この時、いきなり障害物を検知しても障害物を避けて目標点に移動します.
 
-![](/images/turtlebot3/2d_nav_goal.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/2d_nav_goal.png)
 
 
 ゴール位置へのパスを作成できない場合、ゴール位置の設定に失敗することがあります. ロボットが目標位置に到達する前に停止したい場合は、TurtleBot3の現在の位置を目標位置として設定します.
@@ -102,13 +101,13 @@ _**inflation_radius**_
 - デフォルト値：1.0
 - このパラメーターは、障害物から膨張領域を作成します.このエリアを越えないようにパスが計画されます.これをロボットの半径よりも大きく設定しても安全です.詳細については、[page of costmap_2d wiki](http://wiki.ros.org/costmap_2d#Inflation)をフォローしてください.
 
-![](/images/turtlebot3/tuning_inflation_radius.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/tuning_inflation_radius.png)
 
 _**cost_scaling_factor**_ 
 - デフォルト値：3.0
 - この係数にコスト値を掛けます.相反する比率であるため、このパラメーターが増加し、コストが削減されます.
 
-![](/images/turtlebot3/tuning_cost_scaling_factor.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/tuning_cost_scaling_factor.png)
 
   最適なパスは、ロボットが障害物間の中心を通過することです. 障害物から遠ざけるために、この係数を小さく設定します.
 
@@ -165,7 +164,7 @@ _**sim_time**_
 - デフォルト値：1.5
 - この係数は、シミュレーションを秒単位で転送します.値が小さすぎると狭い領域を通過するのに十分な時間であり、値が大きすぎると急速に回転することはできません. 下の画像で黄色い線の長さの違いを見ることができます.
 
-![](/images/turtlebot3/tuning_sim_time.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/tuning_sim_time.png)
 
 <!-- `parameter_name`の代わりに変更したいパラメータ名を書き換え、`value`に新しい値に書き換えます. -->
 ナビゲーションを起動します：

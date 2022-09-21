@@ -238,12 +238,12 @@ ROS2からは[Apache 2.0ライセンス](https://licenses.opensource.jp/Apache-2
 ROS1時代にはros masterというプロセスがrosparamの管理、新規ノードの発見やトピック間の接続という重要な仕事を担っていました.
 
 **ros masterの役割の一例、TalkerとListenerノードの接続**
-![](/images/ros_master_0.png)
-![](/images/ros_master_1.png)
-![](/images/ros_master_2.png)
-![](/images/ros_master_3.png)
-![](/images/ros_master_4.png)
-![](/images/ros_master_5.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/ros_master_0.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/ros_master_1.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/ros_master_2.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/ros_master_3.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/ros_master_4.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/ros_master_5.png)
 
 そのため、ROS1アプリケーションに於いてros masterが稼働中のシステムで落ちてしまうとシステム全体が機能不全になる可能性があります.
 単一障害点の排除は長期間運用されるアプリケーションに於いては非常に重要な課題の1つです.
@@ -254,7 +254,7 @@ ROS1時代に存在した[nodelet](http://wiki.ros.org/nodelet)という仕組�
 nodeletは通常TCP/IPパケット通信により実現されるROSのトピック通信を共有ポインタを用いたゼロコピー通信に置き換えます.
 この際、nodeletはnodelet_managerにロードされる共有ライブラリとして実装されます.
 この仕組みをROS2向けに再設計したのが後述するROS2におけるコンポーネント指向であり、これを使用することで非常に高速にデータ通信が可能です.
-![](/images/nodelet.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/nodelet.png)
 
 #### Windows対応
 ROS1はLinuxにかなり依存しており、Windowsで動かすにはWSLを使ったりと工夫が必要でした.

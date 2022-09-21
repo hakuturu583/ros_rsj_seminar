@@ -58,7 +58,7 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します. すべての緑色の矢印は、TurtleBot3の予想される位置を表しています. レーザースキャナーは、地図上に壁のおおよその図を描画します. 図面に図が正しく表示されない場合は、上の`2D Pose Estimate`{: style="border: 1px solid black" }ボタンをクリックして、TurtleBot3のローカライズを繰り返します.
 
-![](/images/turtlebot3/2d_pose_estimate.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/2d_pose_estimate.png)
 
 **注意**: `Estimate InitialPose`に使用される`turtlebot3_teleop_keyboard`ノードは、使用後に終了する必要があります. そうしない場合はトピックが次のステップのナビゲーションノードの`/cmd_vel`トピックと重複するため、ロボットは奇妙な動作をします.
 {: .notice--success}
@@ -72,7 +72,7 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
 ロボットは、地図に基づいて目的地への障害物を回避するためのパスを作成します. 次に、ロボットはパスに沿って移動します. この時、いきなり障害物を検知しても障害物を避けて目標点に移動します.
 
-![](/images/turtlebot3/2d_nav_goal.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/2d_nav_goal.png)
 
 
 ゴール位置へのパスを作成できない場合、ゴール位置の設定に失敗することがあります. ロボットが目標位置に到達する前に停止したい場合は、TurtleBot3の現在の位置を目標位置として設定します.

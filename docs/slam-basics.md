@@ -206,7 +206,7 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
   CTRL-C to quit
 ```
 
-![](/images/turtlebot3/slam_running_for_mapping.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/slam_running_for_mapping.png)
 
 ## チューニングガイド
 
@@ -223,7 +223,7 @@ Gmappingには、さまざまな環境のパフォーマンスを変更するた
 - _**map_update_interval**_
   - デフォルト値：2.0 
   - マップの更新間の時間（秒単位）. これを低く設定すると、マップがより頻繁に更新されます. ただし、より大きな計算負荷が必要になります. このパラメーターの設定は、環境によって異なります.
-  ![](/images/turtlebot3/tuning_map_update_interval.png)
+  ![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/tuning_map_update_interval.png)
 
 - _**minimumScore**_ 
   - デフォルト値：50 
@@ -286,11 +286,11 @@ rosrun map_server map_saver -f ~/map
 
 ROSコミュニティでよく使用されている2次元の `Occupancy Grid Map（OGM）`を使用します. 下の図に示すように、前の[マップの保存](#マップの保存)セクションから取得したマップ.**白色**はロボットが移動可能な空き領域、**黒色**はロボットが動作できない占有領域です.**灰色**は未知の領域です. このマップは[ナビゲーション](./map-navigation-2.md)で使用されます.
 
-![](/images/turtlebot3/map.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/map.png)
 
 次の図は、TurtleBot3を使用して大きなマップを作成した結果を示しています. 移動距離が約350メートルの地図を作成するのに約1時間かかりました.
 
-![](/images/turtlebot3/large_map.png)
+![](https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/large_map.png)
 
 自分で作成したマップ（map.pgm）をダブルクリックで開けます.
 
