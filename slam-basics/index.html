@@ -9,7 +9,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.4">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.3">
     
     
       
@@ -17,13 +17,14 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6b80c2a2.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7a952b86.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
         
       
       
+
     
     
     
@@ -44,6 +45,7 @@
     
       
 
+    
     
     
   </head>
@@ -120,7 +122,7 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -548,10 +550,11 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
   <a href="https://github.com/hakuturu583/ros_rsj_seminar/edit/master/docs/slam-basics.md" title="Edit this page" class="md-content__button md-icon">
     
@@ -728,7 +731,7 @@ ROSパッケージにあるpackage.xmlをパースしパッケージが依存し
 
   CTRL-C to quit
 </code></pre></div>
-<p><img alt="" src="/images/turtlebot3/slam_running_for_mapping.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/slam_running_for_mapping.png" /></p>
 <h2 id="_2">チューニングガイド<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
 <p>Gmappingには、さまざまな環境のパフォーマンスを変更するための多くのパラメーターがあります. パラメーター全体に関する情報は、<a href="http://wiki.ros.org/gmapping">ROS WiKi</a>で入手するか、<a href="https://community.robotsource.org/t/download-the-ros-robot-programming-book-for-free/51">ROS Robot Programming</a>の第11章を参照してください.</p>
 <p>このチューニングガイドでは、重要なパラメーターを設定するためのヒントをいくつか紹介します. 環境に応じてパフォーマンスを変更したい場合は、このヒントが役立つ可能性があり、時間を節約できます.</p>
@@ -747,7 +750,7 @@ ROSパッケージにあるpackage.xmlをパースしパッケージが依存し
 <li>デフォルト値：2.0 </li>
 <li>
 <p>マップの更新間の時間（秒単位）. これを低く設定すると、マップがより頻繁に更新されます. ただし、より大きな計算負荷が必要になります. このパラメーターの設定は、環境によって異なります.
-  <img alt="" src="/images/turtlebot3/tuning_map_update_interval.png" /></p>
+  <img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/tuning_map_update_interval.png" /></p>
 </li>
 <li>
 <p><em><strong>minimumScore</strong></em> </p>
@@ -806,9 +809,9 @@ op:-0.0306156 5.90277e-06 -3.14151
 <p><code>-f</code>オプションは、マップファイルが保存されているフォルダーとファイル名を参照します.<code>~/map</code>をオプションとして使用すると、<code>map.pgm</code>と <code>map.yaml</code>がユーザーのホームフォルダー<code>~/</code>（$HOME：<code>/home/&lt;username&gt;</code>）のmapフォルダーに保存されます.</p>
 <h2 id="_4">マップ<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>ROSコミュニティでよく使用されている2次元の <code>Occupancy Grid Map（OGM）</code>を使用します. 下の図に示すように、前の<a href="#マップの保存">マップの保存</a>セクションから取得したマップ.<strong>白色</strong>はロボットが移動可能な空き領域、<strong>黒色</strong>はロボットが動作できない占有領域です.<strong>灰色</strong>は未知の領域です. このマップは<a href="../map-navigation-2/">ナビゲーション</a>で使用されます.</p>
-<p><img alt="" src="/images/turtlebot3/map.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/map.png" /></p>
 <p>次の図は、TurtleBot3を使用して大きなマップを作成した結果を示しています. 移動距離が約350メートルの地図を作成するのに約1時間かかりました.</p>
-<p><img alt="" src="/images/turtlebot3/large_map.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/large_map.png" /></p>
 <p>自分で作成したマップ（map.pgm）をダブルクリックで開けます.</p>
 <h2 id="_5">全てのプログラムを終了<a class="headerlink" href="#_5" title="Permanent link">#</a></h2>
 <!--`SLAM`と`Teleop`のノードを終了させます.<br>
@@ -863,10 +866,11 @@ username@pc_name:~$
 
 
 
-              
-            </article>
-            
-          </div>
+                
+              </article>
+            </div>
+          
+          
         </div>
         
       </main>
@@ -934,10 +938,10 @@ username@pc_name:~$
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.2ab50757.min.js"></script>
+      <script src="../assets/javascripts/bundle.37e9125f.min.js"></script>
       
         <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

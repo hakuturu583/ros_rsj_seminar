@@ -9,7 +9,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.4">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.3">
     
     
       
@@ -17,13 +17,14 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6b80c2a2.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7a952b86.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
         
       
       
+
     
     
     
@@ -44,6 +45,7 @@
     
       
 
+    
     
     
   </head>
@@ -120,7 +122,7 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -492,10 +494,11 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
   <a href="https://github.com/hakuturu583/ros_rsj_seminar/edit/master/docs/map-navigation.md" title="Edit this page" class="md-content__button md-icon">
     
@@ -514,7 +517,7 @@
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_gazebo turtlebot3_world.launch
 </code></pre></div>
 <p>下記のようなウィンドウが表示されるまで待ちましょう.</p>
-<p><img alt="" src="/images/turtlebot3/gazebo_turtlebot3_world.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/gazebo_turtlebot3_world.png" /></p>
 <p><strong>マップを作る</strong></p>
 <p>新しいターミナルを開き、SLAMファイルを起動します.</p>
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:<span class="o">=</span>gmapping
@@ -523,9 +526,7 @@
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 </code></pre></div>
 <p>ロボットを動かして下記のようなマップが作成すれば終了です.</p>
-<p><img alt="" src="/images/turtlebot3/map-turtlebot3-world.png" /></p>
-<!-- <img src="/images/turtlebot3/map-turtlebot3-world.png" alt="map" width="300"/> -->
-
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/map-turtlebot3-world.png" /></p>
 <p><strong>マップを保存</strong></p>
 <div class="highlight"><pre><span></span><code>mkdir ~/map_sim
 rosrun map_server map_saver -f ~/map_sim
@@ -545,7 +546,7 @@ rosrun map_server map_saver -f ~/map_sim
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 </code></pre></div>
 <p>このプロセスが完了すると、ロボットは緑色の矢印で指定された位置と方向を初期ポーズとして使用して、実際の位置と方向を推定します. すべての緑色の矢印は、TurtleBot3の予想される位置を表しています. レーザースキャナーは、地図上に壁のおおよその図を描画します. 図面に図が正しく表示されない場合は、上の<code style="border: 1px solid black">2D Pose Estimate</code>ボタンをクリックして、TurtleBot3のローカライズを繰り返します.</p>
-<p><img alt="" src="/images/turtlebot3/2d_pose_estimate.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/2d_pose_estimate.png" /></p>
 <blockquote>
 <p class="notice--success"><strong>注意</strong>: <code style="border: 1px solid black">2D Pose Estimate</code>に使用される<code>turtlebot3_teleop_keyboard</code>ノードは、使用後に終了する必要があります. そうしない場合はトピックが次のステップのナビゲーションノードの<code>/cmd_vel</code>トピックと重複するため、ロボットは奇妙な動作をします.</p>
 </blockquote>
@@ -556,7 +557,7 @@ rosrun map_server map_saver -f ~/map_sim
 <li>マップ内の特定のポイントをクリックしてゴール位置を設定し、カーソルをTurtleBot3が最後に向いている方向にドラッグします.</li>
 </ul>
 <p>ロボットは、地図に基づいて目的地への障害物を回避するためのパスを作成します. 次に、ロボットはパスに沿って移動します. この時、いきなり障害物を検知しても障害物を避けて目標点に移動します.</p>
-<p><img alt="" src="/images/turtlebot3/2d_nav_goal.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/2d_nav_goal.png" /></p>
 <p>ゴール位置へのパスを作成できない場合、ゴール位置の設定に失敗することがあります. ロボットが目標位置に到達する前に停止したい場合は、TurtleBot3の現在の位置を目標位置として設定します.</p>
 <h2 id="_4">チューニングガイド<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
 <p>ナビゲーションスタックには、さまざまなロボットのパフォーマンスを変更するための多くのパラメーターがあります. これに関する情報は、<a href="http://wiki.ros.org/navigation">ROS Wiki</a>で入手するか、<a href="https://community.robotsource.org/t/download-the-ros-robot-programming-book-for-free/51">ROS Robot Programming</a>の第11章を参照してください.</p>
@@ -565,11 +566,11 @@ rosrun map_server map_saver -f ~/map_sim
 <p><em><strong>inflation_radius</strong></em>
 - デフォルト値：1.0
 - このパラメーターは、障害物から膨張領域を作成します.このエリアを越えないようにパスが計画されます.これをロボットの半径よりも大きく設定しても安全です.詳細については、<a href="http://wiki.ros.org/costmap_2d#Inflation">page of costmap_2d wiki</a>をフォローしてください.</p>
-<p><img alt="" src="/images/turtlebot3/tuning_inflation_radius.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/tuning_inflation_radius.png" /></p>
 <p><em><strong>cost_scaling_factor</strong></em> 
 - デフォルト値：3.0
 - この係数にコスト値を掛けます.相反する比率であるため、このパラメーターが増加し、コストが削減されます.</p>
-<p><img alt="" src="/images/turtlebot3/tuning_cost_scaling_factor.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/tuning_cost_scaling_factor.png" /></p>
 <p>最適なパスは、ロボットが障害物間の中心を通過することです. 障害物から遠ざけるために、この係数を小さく設定します.</p>
 <p>下記のパラメータのデフォルト値は<code>$(rospack find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml</code>のファイルに定義されています.</p>
 <blockquote>
@@ -613,7 +614,7 @@ rosrun map_server map_saver -f ~/map_sim
 <p><em><strong>sim_time</strong></em>
 - デフォルト値：1.5
 - この係数は、シミュレーションを秒単位で転送します.値が小さすぎると狭い領域を通過するのに十分な時間であり、値が大きすぎると急速に回転することはできません. 下の画像で黄色い線の長さの違いを見ることができます.</p>
-<p><img alt="" src="/images/turtlebot3/tuning_sim_time.png" /></p>
+<p><img alt="" src="https://github.com/hakuturu583/ros_rsj_seminar/raw/master/docs/images/turtlebot3/tuning_sim_time.png" /></p>
 <!-- `parameter_name`の代わりに変更したいパラメータ名を書き換え、`value`に新しい値に書き換えます. -->
 <p>ナビゲーションを起動します：
 <div class="highlight"><pre><span></span><code>roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:<span class="o">=</span><span class="nv">$HOME</span>/map_sim.yaml
@@ -641,10 +642,11 @@ rosrun map_server map_saver -f ~/map_sim
 
 
 
-              
-            </article>
-            
-          </div>
+                
+              </article>
+            </div>
+          
+          
         </div>
         
       </main>
@@ -712,10 +714,10 @@ rosrun map_server map_saver -f ~/map_sim
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.2ab50757.min.js"></script>
+      <script src="../assets/javascripts/bundle.37e9125f.min.js"></script>
       
         <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
